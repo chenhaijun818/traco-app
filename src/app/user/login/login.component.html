@@ -1,0 +1,15 @@
+
+<div>
+  <div>请输入手机号:</div>
+  <input type="tel" [(ngModel)]="phone">
+</div>
+
+<div>
+  <div>请输入验证码:</div>
+  <input type="tel" [(ngModel)]="code">
+  <button (click)="getCode()">获取验证码</button>
+</div>
+
+<div class="buttons">
+  <button>提交</button>
+</div>
