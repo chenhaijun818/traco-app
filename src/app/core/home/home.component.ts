@@ -24,4 +24,10 @@ export class HomeComponent implements OnInit {
       console.log(res)
     })
   }
+
+  test() {
+    this.http.get('test').subscribe(res => {
+      console.log(res)
+    })
+  }
 }

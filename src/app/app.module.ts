@@ -8,9 +8,18 @@ import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
 import {FormsModule} from "@angular/forms";
 import {CoreModule} from './core/core.module';
 import {RouterModule} from "@angular/router";
-import { ProjectModule } from './project/project.module';
+import {ProjectModule} from './project/project.module';
 import {ApiInterceptor} from "./core/interceptors/api.interceptor";
 import {TokenInterceptor} from "./core/interceptors/token.interceptor";
+import {ResponseInterceptor} from "./core/interceptors/response.interceptor";
+import {NZ_I18N} from 'ng-zorro-antd/i18n';
+import {zh_CN} from 'ng-zorro-antd/i18n';
+import {registerLocaleData} from '@angular/common';
+import zh from '@angular/common/locales/zh';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {NzMessageModule} from "ng-zorro-antd/message";
+
+registerLocaleData(zh);
 
 @NgModule({
   declarations: [
@@ -25,10 +34,14 @@ import {TokenInterceptor} from "./core/interceptors/token.interceptor";
     UserModule,
     CoreModule,
     ProjectModule,
+    BrowserAnimationsModule,
+    NzMessageModule
   ],
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: ApiInterceptor, multi: true},
     {provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true},
+    {provide: HTTP_INTERCEPTORS, useClass: ResponseInterceptor, multi: true},
+    {provide: NZ_I18N, useValue: zh_CN},
   ],
   bootstrap: [AppComponent]
 })

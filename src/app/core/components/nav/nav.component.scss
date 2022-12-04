@@ -1,5 +1,12 @@
 :host {
-  display: block;
+  display: flex;
   background: #eee;
   height: 40px;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 15px;
+}
+.userinfo {
+  display: flex;
+  align-items: center;
 }

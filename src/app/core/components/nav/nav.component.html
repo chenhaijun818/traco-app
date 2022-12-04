@@ -1,2 +1,9 @@
 
-<div>{{username}}</div>
+<div class="logo" routerLink="/">logo</div>
+
+<div *ngIf="app.user" class="userinfo">
+  <div class="name">{{app.user.name}}</div>
+  <div class="buttons">
+    <button class="logout" (click)="logout()">logout</button>
+  </div>
+</div>
