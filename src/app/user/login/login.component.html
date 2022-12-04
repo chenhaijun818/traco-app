@@ -11,5 +11,14 @@
 </div>
 
 <div class="buttons">
-  <button>提交</button>
+  <button (click)="login()">登录</button>
+</div>
+
+<div>
+  <div>第三方登录:</div>
+  <div class="buttons">
+    <button (click)="thirdLogin('github')">github</button>
+    <button (click)="thirdLogin('ali')">支付宝</button>
+    <button (click)="thirdLogin('wx')">微信</button>
+  </div>
 </div>
