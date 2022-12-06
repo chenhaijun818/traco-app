@@ -1,5 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {AppService} from "../../services/app.service";
+import {HttpClient} from "@angular/common/http";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-nav',
@@ -9,7 +11,7 @@ import {AppService} from "../../services/app.service";
 export class NavComponent implements OnInit {
   username = '';
 
-  constructor(public app: AppService) {
+  constructor(public app: AppService, private http: HttpClient, private router: Router) {
   }
 
   ngOnInit(): void {
@@ -17,5 +19,15 @@ export class NavComponent implements OnInit {
 
   logout() {
     this.app.logout();
+  }
+
+  createProject() {
+    this.http.post('project/create', {}).subscribe(res => {
+      console.log(res)
+    })
+  }
+
+  login() {
+    this.router.navigate(['/login'])
   }
 }

@@ -26,7 +26,7 @@ export class HomeComponent implements OnInit {
   }
 
   test() {
-    this.http.get('test').subscribe(res => {
+    this.http.get('test?foo=123').subscribe(res => {
       console.log(res)
     })
   }

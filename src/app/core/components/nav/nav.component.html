@@ -1,9 +1,16 @@
 
-<div class="logo" routerLink="/">logo</div>
-
-<div *ngIf="app.user" class="userinfo">
-  <div class="name">{{app.user.name}}</div>
-  <div class="buttons">
-    <button class="logout" (click)="logout()">logout</button>
+<div class="main">
+  <div class="menu">
+    <div class="logo" routerLink="/">
+      <img src="https://traco-oss.oss-cn-hangzhou.aliyuncs.com/app/logo.png" alt="轨纪">
+    </div>
+  </div>
+  <div class="user">
+    <button [hidden]="!app.user">my works</button>
+    <button [hidden]="!app.user" (click)="createProject()">create work</button>
+    <div class="avatar" *ngIf="app.user">
+      <img [src]="app.user.avatar" [alt]="app.user.name">
+    </div>
+    <button class="login" *ngIf="!app.user" (click)="login()">login</button>
   </div>
 </div>

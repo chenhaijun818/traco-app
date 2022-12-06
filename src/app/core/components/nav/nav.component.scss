@@ -1,12 +1,43 @@
 :host {
   display: flex;
-  background: #eee;
-  height: 40px;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0 15px;
+  background: #fff;
+  height: 80px;
+  justify-content: center;
+
+  .main {
+    width: 1056px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 5px 0;
+    .menu {
+      height: 100%;
+      .logo {
+        height: 100%;
+        cursor: pointer;
+        img {
+          height: 100%;
+        }
+      }
+    }
+    .user {
+      display: flex;
+      align-items: center;
+      > button, > div {
+        margin-left: 15px;
+      }
+      .avatar {
+        width: 40px;
+        height: 40px;
+        border-radius: 5px;
+        overflow: hidden;
+        cursor: pointer;
+      }
+    }
+
+  }
 }
-.userinfo {
-  display: flex;
-  align-items: center;
-}
+
+
+
+
