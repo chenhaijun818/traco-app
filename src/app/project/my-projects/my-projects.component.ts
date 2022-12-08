@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {HttpClient} from "@angular/common/http";
 
 @Component({
   selector: 'app-my-projects',
@@ -6,10 +7,23 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./my-projects.component.scss']
 })
 export class MyProjectsComponent implements OnInit {
+  projects: any[] = [];
 
-  constructor() { }
+  constructor(private http: HttpClient) {
+  }
 
   ngOnInit(): void {
   }
 
+  getProjects() {
+    this.http.get('project/myProjects').subscribe((res: any) => {
+      this.projects = res.list;
+    })
+  }
+
+  createProject() {
+    this.http.post('project/create', {}).subscribe(res => {
+      console.log(res)
+    })
+  }
 }

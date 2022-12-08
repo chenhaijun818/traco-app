@@ -1,6 +1,10 @@
 
 <div class="main">
+  <div class="buttons">
+    <button (click)="getProjects()">get projects</button>
+    <button (click)="createProject()">create</button>
+  </div>
   <div class="list">
-    <div class="item">item</div>
+    <div class="item" *ngFor="let p of projects" routerLink="/project/{{p._id}}">{{p.name}}</div>
   </div>
 </div>
