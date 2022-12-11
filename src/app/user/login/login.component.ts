@@ -23,8 +23,8 @@ export class LoginComponent implements OnInit {
     this.http.get('user/getCode', {
       params: {phone: this.phone},
       headers: new HttpHeaders({'noToken': 'yes'})
-    }).subscribe(res => {
-      console.log(res)
+    }).subscribe((res: any) => {
+      this.code = res.code;
     })
   }
 

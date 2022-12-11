@@ -1,23 +1,29 @@
-
 <div class="main">
   <div class="menu">
     <div class="logo" routerLink="/">
       <img src="https://traco-oss.oss-cn-hangzhou.aliyuncs.com/app/logo.png" alt="轨纪">
     </div>
+    <ul class="list">
+      <li routerLink="/my-projects">我的项目</li>
+      <li>编辑器</li>
+      <li>创作工具</li>
+    </ul>
   </div>
   <div class="user">
-    <button [hidden]="!app.user" routerLink="/my-projects">my projects</button>
-    <div nz-dropdown class="avatar" *ngIf="app.user" nzTrigger="click" [nzDropdownMenu]="menu">
-      <img [src]="app.user.avatar" [alt]="app.user.name">
-      <span nz-icon nzType="down" nzTheme="outline"></span>
+    <div *ngIf="app.user" class="buttons">
+      <button nz-button nzType="text">消息</button>
     </div>
-    <nz-dropdown-menu #menu="nzDropdownMenu">
-      <ul nz-menu>
-        <li nz-menu-item routerLink="/settings">settings</li>
-        <li nz-menu-item (click)="logout()">logout</li>
-      </ul>
-    </nz-dropdown-menu>
-    <button class="login" *ngIf="!app.user" (click)="login()">login</button>
+    <div *ngIf="app.user" nz-dropdown class="avatar" nzTrigger="click" [nzDropdownMenu]="menu">
+      <nz-avatar nzShape="square" nzIcon="user"></nz-avatar>
+      <span nz-icon nzType="down" nzTheme="outline"></span>
+      <nz-dropdown-menu #menu="nzDropdownMenu">
+        <ul nz-menu>
+          <li nz-menu-item routerLink="/settings">settings</li>
+          <li nz-menu-item (click)="logout()">logout</li>
+        </ul>
+      </nz-dropdown-menu>
+    </div>
+    <a *ngIf="!app.user" routerLink="/login" nz-button nzType="primary">登录/注册</a>
   </div>
 </div>
 

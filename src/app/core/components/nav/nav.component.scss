@@ -12,28 +12,47 @@
     padding: 5px 0;
     .menu {
       height: 100%;
+      display: flex;
+      align-items: center;
+      font-size: 16px;
       .logo {
         height: 100%;
         cursor: pointer;
+        margin-right: 30px;
         img {
           height: 100%;
+        }
+      }
+      ul.list {
+        display: flex;
+        align-items: center;
+        li {
+          margin-right: 30px;
+          cursor: pointer;
+          color: #777;
+        }
+        li:hover {
+          color: #333;
         }
       }
     }
     .user {
       display: flex;
       align-items: center;
-      > button, > div {
-        margin-left: 15px;
+      .buttons {
+        button {
+          color: #777;
+        }
+        button:hover {
+          color: #333;
+        }
       }
       .avatar {
         display: flex;
         align-items: center;
+        margin-left: 15px;
         cursor: pointer;
-        img {
-          width: 30px;
-          height: 30px;
-          border-radius: 5px;
+        nz-avatar {
           margin-right: 5px;
         }
       }

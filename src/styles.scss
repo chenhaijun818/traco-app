@@ -1,6 +1,6 @@
 /* You can add global styles to this file, and also import other style files */
 @import "~ng-zorro-antd/ng-zorro-antd.min.css";
-html, body {
+html, body, ul, ol, h1, p {
   margin: 0;
   padding: 0;
 }
@@ -14,3 +14,7 @@ img {
 button {
   cursor: pointer;
 }
+ul, ol {
+  list-style-type: none;
+}
+
