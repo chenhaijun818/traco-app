@@ -1,8 +1,9 @@
 /* You can add global styles to this file, and also import other style files */
 @import "~ng-zorro-antd/ng-zorro-antd.min.css";
-html, body, ul, ol, h1, p {
+html, body, ul, ol, h1, p, img {
   margin: 0;
   padding: 0;
+  line-height: 1;
 }
 body {
   background: #f4f4f4;

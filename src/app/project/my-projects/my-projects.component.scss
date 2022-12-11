@@ -1,8 +1,26 @@
 :host {
   display: flex;
   justify-content: center;
+  padding: 15px;
   .main {
     width: 1056px;
-    padding: 15px 0;
+    padding: 15px 20px;
+    background: #fff;
+    .caption {
+      display: flex;
+      margin-bottom: 20px;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .list {
+      .item {
+        width: 244.5px;
+        overflow: hidden;
+        .cover {
+          width: 244px;
+          height: 244px;
+        }
+      }
+    }
   }
 }

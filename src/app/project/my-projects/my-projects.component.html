@@ -1,10 +1,29 @@
-
 <div class="main">
-  <div class="buttons">
-    <button (click)="getProjects()">get projects</button>
-    <button (click)="createProject()">create</button>
+  <div class="caption">
+    <h1>我的作品</h1>
+    <div class="buttons">
+      <button nz-button nzType="primary" (click)="createProject()">创建作品</button>
+    </div>
   </div>
-  <div class="list">
-    <div class="item" *ngFor="let p of projects" routerLink="/project/{{p._id}}">{{p.name}}</div>
+  <div class="list" nz-row [nzGutter]="[16, 24]">
+    <nz-empty *ngIf="!projects.length"></nz-empty>
+    <div *ngFor="let p of projects" nz-col [nzSpan]="6">
+      <nz-card nzHoverable class="item" [nzCover]="coverTemplate" [nzBodyStyle]="{padding: '10px'}"
+               [nzActions]="[actionSetting, actionEdit, actionEllipsis]">
+        <nz-card-meta [nzTitle]="p.name"></nz-card-meta>
+        <ng-template #coverTemplate>
+          <img class="cover" [src]="p.cover" [alt]="p.name"/>
+        </ng-template>
+        <ng-template #actionSetting>
+          <span nz-icon nzType="setting" [routerLink]="['/project', p._id]"></span>
+        </ng-template>
+        <ng-template #actionEdit>
+          <span nz-icon nzType="edit" [routerLink]="['/project', p._id]"></span>
+        </ng-template>
+        <ng-template #actionEllipsis>
+          <span nz-icon nzType="ellipsis"></span>
+        </ng-template>
+      </nz-card>
+    </div>
   </div>
 </div>

@@ -20,4 +20,10 @@ export class ProjectComponent implements OnInit {
     })
   }
 
+  delete() {
+    const id = this.route.snapshot.params['id'];
+    this.http.post('project/delete', {id}).subscribe(res => {
+      console.log(res)
+    })
+  }
 }

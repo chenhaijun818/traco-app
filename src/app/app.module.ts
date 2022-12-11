@@ -18,6 +18,7 @@ import {registerLocaleData} from '@angular/common';
 import zh from '@angular/common/locales/zh';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {NzMessageModule} from "ng-zorro-antd/message";
+import {NzBackTopModule} from "ng-zorro-antd/back-top";
 
 registerLocaleData(zh);
 
@@ -25,18 +26,19 @@ registerLocaleData(zh);
   declarations: [
     AppComponent,
   ],
-  imports: [
-    BrowserModule,
-    FormsModule,
-    HttpClientModule,
-    RouterModule,
-    AppRoutingModule,
-    UserModule,
-    CoreModule,
-    ProjectModule,
-    BrowserAnimationsModule,
-    NzMessageModule
-  ],
+    imports: [
+        BrowserModule,
+        FormsModule,
+        HttpClientModule,
+        RouterModule,
+        AppRoutingModule,
+        UserModule,
+        CoreModule,
+        ProjectModule,
+        BrowserAnimationsModule,
+        NzMessageModule,
+        NzBackTopModule
+    ],
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: ApiInterceptor, multi: true},
     {provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true},
