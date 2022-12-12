@@ -9,6 +9,7 @@ import {NzCardModule} from "ng-zorro-antd/card";
 import {NzGridModule} from "ng-zorro-antd/grid";
 import {NzButtonModule} from "ng-zorro-antd/button";
 import {NzIconModule} from "ng-zorro-antd/icon";
+import {NzLayoutModule} from "ng-zorro-antd/layout";
 
 
 @NgModule({
@@ -16,14 +17,15 @@ import {NzIconModule} from "ng-zorro-antd/icon";
     MyProjectsComponent,
     ProjectComponent
   ],
-  imports: [
-    CommonModule,
-    ProjectRoutingModule,
-    NzEmptyModule,
-    NzCardModule,
-    NzGridModule,
-    NzButtonModule,
-    NzIconModule
-  ]
+    imports: [
+        CommonModule,
+        ProjectRoutingModule,
+        NzEmptyModule,
+        NzCardModule,
+        NzGridModule,
+        NzButtonModule,
+        NzIconModule,
+        NzLayoutModule
+    ]
 })
 export class ProjectModule { }

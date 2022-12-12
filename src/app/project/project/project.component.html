@@ -1,5 +1,38 @@
 
-<div>{{project?.name}}</div>
-<div class="buttons">
-  <button class="button" (click)="delete()">delete</button>
-</div>
+<nz-layout class="layout">
+  <nz-sider class="info" nzWidth="300px" nzTheme="light" nzCollapsible [nzCollapsedWidth]="0" [nzZeroTrigger]="trigger">
+    <h3>作品信息</h3>
+    <img class="cover" [src]="project?.cover" [alt]="project?.name" />
+  </nz-sider>
+  <nz-content class="tracks">
+    <h3>时间轴</h3>
+  </nz-content>
+  <nz-sider class="tools" nzTheme="light" nzCollapsible nzReverseArrow [nzCollapsedWidth]="0" [nzZeroTrigger]="trigger">
+    <h3>我的工具</h3>
+  </nz-sider>
+</nz-layout>
+
+<ng-template #trigger>
+  <span nz-icon nzType="swap" nzTheme="outline"></span>
+</ng-template>
+
+
+<!--在这个世界上的人，不管是在家中还是在外面，一旦有了一个人出现，那么必定会有一些人出现了。小说作品简介范文800字(满分3篇)
+
+在这个世界上的人，都有自己的特点。有些人就像那些有名的大作家，有些人就像那些有名的歌星，有些人就像那些有名的科学家。这些人就像这个世界上的人都是我自己。
+
+所以说，我也有自己的特点。
+
+有些人就像那些有名的大作家，有些人就像那些有名的科学家，有些人就像那些有名的科学家。
+
+而我自己就是那些有名的科学家。
+
+我是一个有名的科学家，一个有名的科学家，一个有名的科学家。
+
+我有名的科学家，一个有名的科学家，一个有名的科学家，一个有名的科学家。
+
+我就是那些有名的科学家，一个有名的科学家，一个有名的科学家
+
+我是一个有名的科学家。
+
+我就是那些有名的科学家。一个有名的科学家。-->
