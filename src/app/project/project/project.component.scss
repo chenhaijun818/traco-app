@@ -2,6 +2,14 @@
   height: calc(100% - 80px);
   .info {
     padding: 10px;
+    .cover-upload{
+      cursor: pointer;
+      border: 1px solid #eee;
+    }
+    .desc {
+      width: 240px;
+      height: 200px;
+    }
   }
   .tracks {
     padding: 10px;

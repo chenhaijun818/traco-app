@@ -15,4 +15,9 @@ export class UiService {
     })
   }
 
+  success(msg: string, duration = 3000) {
+    this.message.success(msg, {
+      nzDuration: duration
+    })
+  }
 }
