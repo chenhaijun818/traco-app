@@ -14,7 +14,7 @@
       <button nz-button nzType="text">消息</button>
     </div>
     <div *ngIf="app.user" nz-dropdown class="avatar" nzTrigger="click" [nzDropdownMenu]="menu">
-      <nz-avatar nzShape="square" nzIcon="user"></nz-avatar>
+      <nz-avatar nzShape="square" nzIcon="user" [nzSrc]="app.user.avatar"></nz-avatar>
       <span nz-icon nzType="down" nzTheme="outline"></span>
       <nz-dropdown-menu #menu="nzDropdownMenu">
         <ul nz-menu>

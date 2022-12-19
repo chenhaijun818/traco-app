@@ -3,6 +3,7 @@ import {HttpClient} from "@angular/common/http";
 import {ActivatedRoute} from "@angular/router";
 import {Project} from "../models/project";
 import {UiService} from "../../core/services/ui.service";
+import {Track} from "../models/track";
 
 @Component({
   selector: 'app-project',
@@ -11,6 +12,7 @@ import {UiService} from "../../core/services/ui.service";
 })
 export class ProjectComponent implements OnInit {
   project?: Project;
+  tracks: Track[] = [];
 
   constructor(private http: HttpClient, private route: ActivatedRoute, private ui: UiService) {
   }
@@ -19,13 +21,13 @@ export class ProjectComponent implements OnInit {
     const id = this.route.snapshot.params['id'];
     this.http.get(`project/${id}`).subscribe(res => {
       this.project = new Project(res);
-    })
-  }
-
-  delete() {
-    const id = this.route.snapshot.params['id'];
-    this.http.post('project/delete', {id}).subscribe(res => {
-      console.log(res)
+    });
+    this.http.get(`project/tracks?pid=${id}`).subscribe((res: any) => {
+      if (res && res.list) {
+        for (let t of res.list) {
+          this.tracks.push(new Track(t))
+        }
+      }
     })
   }
 
@@ -45,13 +47,7 @@ export class ProjectComponent implements OnInit {
     })
   }
 
-  beforeUpload(event: any) {
-    console.log(event)
-    return false;
-  }
-
   onChange(event: any) {
-    console.log(event)
     if (event.type === 'success') {
       const cover = event.file.response.url;
       this.http.post('project/update', {id: this.project?.id, cover}).pipe().subscribe(res => {

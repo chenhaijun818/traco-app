@@ -1,12 +1,30 @@
 <div class="main">
-  <div class="item">
-    <span>update name:</span>
-    <input type="text">
-    <button>update</button>
+  <div class="info">
+    <div class="item">
+      <div>笔名</div>
+      <input type="text" [(ngModel)]="user.name">
+    </div>
+    <div class="item">
+      <div>手机</div>
+      <input type="number" [(ngModel)]="user.phone">
+    </div>
+    <div class="item">
+      <div>邮箱</div>
+      <input type="text" [(ngModel)]="user.email">
+    </div>
+    <div class="item">
+      <div>简介</div>
+      <textarea [(ngModel)]="user.desc" name="desc" id="" cols="30" rows="10"></textarea>
+    </div>
+    <div class="buttons">
+      <button (click)="submit()">submit</button>
+    </div>
   </div>
-  <div class="item">
-    <span>update name:</span>
-    <input type="text">
-    <button>update</button>
+  <div class="avatar">
+
+    <nz-upload class="avatar-upload" nzAction="upload" nzName="file" (nzChange)="onChange($event)"
+               [nzData]="{dir: 'avatars'}" [nzShowUploadList]="false ">
+      <img [src]="user.avatar" [alt]="user.name" />
+    </nz-upload>
   </div>
 </div>
