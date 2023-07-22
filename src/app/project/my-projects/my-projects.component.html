@@ -5,8 +5,10 @@
       <button nz-button nzType="primary" (click)="createProject()">创建作品</button>
     </div>
   </div>
+  <div *ngIf="!projects.length" class="empty">
+    <nz-empty></nz-empty>
+  </div>
   <div class="list" nz-row [nzGutter]="[16, 24]">
-    <nz-empty *ngIf="!projects.length"></nz-empty>
     <div *ngFor="let p of projects" nz-col [nzSpan]="6">
       <nz-card nzHoverable class="item" [nzCover]="coverTemplate" [nzBodyStyle]="{padding: '10px'}"
                [nzActions]="[actionSetting, actionEdit, actionEllipsis]">
