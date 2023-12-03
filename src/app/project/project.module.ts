@@ -21,6 +21,7 @@ import { NzMenuModule } from 'ng-zorro-antd/menu';
 import { ProfileComponent } from './profile/profile.component';
 import {NzImageModule} from 'ng-zorro-antd/image';
 import {NzInputModule} from 'ng-zorro-antd/input';
+import {NzTimelineModule} from "ng-zorro-antd/timeline";
 
 @NgModule({
   declarations: [
@@ -47,7 +48,8 @@ import {NzInputModule} from 'ng-zorro-antd/input';
     NzMenuModule,
     NzImageModule,
     NzInputModule,
-    NgOptimizedImage
+    NgOptimizedImage,
+    NzTimelineModule
   ]
 })
 export class ProjectModule {

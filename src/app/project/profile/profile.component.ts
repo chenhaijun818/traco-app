@@ -17,8 +17,6 @@ export class ProfileComponent implements OnInit {
     const pid = this.route.snapshot.params['id'];
     this.http.get(`project/${pid}`).subscribe(res => {
       this.project = new Project(res);
-      console.log(this.project);
-
     });
   }
 
@@ -44,7 +42,7 @@ export class ProfileComponent implements OnInit {
     if (event.type === 'success') {
       const cover = event.file.response.url;
       console.log(cover);
-      
+
       this.http.post('project/update', {id: this.project?.id, cover}).pipe().subscribe(res => {
         if (res) {
           this.ui.success('上传成功');
