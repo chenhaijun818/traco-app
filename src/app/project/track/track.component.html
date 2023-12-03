@@ -1,4 +1,13 @@
 
-<div>
-  track
+<div class="track">
+  <div class="track-name">
+    <span>主线</span>
+    <button nz-button nzType="primary" nzSize="small" (click)="addAffair()">+</button>
+  </div>
+  <nz-timeline class="timeline">
+    <nz-timeline-item *ngFor="let a of affairs">
+      <div class="timeline-item" (click)="selectAffair(a)">{{a.name}}</div>
+    </nz-timeline-item>
+  </nz-timeline>
 </div>
+

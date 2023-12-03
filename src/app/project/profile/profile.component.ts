@@ -1,8 +1,8 @@
-import { HttpClient } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { Project } from '../models/project';
-import { UiService } from 'src/app/core/services/ui.service';
+import {HttpClient} from '@angular/common/http';
+import {Component, OnInit} from '@angular/core';
+import {ActivatedRoute} from '@angular/router';
+import {Project} from '../models/project';
+import {UiService} from 'src/app/core/services/ui.service';
 
 @Component({
   selector: 'app-profile',
@@ -11,7 +11,9 @@ import { UiService } from 'src/app/core/services/ui.service';
 })
 export class ProfileComponent implements OnInit {
   project: Project = new Project({});
-  constructor(private route: ActivatedRoute, private http: HttpClient, private ui: UiService) { }
+
+  constructor(private route: ActivatedRoute, private http: HttpClient, private ui: UiService) {
+  }
 
   ngOnInit(): void {
     const pid = this.route.snapshot.params['id'];
@@ -21,8 +23,8 @@ export class ProfileComponent implements OnInit {
   }
 
   submitName() {
-    const { id, name } = this.project;
-    this.http.post('project/update', { id, name }).subscribe(res => {
+    const {id, name} = this.project;
+    this.http.post('project/update', {id, name}).subscribe(res => {
       if (res) {
         this.ui.success('修改成功')
       }
@@ -30,8 +32,8 @@ export class ProfileComponent implements OnInit {
   }
 
   submitDesc() {
-    const { id, desc } = this.project;
-    this.http.post('project/update', { id, desc }).subscribe(res => {
+    const {id, desc} = this.project;
+    this.http.post('project/update', {id, desc}).subscribe(res => {
       if (res) {
         this.ui.success('修改成功')
       }

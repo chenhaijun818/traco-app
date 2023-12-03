@@ -13,7 +13,7 @@ import {Track} from "../models/track";
 export class IndexComponent implements OnInit {
   project?: Project;
   tracks: Track[] = [];
-  tab: string = 'profile';
+  tab: string = 'track';
 
   constructor(private http: HttpClient, private route: ActivatedRoute, private ui: UiService) {
   }
