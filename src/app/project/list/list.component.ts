@@ -3,11 +3,11 @@ import {HttpClient} from "@angular/common/http";
 import {Router} from "@angular/router";
 
 @Component({
-  selector: 'app-my-projects',
-  templateUrl: './my-projects.component.html',
-  styleUrls: ['./my-projects.component.scss']
+  selector: 'app-list',
+  templateUrl: './list.component.html',
+  styleUrls: ['./list.component.scss']
 })
-export class MyProjectsComponent implements OnInit {
+export class ListComponent implements OnInit {
   projects: any[] = [];
 
   constructor(private http: HttpClient, private router: Router) {

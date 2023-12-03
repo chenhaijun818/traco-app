@@ -1,0 +1,26 @@
+:host {
+  display: block;
+  height: calc(100vh - 80px);
+  .layout {
+    height: 100%;
+    .menu {
+      li {
+        margin: 20px 0;
+      }
+      [nz-icon] {
+        margin-right: 5px;
+      }
+    }
+    .content {
+      padding: 10px;
+    }
+    .tools {
+      ul li {
+        font-size: 28px;
+        margin: 20px 0;
+        padding: 0 10px;
+      }
+    }
+  }
+
+}

@@ -1,0 +1,44 @@
+<nz-layout class="layout">
+  <nz-sider nzTheme="light" nzWidth="90px">
+    <ul class="menu" nz-menu nzMode="vertical">
+      <li nz-menu-item>
+        <span nz-icon nzType="setting"></span>
+        <a [routerLink]="['./profile']">设置</a>
+      </li>
+      <li nz-menu-item>
+        <span nz-icon nzType="database" nzTheme="outline"></span>
+        <a [routerLink]="['./track']">事件</a>
+      </li>
+      <li nz-menu-item>
+        <span nz-icon nzType="user" nzTheme="outline"></span>
+        <a [routerLink]="['./role']">角色</a>
+      </li>
+      <li nz-menu-item>
+        <span nz-icon nzType="area-chart" nzTheme="outline"></span>
+        <a [routerLink]="['./site']">地域</a>
+      </li>
+      <li nz-menu-item>
+        <span nz-icon nzType="gold" nzTheme="outline"></span>
+        <a [routerLink]="['./thing']">物品</a>
+      </li>
+      <li nz-menu-item>
+        <span nz-icon nzType="usergroup-add" nzTheme="outline"></span>
+        <a [routerLink]="['./organization']">组织</a>
+      </li>
+    </ul>
+  </nz-sider>
+  <nz-content class="content">
+    <router-outlet></router-outlet>
+  </nz-content>
+  <nz-sider class="tools" nzTheme="light" nzWidth="60px">
+    <ul class="menu" nz-menu nzMode="vertical">
+      <li nz-menu-item nz-icon nzType="setting"></li>
+      <li nz-menu-item nz-icon nzType="setting"></li>
+      <li nz-menu-item nz-icon nzType="setting"></li>
+    </ul>
+  </nz-sider>
+</nz-layout>
+
+<ng-template #trigger>
+  <span nz-icon nzType="swap" nzTheme="outline"></span>
+</ng-template>

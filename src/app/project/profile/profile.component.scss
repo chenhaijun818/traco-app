@@ -1,0 +1,27 @@
+:host {
+    background: #fff;
+    display: flex;
+    height: 100%;
+    padding: 10px;
+    .cover {
+        margin-right: 20px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        .cover-upload {
+            margin-top: 10px;
+        }
+    }
+    .info {
+        .item {
+            margin: 10px 0;
+            .key {
+                font-weight: bold;
+                margin-bottom: 5px;
+            }
+            textarea {
+                margin-bottom: 5px;
+            }
+        }
+    }
+}

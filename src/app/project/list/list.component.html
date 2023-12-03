@@ -10,7 +10,7 @@
   </div>
   <div class="list" nz-row [nzGutter]="[16, 24]">
     <div *ngFor="let p of projects" nz-col [nzSpan]="6">
-      <nz-card nzHoverable class="item" [nzCover]="coverTemplate" [nzBodyStyle]="{padding: '10px'}"
+      <nz-card class="item" [nzCover]="coverTemplate" [nzBodyStyle]="{padding: '10px'}"
                [nzActions]="[actionSetting, actionEdit, actionEllipsis]">
         <nz-card-meta [nzTitle]="p.name"></nz-card-meta>
         <ng-template #coverTemplate>

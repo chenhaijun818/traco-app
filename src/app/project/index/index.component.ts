@@ -6,11 +6,11 @@ import {UiService} from "../../core/services/ui.service";
 import {Track} from "../models/track";
 
 @Component({
-  selector: 'app-project',
-  templateUrl: './project.component.html',
-  styleUrls: ['./project.component.scss']
+  selector: 'app-index',
+  templateUrl: './index.component.html',
+  styleUrls: ['./index.component.scss']
 })
-export class ProjectComponent implements OnInit {
+export class IndexComponent implements OnInit {
   project?: Project;
   tracks: Track[] = [];
 
@@ -18,17 +18,17 @@ export class ProjectComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    const id = this.route.snapshot.params['id'];
-    this.http.get(`project/${id}`).subscribe(res => {
-      this.project = new Project(res);
-    });
-    this.http.get(`project/tracks?pid=${id}`).subscribe((res: any) => {
-      if (res && res.list) {
-        for (let t of res.list) {
-          this.tracks.push(new Track(t))
-        }
-      }
-    })
+    // const id = this.route.snapshot.params['id'];
+    // this.http.get(`project/${id}`).subscribe(res => {
+    //   this.project = new Project(res);
+    // });
+    // this.http.get(`project/tracks?pid=${id}`).subscribe((res: any) => {
+    //   if (res && res.list) {
+    //     for (let t of res.list) {
+    //       this.tracks.push(new Track(t))
+    //     }
+    //   }
+    // })
   }
 
   updateProjectName() {

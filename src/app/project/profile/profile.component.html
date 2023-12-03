@@ -1,0 +1,28 @@
+
+<div class="cover">
+    <div>
+        <img nz-image *ngIf="project" width="200" height="300" [nzSrc]="project.cover" [alt]="project.name">
+    </div>
+    <nz-upload class="cover-upload" nzAction="upload" nzName="file" (nzChange)="onUpload($event)" [nzShowUploadList]="false" [nzData]="{dir: 'covers'}">
+        <button nz-button nzType="primary">上传封面</button>
+    </nz-upload>
+</div>
+
+<div class="info">
+    <div class="item">
+        <div class="key">作品名称：</div>
+        <div class="value">
+            <nz-input-group nzSearch nzSize="large" [nzAddOnAfter]="suffixButton">
+                <input type="text" nz-input [(ngModel)]="project.name" />
+              </nz-input-group>
+              <ng-template #suffixButton>
+                <button nz-button nzType="primary" nzSize="large" nzSearch (click)="submitName()">确认</button>
+              </ng-template>
+        </div>
+    </div>
+    <div class="item">
+        <div class="key">作品简介：</div>
+        <textarea nz-input [(ngModel)]="project.desc" [nzAutosize]="{ minRows: 3, maxRows: 5 }"></textarea>
+        <button nz-button nzType="primary" (click)="submitDesc()">确认</button>
+    </div>
+</div>
