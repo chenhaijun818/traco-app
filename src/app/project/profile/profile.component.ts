@@ -53,4 +53,15 @@ export class ProfileComponent implements OnInit {
       })
     }
   }
+
+  deleteProject() {
+    const res = confirm('您确定要删除该作品吗？')
+    if (res) {
+      this.http.post('project/delete', {id: this.project.id}).subscribe((res: any) => {
+        if (res) {
+          this.ui.success('删除成功');
+        }
+      })
+    }
+  }
 }

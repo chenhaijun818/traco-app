@@ -25,4 +25,7 @@
     <textarea nz-input [(ngModel)]="project.desc" [nzAutosize]="{ minRows: 3, maxRows: 5 }"></textarea>
     <button nz-button nzType="primary" (click)="submitDesc()">确认</button>
   </div>
+  <div class="buttons">
+    <button nz-button nzDanger (click)="deleteProject()">删除作品</button>
+  </div>
 </div>

@@ -3,7 +3,7 @@ export class Affair {
   name: string;
 
   constructor(data: any) {
-    this.id = data.id;
+    this.id = data._id;
     this.name = data.name;
   }
 }

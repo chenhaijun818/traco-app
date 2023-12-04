@@ -2,31 +2,46 @@
   display: block;
   background: #f9f9f9;
   height: 100%;
-  padding: 10px;
-  .track {
-    width: 200px;
-    .track-name {
+  .layout {
+    height: 100%;
+    background: #f9f9f9;
+    .content {
+      padding: 5px;
       position: relative;
-      height: 40px;
-      text-align: center;
-      line-height: 40px;
-      font-weight: bold;
-      background: #fff;
-      margin-bottom: 20px;
-      button {
-        display: none;
+      .track {
+        width: 200px;
+        .track-name {
+          position: relative;
+          height: 40px;
+          text-align: center;
+          line-height: 40px;
+          font-weight: bold;
+          background: #fff;
+          margin-bottom: 20px;
+          button {
+            display: none;
+            position: absolute;
+            right: 0;
+            top: 0;
+          }
+        }
+        .track-name:hover button {
+          display: block;
+        }
+        .timeline {
+          .timeline-item {
+            cursor: pointer;
+          }
+        }
+      }
+      .menu-button {
         position: absolute;
-        right: 0;
-        top: 0;
+        right: 5px;
+        top: 5px;
       }
     }
-    .track-name:hover button {
-      display: block;
-    }
-    .timeline {
-      .timeline-item {
-        cursor: pointer;
-      }
+    .detail {
+      padding: 8px;
     }
   }
 }

@@ -3,6 +3,7 @@ import {ActivatedRoute} from "@angular/router";
 import {HttpClient} from "@angular/common/http";
 import {Project} from "../models/project";
 import {UiService} from "../../core/services/ui.service";
+import {Affair} from "../models/affair";
 
 @Component({
   selector: 'app-track',
@@ -11,7 +12,8 @@ import {UiService} from "../../core/services/ui.service";
 })
 export class TrackComponent implements OnInit {
   project: Project = new Project({});
-  affairs: any = [];
+  affairs: Affair[] = [];
+  selectedAffair?: Affair;
 
   constructor(private route: ActivatedRoute, private http: HttpClient, private ui: UiService) {
   }
@@ -26,8 +28,11 @@ export class TrackComponent implements OnInit {
 
   // 新增一个事件
   addAffair() {
+    const name = prompt('输入事件名称');
+    if (!name) {
+      return;
+    }
     const pid = this.project.id;
-    const name = '未命名事件';
     const content = '暂时没有内容';
     this.http.post('project/affair/add', {pid, name, content}).subscribe(res => {
       if (res) {
@@ -40,11 +45,29 @@ export class TrackComponent implements OnInit {
   getAffairs() {
     const pid = this.route.snapshot.params['id'];
     this.http.get('project/affairs', {params: {pid}}).subscribe((res: any) => {
-      this.affairs = res.list;
+      if (res && res.list) {
+        this.affairs = [];
+        res.list.forEach((a: any) => {
+          this.affairs.push(new Affair(a))
+        })
+      }
     })
   }
 
-  selectAffair(a: any) {
-    console.log(a)
+  selectAffair(a: Affair) {
+    this.selectedAffair = a;
+  }
+
+  deleteAffair() {
+    const res = confirm('您确定要删除这个事件吗？');
+    if (res) {
+      this.http.post('project/affair/delete', {id: this.selectedAffair?.id}).subscribe((res: any) => {
+        if (res) {
+          this.ui.success('删除成功');
+          this.selectedAffair = undefined;
+          this.getAffairs();
+        }
+      })
+    }
   }
 }
