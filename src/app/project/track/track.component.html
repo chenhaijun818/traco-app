@@ -10,7 +10,10 @@
       </div>
       <nz-timeline class="timeline">
         <nz-timeline-item *ngFor="let a of affairs">
-          <div class="timeline-item" (click)="selectAffair(a)">{{a.name}}</div>
+          <div class="affair" (click)="selectAffair(a)">
+            <span>{{a.name}}</span>
+            <span class="date">{{a.startTime | date: 'MM-dd'}}</span>
+          </div>
         </nz-timeline-item>
       </nz-timeline>
     </div>

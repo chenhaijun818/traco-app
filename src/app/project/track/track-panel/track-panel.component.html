@@ -2,7 +2,7 @@
     <div class="key">事件名称：</div>
     <!--        <input nz-input type="text" [value]="selectedAffair.name">-->
     <nz-input-group nzSearch nzSize="default" [nzAddOnAfter]="nameButton">
-      <input type="text" nz-input placeholder="请输入" [(ngModel)]="affair.name"/>
+      <input type="text" nz-input placeholder="请输入" [(ngModel)]="affair.name" (keyup.enter)="updateName()"/>
     </nz-input-group>
     <ng-template #nameButton>
       <button nz-button nzType="primary" nzSize="small" nzSearch (click)="updateName()">确认</button>
@@ -25,7 +25,7 @@
   <div class="item">
     <div class="key">发生地点：</div>
     <nz-input-group nzSearch nzSize="default" [nzAddOnAfter]="siteButton">
-      <input type="text" nz-input placeholder="请输入" [(ngModel)]="affair.site"/>
+      <input type="text" nz-input placeholder="请输入" [(ngModel)]="affair.site" (keyup.enter)="updateSite()"/>
     </nz-input-group>
     <ng-template #siteButton>
       <button nz-button nzType="primary" nzSize="small" nzSearch (click)="updateSite()">确认</button>
@@ -34,7 +34,7 @@
   <div class="item">
     <div class="key">参与角色：</div>
     <nz-input-group nzSearch nzSize="default" [nzAddOnAfter]="roleButton">
-      <input type="text" nz-input placeholder="请输入" [(ngModel)]="affair.roles"/>
+      <input type="text" nz-input placeholder="请输入" [(ngModel)]="affair.roles" (keyup.enter)="updateRoles()"/>
     </nz-input-group>
     <ng-template #roleButton>
       <button nz-button nzType="primary" nzSize="small" nzSearch (click)="updateRoles()">确认</button>
