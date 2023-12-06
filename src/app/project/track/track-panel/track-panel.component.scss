@@ -1,0 +1,13 @@
+:host {
+  padding: 10px;
+  display: block;
+  .item {
+    margin-bottom: 15px;
+    .key {
+      margin-bottom: 4px;
+    }
+    textarea {
+      margin-bottom: 4px;
+    }
+  }
+}

@@ -44,7 +44,7 @@ export class TrackComponent implements OnInit {
 
   getAffairs() {
     const pid = this.route.snapshot.params['id'];
-    this.http.get('project/affairs', {params: {pid}}).subscribe((res: any) => {
+    this.http.get('project/affair/list', {params: {pid}}).subscribe((res: any) => {
       if (res && res.list) {
         this.affairs = [];
         res.list.forEach((a: any) => {
@@ -69,5 +69,9 @@ export class TrackComponent implements OnInit {
         }
       })
     }
+  }
+
+  updateName() {
+
   }
 }

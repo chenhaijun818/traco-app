@@ -22,6 +22,8 @@ import { ProfileComponent } from './profile/profile.component';
 import {NzImageModule} from 'ng-zorro-antd/image';
 import {NzInputModule} from 'ng-zorro-antd/input';
 import {NzTimelineModule} from "ng-zorro-antd/timeline";
+import {NzDatePickerModule} from "ng-zorro-antd/date-picker";
+import { TrackPanelComponent } from './track/track-panel/track-panel.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +34,8 @@ import {NzTimelineModule} from "ng-zorro-antd/timeline";
     IndexComponent,
     SiteComponent,
     ThingComponent,
-    OrganizationComponent
+    OrganizationComponent,
+    TrackPanelComponent
   ],
   imports: [
     CommonModule,
@@ -49,7 +52,8 @@ import {NzTimelineModule} from "ng-zorro-antd/timeline";
     NzImageModule,
     NzInputModule,
     NgOptimizedImage,
-    NzTimelineModule
+    NzTimelineModule,
+    NzDatePickerModule
   ]
 })
 export class ProjectModule {
