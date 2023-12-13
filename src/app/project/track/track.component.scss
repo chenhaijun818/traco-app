@@ -6,26 +6,22 @@
     height: 100%;
     background: #f9f9f9;
     .content {
+      display: flex;
       padding: 5px;
       position: relative;
       .track {
+        margin-right: 10px;
         width: 200px;
-        .track-name {
-          position: relative;
+        .track-header {
           height: 40px;
-          text-align: center;
-          line-height: 40px;
-          font-weight: bold;
           background: #fff;
           margin-bottom: 20px;
-          button {
-            display: none;
-            position: absolute;
-            right: 0;
-            top: 0;
-          }
+          padding: 0 15px;
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
         }
-        .track-name:hover button {
+        .track-header:hover button {
           display: block;
         }
         .timeline {

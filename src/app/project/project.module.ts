@@ -24,6 +24,7 @@ import {NzInputModule} from 'ng-zorro-antd/input';
 import {NzTimelineModule} from "ng-zorro-antd/timeline";
 import {NzDatePickerModule} from "ng-zorro-antd/date-picker";
 import { TrackPanelComponent } from './track/track-panel/track-panel.component';
+import {NzDropDownModule} from "ng-zorro-antd/dropdown";
 
 @NgModule({
   declarations: [
@@ -37,24 +38,25 @@ import { TrackPanelComponent } from './track/track-panel/track-panel.component';
     OrganizationComponent,
     TrackPanelComponent
   ],
-  imports: [
-    CommonModule,
-    ProjectRoutingModule,
-    NzEmptyModule,
-    NzCardModule,
-    NzGridModule,
-    NzButtonModule,
-    NzIconModule,
-    NzLayoutModule,
-    FormsModule,
-    NzUploadModule,
-    NzMenuModule,
-    NzImageModule,
-    NzInputModule,
-    NgOptimizedImage,
-    NzTimelineModule,
-    NzDatePickerModule
-  ]
+    imports: [
+        CommonModule,
+        ProjectRoutingModule,
+        NzEmptyModule,
+        NzCardModule,
+        NzGridModule,
+        NzButtonModule,
+        NzIconModule,
+        NzLayoutModule,
+        FormsModule,
+        NzUploadModule,
+        NzMenuModule,
+        NzImageModule,
+        NzInputModule,
+        NgOptimizedImage,
+        NzTimelineModule,
+        NzDatePickerModule,
+        NzDropDownModule
+    ]
 })
 export class ProjectModule {
   name = 'project'

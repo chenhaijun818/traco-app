@@ -4,9 +4,11 @@
   </nz-sider>
   <nz-content class="content">
     <div class="track">
-      <div class="track-name">
+      <div class="track-header">
         <span>主线</span>
-        <button nz-button nzType="primary" nzSize="small" (click)="addAffair()">+</button>
+        <a nz-dropdown nzTrigger="click">
+          <span nz-icon nzType="menu"></span>
+        </a>
       </div>
       <nz-timeline class="timeline">
         <nz-timeline-item *ngFor="let a of affairs">
@@ -17,9 +19,37 @@
         </nz-timeline-item>
       </nz-timeline>
     </div>
-    <button class="menu-button" nz-button nzType="default" nzSize="small">
+    <div class="track" *ngFor="let t of tracks">
+      <div class="track-header">
+        <span>{{ t.name }}</span>
+        <a nz-dropdown nzTrigger="click" [nzDropdownMenu]="affairMenu">
+          <span nz-icon nzType="menu"></span>
+        </a>
+      </div>
+      <nz-timeline class="timeline">
+        <nz-timeline-item *ngFor="let a of t.affairs">
+          <div class="affair" (click)="selectAffair(a)">
+            <span>{{a.name}}</span>
+            <span class="date">{{a.startTime | date: 'MM-dd'}}</span>
+          </div>
+        </nz-timeline-item>
+      </nz-timeline>
+      <nz-dropdown-menu #affairMenu>
+        <ul nz-menu>
+          <li nz-menu-item (click)="addAffair(t.id)">add affair</li>
+          <li nz-menu-item (click)="deleteTrack(t)">delete track</li>
+        </ul>
+      </nz-dropdown-menu>
+    </div>
+    <button nz-dropdown nzTrigger="click" [nzDropdownMenu]="menu" class="menu-button" nz-button nzType="default" nzSize="small">
       <span nz-icon nzType="menu" nzTheme="outline"></span>
     </button>
+    <nz-dropdown-menu #menu>
+      <ul nz-menu>
+        <li nz-menu-item (click)="addTrack()">add track</li>
+        <li nz-menu-item (click)="getTracks()">get tracks</li>
+      </ul>
+    </nz-dropdown-menu>
   </nz-content>
 
 </nz-layout>
