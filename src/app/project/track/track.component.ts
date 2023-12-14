@@ -5,6 +5,7 @@ import {Project} from "../models/project";
 import {UiService} from "../../core/services/ui.service";
 import {Affair} from "../models/affair";
 import {Track} from "../models/track";
+import {firstValueFrom} from "rxjs";
 
 @Component({
   selector: 'app-track',
@@ -14,19 +15,20 @@ import {Track} from "../models/track";
 export class TrackComponent implements OnInit {
   project: Project = new Project({});
   tracks: Track[] = [];
+  trackMap: Map<string, Track> = new Map();
   affairs: Affair[] = [];
   selectedAffair?: Affair;
 
   constructor(private route: ActivatedRoute, private http: HttpClient, private ui: UiService) {
   }
 
-  ngOnInit(): void {
+  async ngOnInit() {
     const pid = this.route.snapshot.params['id'];
     this.http.get(`project/${pid}`).subscribe(res => {
       this.project = new Project(res);
     });
+    await this.getTracks();
     this.getAffairs();
-    this.getTracks();
   }
 
   // 新增一个事件
@@ -39,8 +41,9 @@ export class TrackComponent implements OnInit {
     const content = '暂时没有内容';
     this.http.post('project/affair/add', {pid, name, tid, content}).subscribe(res => {
       if (res) {
+        const affair = new Affair(res);
+        this.trackMap.get(affair.tid)?.affairs.push(affair);
         this.ui.success('新增成功');
-        this.getAffairs();
       }
     })
   }
@@ -51,7 +54,9 @@ export class TrackComponent implements OnInit {
       if (res && res.list) {
         this.affairs = [];
         res.list.forEach((a: any) => {
-          this.affairs.push(new Affair(a))
+          const affair = new Affair(a);
+          this.affairs.push(affair);
+          this.trackMap.get(affair.tid)?.affairs.push(affair)
         })
       }
     })
@@ -61,23 +66,6 @@ export class TrackComponent implements OnInit {
     this.selectedAffair = a;
   }
 
-  deleteAffair() {
-    const res = confirm('您确定要删除这个事件吗？');
-    if (res) {
-      this.http.post('project/affair/delete', {id: this.selectedAffair?.id}).subscribe((res: any) => {
-        if (res) {
-          this.ui.success('删除成功');
-          this.selectedAffair = undefined;
-          this.getAffairs();
-        }
-      })
-    }
-  }
-
-  updateName() {
-
-  }
-
   addTrack() {
     const name = prompt('请输入支线名称');
     if (!name) {
@@ -85,29 +73,42 @@ export class TrackComponent implements OnInit {
     }
     this.http.post('project/track/add', {name, pid: this.project.id}).subscribe((res: any) => {
       if (res) {
-        this.getTracks();
+        const track = new Track(res);
+        this.tracks.push(track);
+        this.trackMap.set(track.id, track);
       }
     })
   }
 
   getTracks() {
-    this.http.get('project/track/tracks', {params: {pid: this.project.id}}).subscribe((res: any) => {
+    return firstValueFrom(this.http.get('project/track/tracks', {params: {pid: this.project.id}})).then((res:any)=> {
       if (res && res.length) {
         this.tracks = [];
+        this.trackMap.clear();
         res.forEach((t: any) => {
-          this.tracks.push(new Track(t))
+          const track = new Track(t);
+          this.tracks.push(track);
+          this.trackMap.set(track.id, track);
         })
+      }
+    });
+  }
+
+  deleteTrack(id: string) {
+    const res = confirm('您确定删除该支线吗？');
+    if (!res) {
+      return;
+    }
+    this.http.post('project/track/delete', {id}).subscribe((res: any) => {
+      if (res) {
+        this.ui.success('删除成功');
+        this.trackMap.delete(id);
+        this.tracks = this.tracks.filter(t => t.id !== id);
       }
     })
   }
 
-  deleteTrack(t: any) {
+  visibility(t: Track) {
     console.log(t)
-    this.http.post('project/track/delete', {id: t.id}).subscribe((res: any) => {
-      if (res) {
-        this.ui.success('删除成功');
-        this.getTracks();
-      }
-    })
   }
 }

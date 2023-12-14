@@ -6,7 +6,6 @@ export class Track {
   rid: string;
   name: string;
   affairs: Affair[] = [];
-
   constructor(data: any) {
     this.id = data._id;
     this.pid = data.pid;
