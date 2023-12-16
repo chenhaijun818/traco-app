@@ -4,14 +4,15 @@
   .layout {
     height: 100%;
     .menu {
+      height: 100%;
       li {
         margin: 20px 0;
       }
     }
     .content {
-      padding: 10px;
     }
     .tools {
+      border-left: 1px solid #eee;
       ul li {
         font-size: 18px;
         margin: 0;

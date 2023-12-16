@@ -25,6 +25,8 @@ import {NzTimelineModule} from "ng-zorro-antd/timeline";
 import {NzDatePickerModule} from "ng-zorro-antd/date-picker";
 import { TrackPanelComponent } from './track/track-panel/track-panel.component';
 import {NzDropDownModule} from "ng-zorro-antd/dropdown";
+import {NzSegmentedModule} from "ng-zorro-antd/segmented";
+import {NzAvatarModule} from "ng-zorro-antd/avatar";
 
 @NgModule({
   declarations: [
@@ -55,7 +57,9 @@ import {NzDropDownModule} from "ng-zorro-antd/dropdown";
         NgOptimizedImage,
         NzTimelineModule,
         NzDatePickerModule,
-        NzDropDownModule
+        NzDropDownModule,
+        NzSegmentedModule,
+        NzAvatarModule
     ]
 })
 export class ProjectModule {

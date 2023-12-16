@@ -2,7 +2,6 @@ import {Component, OnInit} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {ActivatedRoute} from "@angular/router";
 import {Project} from "../models/project";
-import {UiService} from "../../core/services/ui.service";
 import {Track} from "../models/track";
 
 @Component({
@@ -13,9 +12,9 @@ import {Track} from "../models/track";
 export class IndexComponent implements OnInit {
   project?: Project;
   tracks: Track[] = [];
-  tab: string = 'track';
+  tab: string = 'role';
 
-  constructor(private http: HttpClient, private route: ActivatedRoute, private ui: UiService) {
+  constructor(private http: HttpClient, private route: ActivatedRoute) {
   }
 
   ngOnInit(): void {

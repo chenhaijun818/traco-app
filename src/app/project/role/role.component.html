@@ -1,1 +1,30 @@
-<p>role works!</p>
+<nz-layout class="layout">
+  <nz-content class="content">
+    <div class="header">
+      <nz-segmented [nzOptions]="options"></nz-segmented>
+      <button nz-button nzSize="small" nz-dropdown [nzDropdownMenu]="menu" nzTrigger="click">
+        <span nz-icon nzType="menu"></span>
+      </button>
+    </div>
+    <div class="list">
+      <div class="role">
+        <img class="avatar" src="//zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png"  alt="黎念"/>
+        <span class="name">黎念</span>
+      </div>
+      <div class="role">
+        <img class="avatar" src="//zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png"  alt="黎念"/>
+        <span class="name">黎念</span>
+      </div>
+      <div class="role">
+        <img class="avatar" src="//zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png"  alt="黎念"/>
+        <span class="name">黎念</span>
+      </div>
+    </div>
+  </nz-content>
+  <nz-sider class="sider" nzTheme="light">sider</nz-sider>
+</nz-layout>
+<nz-dropdown-menu #menu>
+  <ul nz-menu>
+    <li nz-menu-item>新增角色</li>
+  </ul>
+</nz-dropdown-menu>
