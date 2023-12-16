@@ -1,7 +1,4 @@
 <nz-layout class="layout">
-  <nz-sider class="detail" nzTheme="light" nzWidth="300px">
-    <app-track-panel *ngIf="selectedAffair" [affair]="selectedAffair"></app-track-panel>
-  </nz-sider>
   <nz-content class="content">
     <div class="track" *ngFor="let t of tracks">
       <div class="track-header">
@@ -20,9 +17,11 @@
       </nz-timeline>
       <nz-dropdown-menu #affairMenu>
         <ul nz-menu>
-          <li nz-menu-item (click)="addAffair(t.id)">新增事件</li>
-          <li nz-menu-item (click)="deleteTrack(t.id)">删除支线</li>
+          <li nz-menu-item (click)="addAffair(t)">新增事件</li>
+          <li nz-menu-item (click)="deleteTrack(t)">删除支线</li>
           <li nz-menu-item (click)="visibility(t)">显示/隐藏</li>
+          <li nz-menu-item (click)="forward(t)">前移一位</li>
+          <li nz-menu-item (click)="backward(t)">后移一位</li>
         </ul>
       </nz-dropdown-menu>
     </div>
@@ -35,7 +34,9 @@
       </ul>
     </nz-dropdown-menu>
   </nz-content>
-
+  <nz-sider class="detail" nzTheme="light" nzWidth="300px">
+    <app-track-panel *ngIf="selectedAffair" [affair]="selectedAffair" (delete)="deleteAffair($event)"></app-track-panel>
+  </nz-sider>
 </nz-layout>
 
 

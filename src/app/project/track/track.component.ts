@@ -32,14 +32,14 @@ export class TrackComponent implements OnInit {
   }
 
   // 新增一个事件
-  addAffair(tid: string) {
+  addAffair(t: Track) {
     const name = prompt('输入事件名称');
     if (!name) {
       return;
     }
     const pid = this.project.id;
     const content = '暂时没有内容';
-    this.http.post('project/affair/add', {pid, name, tid, content}).subscribe(res => {
+    this.http.post('project/affair/add', {pid, name, tid: t.id, content}).subscribe(res => {
       if (res) {
         const affair = new Affair(res);
         this.trackMap.get(affair.tid)?.affairs.push(affair);
@@ -94,21 +94,49 @@ export class TrackComponent implements OnInit {
     });
   }
 
-  deleteTrack(id: string) {
+  deleteTrack(track: Track) {
+    if (track.affairs.length) {
+      this.ui.error('该支线下有事件，不可删除')
+      return;
+    }
     const res = confirm('您确定删除该支线吗？');
     if (!res) {
       return;
     }
-    this.http.post('project/track/delete', {id}).subscribe((res: any) => {
+    this.http.post('project/track/delete', {id: track.id}).subscribe((res: any) => {
       if (res) {
         this.ui.success('删除成功');
-        this.trackMap.delete(id);
-        this.tracks = this.tracks.filter(t => t.id !== id);
+        this.trackMap.delete(track.id);
+        this.tracks = this.tracks.filter(t => t !== track);
       }
     })
   }
 
   visibility(t: Track) {
     console.log(t)
+  }
+
+  forward(t: Track) {
+    console.log(t)
+  }
+
+  backward(t: Track) {
+    console.log(t)
+  }
+
+  deleteAffair(affair: any) {
+    const res = confirm('您确定要删除该事件吗？')
+    if (!res) {
+      return
+    }
+    this.http.post('project/affair/delete', {id: affair.id}).subscribe((res: any) => {
+      console.log(res);
+      if (res) {
+        this.ui.success('删除成功');
+        const track: Track | any = this.trackMap.get(affair.tid);
+        track.affairs = track.affairs.filter((a: any) => a.id !== affair.id);
+        this.selectedAffair = undefined;
+      }
+    });
   }
 }

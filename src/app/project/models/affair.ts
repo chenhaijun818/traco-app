@@ -7,6 +7,7 @@ export class Affair {
   content: string;
   site: string;
   roles: string;
+  order: number;
   constructor(data: any) {
     this.id = data._id;
     this.name = data.name;
@@ -16,5 +17,6 @@ export class Affair {
     this.content = data.content;
     this.site = data.site || '';
     this.roles = data.roles || '';
+    this.order = data.order;
   }
 }
