@@ -1,0 +1,145 @@
+
+<div class="avatar">
+  <img nz-image [nzSrc]="role.avatar" [alt]="role.name" >
+  <nz-upload nzAction="upload" [nzShowUploadList]="false" [nzData]="{dir: 'avatars'}" (nzChange)="avatarChange($event)">
+    <button nz-button nzType="primary" nzSize="default">上传头像</button>
+  </nz-upload>
+</div>
+
+<div class="item">
+  <div class="key">姓名：</div>
+  <div class="value">
+    <nz-input-group nzSearch nzSize="default" [nzAddOnAfter]="nameButton">
+      <input type="text" nz-input [(ngModel)]="values.name"/>
+    </nz-input-group>
+    <ng-template #nameButton>
+      <button nz-button nzType="primary" nzSize="default" nzSearch (click)="submit('name')">确认</button>
+    </ng-template>
+  </div>
+</div>
+<div class="item flex">
+  <div class="key">性别：</div>
+  <div class="value">
+    <nz-select [(ngModel)]="values.gender" nzPlaceHolder="选择性别" (ngModelChange)="submit('gender')">
+      <nz-option [nzValue]="1" nzLabel="男性"></nz-option>
+      <nz-option [nzValue]="2" nzLabel="女性"></nz-option>
+    </nz-select>
+  </div>
+</div>
+<div class="item flex">
+  <div class="key">婚恋：</div>
+  <div class="value">
+    <nz-select [(ngModel)]="values.marriage" nzPlaceHolder="选择婚恋状态" (ngModelChange)="submit('marriage')">
+      <nz-option [nzValue]="1" nzLabel="未恋"></nz-option>
+      <nz-option [nzValue]="2" nzLabel="恋中"></nz-option>
+      <nz-option [nzValue]="3" nzLabel="空窗"></nz-option>
+      <nz-option [nzValue]="4" nzLabel="已婚"></nz-option>
+      <nz-option [nzValue]="5" nzLabel="离异"></nz-option>
+      <nz-option [nzValue]="6" nzLabel="丧偶"></nz-option>
+    </nz-select>
+  </div>
+</div>
+<div class="item flex">
+  <div class="key">生育：</div>
+  <div class="value">
+    <nz-select [(ngModel)]="values.fertility" nzPlaceHolder="选择生育状态" (ngModelChange)="submit('fertility')">
+      <nz-option [nzValue]="1" nzLabel="未育"></nz-option>
+      <nz-option [nzValue]="2" nzLabel="孕中"></nz-option>
+      <nz-option [nzValue]="3" nzLabel="已育"></nz-option>
+    </nz-select>
+  </div>
+</div>
+<div class="item flex">
+  <div class="key">处女：</div>
+  <div class="value">
+    <nz-select [(ngModel)]="values.virgin" nzPlaceHolder="选择是否处女" (ngModelChange)="submit('virgin')">
+      <nz-option [nzValue]="1" nzLabel="是"></nz-option>
+      <nz-option [nzValue]="2" nzLabel="否"></nz-option>
+    </nz-select>
+  </div>
+</div>
+<div class="item">
+  <div class="key">年龄：</div>
+  <div class="value">
+    <nz-input-group nzSearch nzSize="default" [nzAddOnAfter]="ageButton">
+      <input type="text" nz-input [(ngModel)]="values.age" placeholder="请输入年龄"/>
+    </nz-input-group>
+    <ng-template #ageButton>
+      <button nz-button nzType="primary" nzSize="default" nzSearch (click)="submit('age')">确认</button>
+    </ng-template>
+  </div>
+</div>
+<div class="item">
+  <div class="key">身高：</div>
+  <div class="value">
+    <nz-input-group nzSearch nzSize="default" [nzAddOnAfter]="heightButton">
+      <input type="text" nz-input [(ngModel)]="values.height" placeholder="请输入身高"/>
+    </nz-input-group>
+    <ng-template #heightButton>
+      <button nz-button nzType="primary" nzSize="default" nzSearch (click)="submit('height')">确认</button>
+    </ng-template>
+  </div>
+</div>
+<div class="item">
+  <div class="key">颜值：</div>
+  <div class="value">
+    <nz-input-group nzSearch nzSize="default" [nzAddOnAfter]="beautyButton">
+      <input type="text" nz-input [(ngModel)]="values.beauty" placeholder="请输入颜值(0-100)"/>
+    </nz-input-group>
+    <ng-template #beautyButton>
+      <button nz-button nzType="primary" nzSize="default" nzSearch (click)="submit('beauty')">确认</button>
+    </ng-template>
+  </div>
+</div>
+<div class="item">
+  <div class="key">胸围：</div>
+  <div class="value">
+    <nz-input-group nzSearch nzSize="default" [nzAddOnAfter]="bustButton">
+      <input type="text" nz-input [(ngModel)]="values.bust" placeholder="请输入胸围"/>
+    </nz-input-group>
+    <ng-template #bustButton>
+      <button nz-button nzType="primary" nzSize="default" nzSearch (click)="submit('bust')">确认</button>
+    </ng-template>
+  </div>
+</div>
+<div class="item">
+  <div class="key">腰围：</div>
+  <div class="value">
+    <nz-input-group nzSearch nzSize="default" [nzAddOnAfter]="waistButton">
+      <input type="text" nz-input [(ngModel)]="values.waist" placeholder="请输入腰围"/>
+    </nz-input-group>
+    <ng-template #waistButton>
+      <button nz-button nzType="primary" nzSize="default" nzSearch (click)="submit('waist')">确认</button>
+    </ng-template>
+  </div>
+</div>
+<div class="item">
+  <div class="key">臀围：</div>
+  <div class="value">
+    <nz-input-group nzSearch nzSize="default" [nzAddOnAfter]="hipButton">
+      <input type="text" nz-input [(ngModel)]="values.hip" placeholder="请输入臀围"/>
+    </nz-input-group>
+    <ng-template #hipButton>
+      <button nz-button nzType="primary" nzSize="default" nzSearch (click)="submit('hip')">确认</button>
+    </ng-template>
+  </div>
+</div>
+<div class="item">
+  <div class="key">体重：</div>
+  <div class="value">
+    <nz-input-group nzSearch nzSize="default" [nzAddOnAfter]="weightButton">
+      <input type="text" nz-input [(ngModel)]="values.weight" placeholder="请输入体重(kg)"/>
+    </nz-input-group>
+    <ng-template #weightButton>
+      <button nz-button nzType="primary" nzSize="default" nzSearch (click)="submit('weight')">确认</button>
+    </ng-template>
+  </div>
+</div>
+<div class="item textarea">
+  <div class="key">角色介绍：</div>
+  <textarea nz-input [(ngModel)]="values.desc" [nzAutosize]="{ minRows: 3, maxRows: 10 }" placeholder="请输入介绍"></textarea>
+  <button nz-button nzType="primary" (click)="submit('desc')">确认</button>
+</div>
+<div class="buttons">
+  <button nz-button nzSize="default" nzDanger nzType="primary" (click)="deleteRole()">删除角色</button>
+</div>
