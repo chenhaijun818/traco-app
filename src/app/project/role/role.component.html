@@ -1,13 +1,13 @@
 <nz-layout class="layout">
   <nz-content class="content">
     <div class="header">
-      <nz-segmented [nzOptions]="options"></nz-segmented>
+      <nz-segmented [nzOptions]="options" [(ngModel)]="filter.gender"></nz-segmented>
       <button nz-button nzSize="small" nz-dropdown [nzDropdownMenu]="menu" nzTrigger="click">
         <span nz-icon nzType="menu"></span>
       </button>
     </div>
     <div class="list">
-      <div class="role" *ngFor="let role of roles;" (click)="selectRole(role)">
+      <div class="role" *ngFor="let role of (roles | filter: filter);" (click)="selectRole(role)">
         <img class="avatar" [src]="role.avatar" alt="黎念"/>
         <span class="name">{{ role.name }}</span>
       </div>

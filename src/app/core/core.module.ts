@@ -8,14 +8,17 @@ import {NzIconModule} from "ng-zorro-antd/icon";
 import {NzButtonModule} from "ng-zorro-antd/button";
 import {NzAvatarModule} from "ng-zorro-antd/avatar";
 import { IndexComponent } from './components/index/index.component';
+import { FilterPipe } from './pipes/filter.pipe';
 
 @NgModule({
   declarations: [
     NavComponent,
-    IndexComponent
+    IndexComponent,
+    FilterPipe
   ],
   exports: [
-    NavComponent
+    NavComponent,
+    FilterPipe
   ],
   imports: [
     CommonModule,

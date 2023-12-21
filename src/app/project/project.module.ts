@@ -29,6 +29,7 @@ import {NzSegmentedModule} from "ng-zorro-antd/segmented";
 import {NzAvatarModule} from "ng-zorro-antd/avatar";
 import { RolePanelComponent } from './role/role-panel/role-panel.component';
 import {NzSelectModule} from "ng-zorro-antd/select";
+import {CoreModule} from "../core/core.module";
 
 @NgModule({
   declarations: [
@@ -63,7 +64,8 @@ import {NzSelectModule} from "ng-zorro-antd/select";
     NzDropDownModule,
     NzSegmentedModule,
     NzAvatarModule,
-    NzSelectModule
+    NzSelectModule,
+    CoreModule
   ]
 })
 export class ProjectModule {

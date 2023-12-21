@@ -14,6 +14,9 @@ export class RoleComponent implements OnInit {
   options = ['全部', '男性', '女性'];
   roles: Role[] = [];
   selectedRole: Role | any;
+  filter: any = {
+    gender: 0
+  };
   constructor(private http: HttpClient,
               private route: ActivatedRoute,
               private ui: UiService) { }
