@@ -39,7 +39,10 @@ export class TrackComponent implements OnInit {
     }
     const pid = this.project.id;
     const content = '暂时没有内容';
-    this.http.post('project/affair/add', {pid, name, tid: t.id, content}).subscribe(res => {
+    const startTime = this.project.baseTime;
+    this.http.post('project/affair/add', {
+      pid, name, tid: t.id, content, startTime
+    }).subscribe(res => {
       if (res) {
         const affair = new Affair(res);
         this.trackMap.get(affair.tid)?.affairs.push(affair);

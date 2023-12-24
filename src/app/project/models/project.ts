@@ -5,6 +5,7 @@ export class Project {
   cover: string;
   tags: string[];
   user: string;
+  baseTime: number;
 
   constructor(data: any) {
     this.id = data._id;
@@ -13,5 +14,6 @@ export class Project {
     this.cover = data.cover;
     this.tags = data.tags;
     this.user = data.user;
+    this.baseTime = data.baseTime;
   }
 }

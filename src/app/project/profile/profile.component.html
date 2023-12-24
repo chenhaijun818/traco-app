@@ -2,8 +2,8 @@
   <div *ngIf="project.name">
     <img nz-image width="200" height="300" [nzSrc]="project.cover" [alt]="project.name">
   </div>
-  <nz-upload class="cover-upload" nzAction="upload" nzName="file" (nzChange)="onUpload($event)"
-             [nzShowUploadList]="false" [nzData]="{dir: 'covers'}">
+  <nz-upload class="cover-upload" nzAction="upload" (nzChange)="onUpload($event)" [nzShowUploadList]="false"
+             [nzData]="{dir: 'covers'}">
     <button nz-button nzType="primary">上传封面</button>
   </nz-upload>
 </div>
@@ -18,6 +18,12 @@
       <ng-template #suffixButton>
         <button nz-button nzType="primary" nzSize="large" nzSearch (click)="submitName()">确认</button>
       </ng-template>
+    </div>
+  </div>
+  <div class="item">
+    <div class="key">基准时间：</div>
+    <div class="value">
+      <nz-date-picker nzShowTime (nzOnOk)="updateBaseTime($event)" [(ngModel)]="project.baseTime"></nz-date-picker>
     </div>
   </div>
   <div class="item">

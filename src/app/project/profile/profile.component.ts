@@ -3,6 +3,7 @@ import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {Project} from '../models/project';
 import {UiService} from 'src/app/core/services/ui.service';
+import {CompatibleDate} from "ng-zorro-antd/date-picker";
 
 @Component({
   selector: 'app-profile',
@@ -63,5 +64,14 @@ export class ProfileComponent implements OnInit {
         }
       })
     }
+  }
+
+  updateBaseTime($event: CompatibleDate | any) {
+    const baseTime = $event.getTime();
+    this.http.post('project/update', {id: this.project.id, baseTime}).subscribe((res: any) => {
+      if (res) {
+        this.ui.success('修改成功');
+      }
+    })
   }
 }
