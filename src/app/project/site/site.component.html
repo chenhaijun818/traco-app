@@ -1,1 +1,41 @@
-<p>site works!</p>
+<div class="header">
+  <div class="filter">filter</div>
+  <div class="buttons">
+    <button nz-button nzSize="small" nz-dropdown [nzDropdownMenu]="siteMenu" nzTrigger="click">
+      <span nz-icon nzType="menu"></span>
+    </button>
+  </div>
+</div>
+<div class="body">
+  <nz-table nzBordered [nzData]="sites">
+    <thead>
+    <tr>
+      <th>名称</th>
+      <th>地址</th>
+      <th>描述</th>
+      <th>操作</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let site of sites">
+      <td>
+        <span (dblclick)="updateSite(site, 'name')">{{ site.name }}</span>
+      </td>
+      <td>
+        <span (dblclick)="updateSite(site, 'address')">{{ site.address }}</span>
+      </td>
+      <td>
+        <span (dblclick)="updateSite(site, 'desc')">{{ site.desc }}</span>
+      </td>
+      <td>
+        <button nz-button nzDanger nzType="text" (click)="deleteSite(site)">删除</button>
+      </td>
+    </tr>
+    </tbody>
+  </nz-table>
+</div>
+<nz-dropdown-menu #siteMenu>
+  <ul nz-menu>
+    <li nz-menu-item (click)="addSite()">新增地点</li>
+  </ul>
+</nz-dropdown-menu>

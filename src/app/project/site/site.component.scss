@@ -1,0 +1,14 @@
+
+:host {
+  display: block;
+  background: #fff;
+  height: 100%;
+  .header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 40px;
+    border-bottom: 1px solid #eee;
+    padding: 0 10px;
+  }
+}

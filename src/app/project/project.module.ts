@@ -30,6 +30,7 @@ import {NzAvatarModule} from "ng-zorro-antd/avatar";
 import { RolePanelComponent } from './role/role-panel/role-panel.component';
 import {NzSelectModule} from "ng-zorro-antd/select";
 import {CoreModule} from "../core/core.module";
+import {NzTableModule} from "ng-zorro-antd/table";
 
 @NgModule({
   declarations: [
@@ -44,29 +45,30 @@ import {CoreModule} from "../core/core.module";
     TrackPanelComponent,
     RolePanelComponent
   ],
-  imports: [
-    CommonModule,
-    ProjectRoutingModule,
-    NzEmptyModule,
-    NzCardModule,
-    NzGridModule,
-    NzButtonModule,
-    NzIconModule,
-    NzLayoutModule,
-    FormsModule,
-    NzUploadModule,
-    NzMenuModule,
-    NzImageModule,
-    NzInputModule,
-    NgOptimizedImage,
-    NzTimelineModule,
-    NzDatePickerModule,
-    NzDropDownModule,
-    NzSegmentedModule,
-    NzAvatarModule,
-    NzSelectModule,
-    CoreModule
-  ]
+    imports: [
+        CommonModule,
+        ProjectRoutingModule,
+        NzEmptyModule,
+        NzCardModule,
+        NzGridModule,
+        NzButtonModule,
+        NzIconModule,
+        NzLayoutModule,
+        FormsModule,
+        NzUploadModule,
+        NzMenuModule,
+        NzImageModule,
+        NzInputModule,
+        NgOptimizedImage,
+        NzTimelineModule,
+        NzDatePickerModule,
+        NzDropDownModule,
+        NzSegmentedModule,
+        NzAvatarModule,
+        NzSelectModule,
+        CoreModule,
+        NzTableModule
+    ]
 })
 export class ProjectModule {
   name = 'project'
