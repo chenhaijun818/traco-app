@@ -18,10 +18,11 @@
       <nz-dropdown-menu #affairMenu>
         <ul nz-menu>
           <li nz-menu-item (click)="addAffair(t)">新增事件</li>
-          <li nz-menu-item (click)="deleteTrack(t)">删除支线</li>
           <li nz-menu-item (click)="visibility(t)">隐藏支线</li>
-          <li nz-menu-item (click)="forward(t)">前移一位</li>
-          <li nz-menu-item (click)="backward(t)">后移一位</li>
+          <li nz-menu-item (click)="rename(t)">修改名称</li>
+          <li nz-menu-item (click)="deleteTrack(t)">删除支线</li>
+          <!--          <li nz-menu-item (click)="forward(t)">前移一位</li>-->
+          <!--          <li nz-menu-item (click)="backward(t)">后移一位</li>-->
         </ul>
       </nz-dropdown-menu>
     </div>

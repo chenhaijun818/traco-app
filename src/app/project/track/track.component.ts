@@ -149,4 +149,17 @@ export class TrackComponent implements OnInit {
       }
     });
   }
+
+  rename(t: Track) {
+    const name = prompt('输入新的名称');
+    if (!name) {
+      return;
+    }
+    this.http.post('project/track/update', {id: t.id, name}).subscribe((res: any) => {
+      if (res) {
+        this.ui.success('修改成功');
+        t.name = name;
+      }
+    })
+  }
 }
