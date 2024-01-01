@@ -6,6 +6,7 @@ import {UiService} from "../../core/services/ui.service";
 import {Affair} from "../models/affair";
 import {Track} from "../models/track";
 import {firstValueFrom} from "rxjs";
+import {TrackService} from "./track.service";
 
 @Component({
   selector: 'app-track',
@@ -20,7 +21,10 @@ export class TrackComponent implements OnInit {
   selectedAffair?: Affair;
   pid = '';
 
-  constructor(private route: ActivatedRoute, private http: HttpClient, private ui: UiService) {
+  constructor(private route: ActivatedRoute,
+              private http: HttpClient,
+              private ui: UiService,
+              private trackService: TrackService) {
   }
 
   async ngOnInit() {
@@ -29,6 +33,10 @@ export class TrackComponent implements OnInit {
     this.getProject();
     await this.getTracks();
     this.getAffairs();
+    this.trackService.trackSubject.subscribe((t: Track) => {
+      const track: Track | any = this.trackMap.get(t.id);
+      track.visible = t.visible;
+    });
   }
 
   getProject() {

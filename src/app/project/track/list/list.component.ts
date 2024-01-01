@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute} from "@angular/router";
 import {Track} from "../../models/track";
 import {HttpClient} from "@angular/common/http";
+import {TrackService} from "../track.service";
 
 @Component({
   selector: 'app-list',
@@ -15,7 +16,8 @@ export class ListComponent implements OnInit {
   visibles: any[] = [];
 
   constructor(private route: ActivatedRoute,
-              private http: HttpClient) {
+              private http: HttpClient,
+              private trackService: TrackService) {
   }
 
   ngOnInit(): void {
@@ -58,6 +60,7 @@ export class ListComponent implements OnInit {
       if (res) {
         const track: any = this.trackMap.get(id);
         track.visible = flag;
+        this.trackService.trackSubject.next(track);
       }
     })
   }
