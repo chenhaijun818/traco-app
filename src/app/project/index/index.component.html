@@ -1,39 +1,52 @@
 <nz-layout class="layout">
   <nz-sider nzTheme="light" nzWidth="90px">
     <ul class="menu" nz-menu nzMode="vertical">
-      <li nz-menu-item (click)="tab = 'profile'">
-        <span nz-icon nzType="setting"></span>
-        <span>设置</span>
+      <li nz-menu-item>
+        <a [routerLink]="['./profile']" replaceUrl>
+          <span nz-icon nzType="setting"></span>
+          <span>设置</span>
+        </a>
       </li>
-      <li nz-menu-item (click)="tab = 'track'">
-        <span nz-icon nzType="database" nzTheme="outline"></span>
-        <span>事件</span>
+      <li nz-menu-item>
+        <a [routerLink]="['./affair']" replaceUrl>
+          <span nz-icon nzType="database" nzTheme="outline"></span>
+          <span>事件</span>
+        </a>
       </li>
-      <li nz-menu-item (click)="tab = 'role'">
-        <span nz-icon nzType="user" nzTheme="outline"></span>
-        <span>角色</span>
+      <li nz-menu-item>
+        <a [routerLink]="['./role']" replaceUrl>
+          <span nz-icon nzType="user" nzTheme="outline"></span>
+          <span>角色</span>
+        </a>
       </li>
-      <li nz-menu-item (click)="tab = 'site'">
-        <span nz-icon nzType="area-chart" nzTheme="outline"></span>
-        <span>地点</span>
+      <li nz-menu-item>
+        <a [routerLink]="['./site']" replaceUrl>
+          <span nz-icon nzType="area-chart" nzTheme="outline"></span>
+          <span>地点</span>
+        </a>
       </li>
-      <li nz-menu-item (click)="tab = 'thing'">
-        <span nz-icon nzType="gold" nzTheme="outline"></span>
-        <span>物品</span>
+      <li nz-menu-item>
+        <a [routerLink]="['./thing']" replaceUrl>
+          <span nz-icon nzType="gold" nzTheme="outline"></span>
+          <span>物品</span>
+        </a>
       </li>
-      <li nz-menu-item (click)="tab = 'organization'">
-        <span nz-icon nzType="usergroup-add" nzTheme="outline"></span>
-        <span>组织</span>
+      <li nz-menu-item>
+        <a [routerLink]="['./organization']" replaceUrl>
+          <span nz-icon nzType="usergroup-add" nzTheme="outline"></span>
+          <span>组织</span>
+        </a>
       </li>
     </ul>
   </nz-sider>
   <nz-content class="content">
-    <app-profile *ngIf="tab === 'profile'"></app-profile>
-    <app-track *ngIf="tab === 'track'"></app-track>
-    <app-role *ngIf="tab === 'role'"></app-role>
-    <app-site *ngIf="tab === 'site'"></app-site>
-    <app-thing *ngIf="tab === 'thing'"></app-thing>
-    <app-organization *ngIf="tab === 'organization'"></app-organization>
+    <router-outlet></router-outlet>
+    <!--    <app-profile *ngIf="tab === 'profile'"></app-profile>-->
+    <!--    <app-track *ngIf="tab === 'track'"></app-track>-->
+    <!--    <app-role *ngIf="tab === 'role'"></app-role>-->
+    <!--    <app-site *ngIf="tab === 'site'"></app-site>-->
+    <!--    <app-thing *ngIf="tab === 'thing'"></app-thing>-->
+    <!--    <app-organization *ngIf="tab === 'organization'"></app-organization>-->
   </nz-content>
   <nz-sider class="tools" nzTheme="light" nzWidth="40px">
     <ul class="menu" nz-menu nzMode="vertical">

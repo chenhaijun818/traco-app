@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {UiService} from "../../core/services/ui.service";
 import {Site} from "../models/site";
@@ -11,21 +11,23 @@ import {ActivatedRoute} from "@angular/router";
 })
 export class SiteComponent implements OnInit {
   sites: Site[] = [];
+  pid = '';
   constructor(private http: HttpClient,
               private ui: UiService,
               private route: ActivatedRoute) { }
 
   ngOnInit(): void {
+    const parent: ActivatedRoute | any = this.route.parent;
+    this.pid = parent.snapshot.params['id'];
     this.getSites();
   }
 
   addSite() {
-    const pid = this.route.snapshot.params['id'];
     const name = prompt('请输入地点名称');
     if (!name) {
       return
     }
-    this.http.post('project/site/add', {name, pid}).subscribe((res: any) => {
+    this.http.post('project/site/add', {name, pid: this.pid}).subscribe((res: any) => {
       if (res) {
         this.ui.success('新增成功');
         this.sites.push(new Site(res))
@@ -34,8 +36,7 @@ export class SiteComponent implements OnInit {
   }
 
   getSites() {
-    const pid = this.route.snapshot.params['id'];
-    this.http.get(`project/site/sites?pid=${pid}`).subscribe((sites: any) => {
+    this.http.get(`project/site/sites?pid=${this.pid}`).subscribe((sites: any) => {
       if (sites && sites.length) {
         this.sites = [];
         for (const site of sites) {

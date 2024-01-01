@@ -1,0 +1,8 @@
+<nz-select
+  class="selector"
+  nzMode="multiple"
+  [nzMaxTagCount]="3"
+  (ngModelChange)="onChange($event)"
+  [(ngModel)]="visibles">
+  <nz-option *ngFor="let t of tracks" [nzLabel]="t.name" [nzValue]="t.id"></nz-option>
+</nz-select>

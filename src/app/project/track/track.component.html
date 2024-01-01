@@ -1,6 +1,6 @@
 <nz-layout class="layout">
   <nz-content class="content">
-    <div class="track" *ngFor="let t of tracks">
+    <div class="track" *ngFor="let t of tracks | filter: {visible: true}">
       <div class="track-header">
         <span>{{ t.name }}</span>
         <a nz-dropdown nzTrigger="click" [nzDropdownMenu]="affairMenu">
@@ -9,7 +9,7 @@
       </div>
       <nz-timeline class="timeline">
         <nz-timeline-item *ngFor="let a of t.affairs">
-          <div class="affair" (click)="selectAffair(a)">
+          <div class="affair" [routerLink]="['./', a.id]" replaceUrl>
             <span>{{a.name}}</span>
             <span class="date">{{a.startTime | date: 'MM-dd'}}</span>
           </div>
@@ -19,7 +19,7 @@
         <ul nz-menu>
           <li nz-menu-item (click)="addAffair(t)">新增事件</li>
           <li nz-menu-item (click)="deleteTrack(t)">删除支线</li>
-          <li nz-menu-item (click)="visibility(t)">显示/隐藏</li>
+          <li nz-menu-item (click)="visibility(t)">隐藏支线</li>
           <li nz-menu-item (click)="forward(t)">前移一位</li>
           <li nz-menu-item (click)="backward(t)">后移一位</li>
         </ul>
@@ -31,11 +31,15 @@
     <nz-dropdown-menu #menu>
       <ul nz-menu>
         <li nz-menu-item (click)="addTrack()">新增支线</li>
+        <li nz-menu-item>
+          <a [routerLink]="['./list']">所有支线</a>
+        </li>
       </ul>
     </nz-dropdown-menu>
   </nz-content>
   <nz-sider class="detail" nzTheme="light" nzWidth="300px">
-    <app-track-panel *ngIf="selectedAffair" [affair]="selectedAffair" (delete)="deleteAffair($event)"></app-track-panel>
+    <router-outlet></router-outlet>
+    <!--    <app-affair *ngIf="selectedAffair" [affair]="selectedAffair" (delete)="deleteAffair($event)"></app-affair>-->
   </nz-sider>
 </nz-layout>
 

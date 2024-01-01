@@ -10,7 +10,7 @@ import {Project} from "../models/project";
 })
 export class IndexComponent implements OnInit {
   project?: Project;
-  tab: string = 'site';
+  tab: string = 'track';
 
   constructor(private http: HttpClient, private route: ActivatedRoute) {
   }

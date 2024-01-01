@@ -18,17 +18,23 @@ export class TrackComponent implements OnInit {
   trackMap: Map<string, Track> = new Map();
   affairs: Affair[] = [];
   selectedAffair?: Affair;
+  pid = '';
 
   constructor(private route: ActivatedRoute, private http: HttpClient, private ui: UiService) {
   }
 
   async ngOnInit() {
-    const pid = this.route.snapshot.params['id'];
-    this.http.get(`project/${pid}`).subscribe(res => {
-      this.project = new Project(res);
-    });
+    const parent: ActivatedRoute | any = this.route.parent;
+    this.pid = parent.snapshot.params['id'];
+    this.getProject();
     await this.getTracks();
     this.getAffairs();
+  }
+
+  getProject() {
+    this.http.get(`project/${this.pid}`).subscribe(res => {
+      this.project = new Project(res);
+    });
   }
 
   // 新增一个事件
@@ -37,11 +43,10 @@ export class TrackComponent implements OnInit {
     if (!name) {
       return;
     }
-    const pid = this.project.id;
     const content = '暂时没有内容';
     const startTime = this.project.baseTime;
     this.http.post('project/affair/add', {
-      pid, name, tid: t.id, content, startTime
+      pid: this.pid, name, tid: t.id, content, startTime
     }).subscribe(res => {
       if (res) {
         const affair = new Affair(res);
@@ -52,8 +57,7 @@ export class TrackComponent implements OnInit {
   }
 
   getAffairs() {
-    const pid = this.route.snapshot.params['id'];
-    this.http.get('project/affair/list', {params: {pid}}).subscribe((res: any) => {
+    this.http.get('project/affair/list', {params: {pid: this.pid}}).subscribe((res: any) => {
       if (res && res.list) {
         this.affairs = [];
         res.list.forEach((a: any) => {
@@ -74,7 +78,7 @@ export class TrackComponent implements OnInit {
     if (!name) {
       return
     }
-    this.http.post('project/track/add', {name, pid: this.project.id}).subscribe((res: any) => {
+    this.http.post('project/track/add', {name, pid: this.pid}).subscribe((res: any) => {
       if (res) {
         const track = new Track(res);
         this.tracks.push(track);
@@ -84,7 +88,7 @@ export class TrackComponent implements OnInit {
   }
 
   getTracks() {
-    return firstValueFrom(this.http.get('project/track/tracks', {params: {pid: this.project.id}})).then((res:any)=> {
+    return firstValueFrom(this.http.get('project/track/tracks', {params: {pid: this.pid}})).then((res: any) => {
       if (res && res.length) {
         this.tracks = [];
         this.trackMap.clear();
@@ -116,7 +120,11 @@ export class TrackComponent implements OnInit {
   }
 
   visibility(t: Track) {
-    console.log(t)
+    this.http.post('project/track/update', {id: t.id, visible: !t.visible}).subscribe((res: any) => {
+      if (res) {
+        t.visible = !t.visible;
+      }
+    })
   }
 
   forward(t: Track) {
@@ -133,7 +141,6 @@ export class TrackComponent implements OnInit {
       return
     }
     this.http.post('project/affair/delete', {id: affair.id}).subscribe((res: any) => {
-      console.log(res);
       if (res) {
         this.ui.success('删除成功');
         const track: Track | any = this.trackMap.get(affair.tid);

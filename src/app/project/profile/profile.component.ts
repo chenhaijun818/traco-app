@@ -12,13 +12,15 @@ import {CompatibleDate} from "ng-zorro-antd/date-picker";
 })
 export class ProfileComponent implements OnInit {
   project: Project = new Project({});
+  pid = '';
 
   constructor(private route: ActivatedRoute, private http: HttpClient, private ui: UiService) {
   }
 
   ngOnInit(): void {
-    const pid = this.route.snapshot.params['id'];
-    this.http.get(`project/${pid}`).subscribe(res => {
+    const parent: ActivatedRoute | any = this.route.parent;
+    this.pid = parent.snapshot.params['id'];
+    this.http.get(`project/${this.pid}`).subscribe(res => {
       this.project = new Project(res);
     });
   }
@@ -44,8 +46,6 @@ export class ProfileComponent implements OnInit {
   onUpload(event: any) {
     if (event.type === 'success') {
       const cover = event.file.response.url;
-      console.log(cover);
-
       this.http.post('project/update', {id: this.project?.id, cover}).pipe().subscribe(res => {
         if (res) {
           this.ui.success('上传成功');
