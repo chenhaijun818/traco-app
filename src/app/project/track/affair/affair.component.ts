@@ -3,6 +3,7 @@ import {Affair} from "../../models/affair";
 import {HttpClient} from "@angular/common/http";
 import {UiService} from "../../../core/services/ui.service";
 import {ActivatedRoute, Params} from "@angular/router";
+import {TrackService} from "../track.service";
 
 @Component({
   selector: 'app-affair',
@@ -16,7 +17,8 @@ export class AffairComponent implements OnInit {
 
   constructor(private http: HttpClient,
               private ui: UiService,
-              private route: ActivatedRoute) {
+              private route: ActivatedRoute,
+              private trackService: TrackService) {
   }
 
   ngOnInit(): void {
@@ -40,56 +42,61 @@ export class AffairComponent implements OnInit {
   }
 
   updateName() {
-    // if (this.affair?.name) {
-    //   const {id, name} = this.affair;
-    //   this.http.post('project/affair/update', {id, name}).subscribe((res: any) => {
-    //     if (res) {
-    //       this.ui.success('修改成功')
-    //     }
-    //   })
-    // }
+    if (this.affair.name) {
+      const {id, name} = this.affair;
+      this.http.post('project/affair/update', {id, name}).subscribe((res: any) => {
+        if (res) {
+          this.ui.success('修改成功');
+          this.trackService.affairSubject.next(this.affair);
+        }
+      })
+    }
   }
 
   updateTime($event: any) {
-    // const id = this.affair?.id;
-    // const startTime = $event.getTime();
-    // this.http.post('project/affair/update', {id, startTime}).subscribe((res: any) => {
-    //   if (res) {
-    //     this.ui.success('修改成功')
-    //   }
-    // })
+    const id = this.affair.id;
+    const startTime = $event.getTime();
+    this.http.post('project/affair/update', {id, startTime}).subscribe((res: any) => {
+      if (res) {
+        this.ui.success('修改成功');
+        this.trackService.affairSubject.next(this.affair)
+      }
+    })
   }
 
   updateContent() {
-    // if (this.affair?.content) {
-    //   const {id, content} = this.affair;
-    //   this.http.post('project/affair/update', {id, content}).subscribe((res: any) => {
-    //     if (res) {
-    //       this.ui.success('修改成功')
-    //     }
-    //   })
-    // }
+    if (this.affair.content) {
+      const {id, content} = this.affair;
+      this.http.post('project/affair/update', {id, content}).subscribe((res: any) => {
+        if (res) {
+          this.ui.success('修改成功');
+          this.trackService.affairSubject.next(this.affair)
+        }
+      })
+    }
   }
 
   updateSite() {
-    // if (this.affair?.site) {
-    //   const {id, site} = this.affair;
-    //   this.http.post('project/affair/update', {id, site}).subscribe((res: any) => {
-    //     if (res) {
-    //       this.ui.success('修改成功')
-    //     }
-    //   })
-    // }
+    if (this.affair.site) {
+      const {id, site} = this.affair;
+      this.http.post('project/affair/update', {id, site}).subscribe((res: any) => {
+        if (res) {
+          this.ui.success('修改成功')
+          this.trackService.affairSubject.next(this.affair)
+        }
+      })
+    }
   }
 
   updateRoles() {
-    // if (this.affair?.roles) {
-    //   const {id, roles} = this.affair;
-    //   this.http.post('project/affair/update', {id, roles}).subscribe((res: any) => {
-    //     if (res) {
-    //       this.ui.success('修改成功')
-    //     }
-    //   })
-    // }
+    if (this.affair.roles) {
+      const {id, roles} = this.affair;
+      this.http.post('project/affair/update', {id, roles}).subscribe((res: any) => {
+        if (res) {
+          this.ui.success('修改成功')
+          this.trackService.affairSubject.next(this.affair)
+        }
+      })
+    }
   }
 }

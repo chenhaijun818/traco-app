@@ -33,10 +33,20 @@ export class TrackComponent implements OnInit {
     this.getProject();
     await this.getTracks();
     this.getAffairs();
+    // 监听子路由支线信息的变化
     this.trackService.trackSubject.subscribe((t: Track) => {
       const track: Track | any = this.trackMap.get(t.id);
       track.visible = t.visible;
     });
+    // 监听子路由事件信息的变化
+    this.trackService.affairSubject.subscribe((a: Affair) => {
+      const affair: Affair | any = this.affairs.find(affair => affair.id === a.id);
+      affair.name = a.name;
+      affair.startTime = a.startTime;
+      affair.content = a.content;
+      affair.site = a.site;
+      affair.roles = a.roles;
+    })
   }
 
   getProject() {
