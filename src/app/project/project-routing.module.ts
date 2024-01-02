@@ -29,7 +29,8 @@ const routes: Routes = [
         loadChildren: () => import('./track/track.module').then(m => m.TrackModule)
       }, {
         path: 'role',
-        component: RoleComponent
+        component: RoleComponent,
+        loadChildren: () => import('./role/role.module').then(m => m.RoleModule)
       }, {
         path: 'site',
         component: SiteComponent

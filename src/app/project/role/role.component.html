@@ -7,14 +7,14 @@
       </button>
     </div>
     <div class="list">
-      <div class="role" *ngFor="let role of (roles | filter: filter);" (click)="selectRole(role)">
+      <a class="role" *ngFor="let role of (roles | filter: filter);" [routerLink]="['./', role.id]" replaceUrl>
         <img class="avatar" [src]="role.avatar" alt="黎念"/>
         <span class="name">{{ role.name }}</span>
-      </div>
+      </a>
     </div>
   </nz-content>
   <nz-sider class="sider" nzWidth="300px" nzTheme="light">
-    <app-role-panel *ngIf="selectedRole" [role]="selectedRole" (delete)="deleteRole($event)"></app-role-panel>
+    <router-outlet></router-outlet>
   </nz-sider>
 </nz-layout>
 <nz-dropdown-menu #menu>

@@ -32,6 +32,7 @@ import {NzSelectModule} from "ng-zorro-antd/select";
 import {CoreModule} from "../core/core.module";
 import {NzTableModule} from "ng-zorro-antd/table";
 import {TrackModule} from "./track/track.module";
+import {RoleModule} from './role/role.module';
 
 @NgModule({
   declarations: [
@@ -69,7 +70,8 @@ import {TrackModule} from "./track/track.module";
     NzSelectModule,
     CoreModule,
     NzTableModule,
-    TrackModule
+    TrackModule,
+    RoleModule
   ]
 })
 export class ProjectModule {
