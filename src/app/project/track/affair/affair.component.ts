@@ -6,6 +6,7 @@ import {ActivatedRoute, Params} from "@angular/router";
 import {TrackService} from "../track.service";
 import {ClientService} from "../../../core/services/client.service";
 import {Role} from "../../models/role";
+import {Site} from "../../models/site";
 
 @Component({
   selector: 'app-affair',
@@ -17,6 +18,7 @@ export class AffairComponent implements OnInit {
   startTime = new Date()
   aid = '';
   roles: Role[] = [];
+  sites: Site[] = [];
   constructor(private http: HttpClient,
               private client: ClientService,
               private ui: UiService,
@@ -30,6 +32,7 @@ export class AffairComponent implements OnInit {
       this.aid = params.id;
       await this.getAffair();
       this.getRoles();
+      this.getSites();
     });
   }
 
@@ -39,6 +42,17 @@ export class AffairComponent implements OnInit {
         this.roles = [];
         for (const r of list) {
           this.roles.push(new Role(r))
+        }
+      }
+    })
+  }
+
+  getSites() {
+    this.client.get('project/site/sites', {pid: this.affair.pid}).then((list: any) => {
+      if (list && list.length) {
+        this.sites = [];
+        for (const s of list) {
+          this.sites.push(new Site(s))
         }
       }
     })
@@ -107,6 +121,12 @@ export class AffairComponent implements OnInit {
   }
 
   onOtherRoleChange() {
-    console.log(this.affair)
+    const {id, otherRoles} = this.affair;
+    this.client.post('project/affair/update', {id, otherRoles});
+  }
+
+  onSiteChange() {
+    const {id, site} = this.affair;
+    this.client.post('project/affair/update', {id, site});
   }
 }

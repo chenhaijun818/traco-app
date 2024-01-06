@@ -23,12 +23,9 @@
 </div>
 <div class="item">
   <div class="key">发生地点：</div>
-  <nz-input-group nzSearch nzSize="default" [nzAddOnAfter]="siteButton">
-    <input type="text" nz-input placeholder="请输入" [(ngModel)]="affair.site" (keyup.enter)="updateSite()"/>
-  </nz-input-group>
-  <ng-template #siteButton>
-    <button nz-button nzType="primary" nzSize="small" nzSearch (click)="updateSite()">确认</button>
-  </ng-template>
+  <nz-select [(ngModel)]="affair.site" (ngModelChange)="onSiteChange()">
+    <nz-option *ngFor="let site of sites;" [nzLabel]="site.name" [nzValue]="site.id"></nz-option>
+  </nz-select>
 </div>
 <div class="item">
   <div class="key">主要角色：</div>
