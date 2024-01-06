@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {ActivatedRoute} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import {HttpClient} from "@angular/common/http";
 import {Project} from "../models/project";
 import {UiService} from "../../core/services/ui.service";
@@ -22,6 +22,7 @@ export class TrackComponent implements OnInit {
   pid = '';
 
   constructor(private route: ActivatedRoute,
+              private router: Router,
               private http: HttpClient,
               private ui: UiService,
               private trackService: TrackService) {
@@ -46,6 +47,14 @@ export class TrackComponent implements OnInit {
       affair.content = a.content;
       affair.site = a.site;
       affair.roles = a.roles;
+    });
+    // 监听事件删除事件
+    this.trackService.deleteAffairSubject.subscribe((a: Affair) => {
+      this.affairs = this.affairs.filter(affair => affair.id !== a.id);
+      const track = this.trackMap.get(a.tid);
+      if (track) {
+        track.affairs = track.affairs.filter(affair => affair.id !== a.id);
+      }
     })
   }
 
@@ -70,6 +79,7 @@ export class TrackComponent implements OnInit {
         const affair = new Affair(res);
         this.trackMap.get(affair.tid)?.affairs.push(affair);
         this.ui.success('新增成功');
+        this.router.navigate(['./', affair.id], {replaceUrl: true, relativeTo: this.route})
       }
     })
   }
@@ -86,11 +96,6 @@ export class TrackComponent implements OnInit {
       }
     })
   }
-
-  selectAffair(a: Affair) {
-    this.selectedAffair = a;
-  }
-
   addTrack() {
     const name = prompt('请输入支线名称');
     if (!name) {
@@ -152,22 +157,6 @@ export class TrackComponent implements OnInit {
   backward(t: Track) {
     console.log(t)
   }
-
-  deleteAffair(affair: any) {
-    const res = confirm('您确定要删除该事件吗？')
-    if (!res) {
-      return
-    }
-    this.http.post('project/affair/delete', {id: affair.id}).subscribe((res: any) => {
-      if (res) {
-        this.ui.success('删除成功');
-        const track: Track | any = this.trackMap.get(affair.tid);
-        track.affairs = track.affairs.filter((a: any) => a.id !== affair.id);
-        this.selectedAffair = undefined;
-      }
-    });
-  }
-
   rename(t: Track) {
     const name = prompt('输入新的名称');
     if (!name) {

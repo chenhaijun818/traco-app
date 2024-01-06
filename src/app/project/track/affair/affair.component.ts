@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {Affair} from "../../models/affair";
 import {HttpClient} from "@angular/common/http";
 import {UiService} from "../../../core/services/ui.service";
-import {ActivatedRoute, Params} from "@angular/router";
+import {ActivatedRoute, Params, Router} from "@angular/router";
 import {TrackService} from "../track.service";
 import {ClientService} from "../../../core/services/client.service";
 import {Role} from "../../models/role";
@@ -23,6 +23,7 @@ export class AffairComponent implements OnInit {
               private client: ClientService,
               private ui: UiService,
               private route: ActivatedRoute,
+              private router: Router,
               private trackService: TrackService) {
   }
 
@@ -65,7 +66,17 @@ export class AffairComponent implements OnInit {
   }
 
   deleteAffair() {
-    // this.deleteEmit.emit(this.affair);
+    const res = confirm('您确定要删除该事件吗？');
+    if (!res) {
+      return;
+    }
+    this.client.post('project/affair/delete', {id: this.affair.id}).then(res => {
+      if (res) {
+        this.ui.success('删除成功');
+        this.trackService.deleteAffairSubject.next(this.affair);
+        this.router.navigate(['../'], {relativeTo: this.route, replaceUrl: true});
+      }
+    })
   }
 
   updateName() {
@@ -102,19 +113,6 @@ export class AffairComponent implements OnInit {
       })
     }
   }
-
-  updateSite() {
-    if (this.affair.site) {
-      const {id, site} = this.affair;
-      this.http.post('project/affair/update', {id, site}).subscribe((res: any) => {
-        if (res) {
-          this.ui.success('修改成功')
-          this.trackService.affairSubject.next(this.affair)
-        }
-      })
-    }
-  }
-
   onRoleChange() {
     const {id, roles} = this.affair;
     this.client.post('project/affair/update', {id, roles});

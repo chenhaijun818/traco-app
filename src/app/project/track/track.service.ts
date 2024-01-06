@@ -9,6 +9,7 @@ import {Affair} from "../models/affair";
 export class TrackService {
   trackSubject: Subject<Track> = new Subject();
   affairSubject: Subject<Affair> = new Subject();
+  deleteAffairSubject: Subject<Affair> = new Subject();
   constructor() {
   }
 }
