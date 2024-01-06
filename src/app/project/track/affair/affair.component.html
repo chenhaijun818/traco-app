@@ -1,44 +1,57 @@
-  <div class="item">
-    <div class="key">事件名称：</div>
-    <nz-input-group nzSearch nzSize="default" [nzAddOnAfter]="nameButton">
-      <input type="text" nz-input placeholder="请输入" [(ngModel)]="affair.name" (keyup.enter)="updateName()"/>
-    </nz-input-group>
-    <ng-template #nameButton>
-      <button nz-button nzType="primary" nzSize="small" nzSearch (click)="updateName()">确认</button>
-    </ng-template>
-  </div>
-  <div class="item">
-    <div class="key">开始时间：</div>
-    <nz-date-picker
-      nzShowTime
-      nzFormat="yyyy-MM-dd HH:mm:ss"
-      (nzOnOk)="updateTime($event)"
-      [(ngModel)]="affair.startTime"
-    ></nz-date-picker>
-  </div>
-  <div class="item">
-    <div class="key">事件经过：</div>
-    <textarea nz-input name="content" [(ngModel)]="affair.content" [nzAutosize]="{ minRows: 6, maxRows: 20 }"></textarea>
-    <button nz-button nzSize="small" nzType="primary" (click)="updateContent()">确认</button>
-  </div>
-  <div class="item">
-    <div class="key">发生地点：</div>
-    <nz-input-group nzSearch nzSize="default" [nzAddOnAfter]="siteButton">
-      <input type="text" nz-input placeholder="请输入" [(ngModel)]="affair.site" (keyup.enter)="updateSite()"/>
-    </nz-input-group>
-    <ng-template #siteButton>
-      <button nz-button nzType="primary" nzSize="small" nzSearch (click)="updateSite()">确认</button>
-    </ng-template>
-  </div>
-  <div class="item">
-    <div class="key">参与角色：</div>
-    <nz-input-group nzSearch nzSize="default" [nzAddOnAfter]="roleButton">
-      <input type="text" nz-input placeholder="请输入" [(ngModel)]="affair.roles" (keyup.enter)="updateRoles()"/>
-    </nz-input-group>
-    <ng-template #roleButton>
-      <button nz-button nzType="primary" nzSize="small" nzSearch (click)="updateRoles()">确认</button>
-    </ng-template>
-  </div>
-  <div class="buttons">
-    <button nz-button nzDanger (click)="deleteAffair()" nzSize="small">删除事件</button>
-  </div>
+<div class="item">
+  <div class="key">事件名称：</div>
+  <nz-input-group nzSearch nzSize="default" [nzAddOnAfter]="nameButton">
+    <input type="text" nz-input placeholder="请输入" [(ngModel)]="affair.name" (keyup.enter)="updateName()"/>
+  </nz-input-group>
+  <ng-template #nameButton>
+    <button nz-button nzType="primary" nzSize="small" nzSearch (click)="updateName()">确认</button>
+  </ng-template>
+</div>
+<div class="item">
+  <div class="key">开始时间：</div>
+  <nz-date-picker
+    nzShowTime
+    nzFormat="yyyy-MM-dd HH:mm:ss"
+    (nzOnOk)="updateTime($event)"
+    [(ngModel)]="affair.startTime"
+  ></nz-date-picker>
+</div>
+<div class="item">
+  <div class="key">事件经过：</div>
+  <textarea nz-input name="content" [(ngModel)]="affair.content" [nzAutosize]="{ minRows: 6, maxRows: 20 }"></textarea>
+  <button nz-button nzSize="small" nzType="primary" (click)="updateContent()">确认</button>
+</div>
+<div class="item">
+  <div class="key">发生地点：</div>
+  <nz-input-group nzSearch nzSize="default" [nzAddOnAfter]="siteButton">
+    <input type="text" nz-input placeholder="请输入" [(ngModel)]="affair.site" (keyup.enter)="updateSite()"/>
+  </nz-input-group>
+  <ng-template #siteButton>
+    <button nz-button nzType="primary" nzSize="small" nzSearch (click)="updateSite()">确认</button>
+  </ng-template>
+</div>
+<div class="item">
+  <div class="key">主要角色：</div>
+  <nz-select
+    [(ngModel)]="affair.roles"
+    (ngModelChange)="onRoleChange()"
+    nzMode="multiple"
+    [nzMaxTagCount]="2"
+    nzPlaceHolder="请选择角色">
+    <nz-option *ngFor="let r of roles;" [nzLabel]="r.name" [nzValue]="r.id"></nz-option>
+  </nz-select>
+</div>
+<div class="item">
+  <div class="key">其他角色：</div>
+  <nz-select
+    [(ngModel)]="affair.otherRoles"
+    (ngModelChange)="onOtherRoleChange()"
+    nzMode="multiple"
+    [nzMaxTagCount]="2"
+    nzPlaceHolder="请选择角色">
+    <nz-option *ngFor="let r of roles;" [nzLabel]="r.name" [nzValue]="r.id"></nz-option>
+  </nz-select>
+</div>
+<div class="buttons">
+  <button nz-button nzDanger (click)="deleteAffair()" nzSize="small">删除事件</button>
+</div>

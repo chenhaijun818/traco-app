@@ -4,6 +4,8 @@ import {HttpClient} from "@angular/common/http";
 import {UiService} from "../../../core/services/ui.service";
 import {ActivatedRoute, Params} from "@angular/router";
 import {TrackService} from "../track.service";
+import {ClientService} from "../../../core/services/client.service";
+import {Role} from "../../models/role";
 
 @Component({
   selector: 'app-affair',
@@ -14,8 +16,9 @@ export class AffairComponent implements OnInit {
   affair = new Affair({})
   startTime = new Date()
   aid = '';
-
+  roles: Role[] = [];
   constructor(private http: HttpClient,
+              private client: ClientService,
               private ui: UiService,
               private route: ActivatedRoute,
               private trackService: TrackService) {
@@ -23,17 +26,27 @@ export class AffairComponent implements OnInit {
 
   ngOnInit(): void {
     // 监听路由变化
-    this.route.params.subscribe((params: Params | any) => {
+    this.route.params.subscribe(async (params: Params | any) => {
       this.aid = params.id;
-      this.getAffair();
+      await this.getAffair();
+      this.getRoles();
     });
   }
 
-  getAffair() {
-    this.http.get(`project/affair/${this.aid}`).subscribe((res: any) => {
-      if (res) {
-        this.affair = new Affair(res);
+  getRoles() {
+    this.client.get('project/role/roles', {pid: this.affair.pid}).then((list: any) => {
+      if (list && list.length) {
+        this.roles = [];
+        for (const r of list) {
+          this.roles.push(new Role(r))
+        }
       }
+    })
+  }
+
+  getAffair() {
+    return this.client.get(`project/affair/${this.aid}`).then(res => {
+      this.affair = new Affair(res);
     })
   }
 
@@ -88,15 +101,12 @@ export class AffairComponent implements OnInit {
     }
   }
 
-  updateRoles() {
-    if (this.affair.roles) {
-      const {id, roles} = this.affair;
-      this.http.post('project/affair/update', {id, roles}).subscribe((res: any) => {
-        if (res) {
-          this.ui.success('修改成功')
-          this.trackService.affairSubject.next(this.affair)
-        }
-      })
-    }
+  onRoleChange() {
+    const {id, roles} = this.affair;
+    this.client.post('project/affair/update', {id, roles});
+  }
+
+  onOtherRoleChange() {
+    console.log(this.affair)
   }
 }
