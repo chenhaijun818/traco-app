@@ -20,6 +20,19 @@ ul, ol {
 }
 
 // 重写timeline组件样式
+.ant-timeline {
+  margin-top: 10px;
+}
 .ant-timeline-item {
   padding-bottom: 10px;
+}
+
+::-webkit-scrollbar {
+  width: 2px;
+  height: 5px;
+}
+
+::-webkit-scrollbar-thumb {
+  border-radius: 2px;
+  background-color: #ccc;
 }

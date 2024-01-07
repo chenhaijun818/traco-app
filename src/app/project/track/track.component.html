@@ -7,41 +7,41 @@
           <span nz-icon nzType="menu"></span>
         </a>
       </div>
-      <nz-timeline class="timeline">
-        <nz-timeline-item *ngFor="let a of t.affairs">
-          <div class="affair" [routerLink]="['./', a.id]" replaceUrl>
-            <span>{{a.name}}</span>
-            <span class="date">{{a.startTime | date: 'MM-dd'}}</span>
-          </div>
-        </nz-timeline-item>
-      </nz-timeline>
+      <div class="timeline">
+        <nz-timeline>
+          <nz-timeline-item *ngFor="let a of t.affairs">
+            <div class="affair" [routerLink]="['./', a.id]" replaceUrl>
+              <span>{{ a.name }}</span>
+              <span class="date">{{ a.startTime | date: 'MM-dd' }}</span>
+            </div>
+          </nz-timeline-item>
+        </nz-timeline>
+      </div>
       <nz-dropdown-menu #affairMenu>
         <ul nz-menu>
           <li nz-menu-item (click)="addAffair(t)">新增事件</li>
           <li nz-menu-item (click)="visibility(t)">隐藏支线</li>
           <li nz-menu-item (click)="rename(t)">修改名称</li>
           <li nz-menu-item (click)="deleteTrack(t)">删除支线</li>
-          <!--          <li nz-menu-item (click)="forward(t)">前移一位</li>-->
-          <!--          <li nz-menu-item (click)="backward(t)">后移一位</li>-->
         </ul>
       </nz-dropdown-menu>
     </div>
     <button nz-dropdown nzTrigger="click" [nzDropdownMenu]="menu" class="menu-button" nz-button nzType="default" nzSize="small">
       <span nz-icon nzType="menu" nzTheme="outline"></span>
     </button>
-    <nz-dropdown-menu #menu>
-      <ul nz-menu>
-        <li nz-menu-item (click)="addTrack()">新增支线</li>
-        <li nz-menu-item>
-          <a [routerLink]="['./list']">所有支线</a>
-        </li>
-      </ul>
-    </nz-dropdown-menu>
   </nz-content>
   <nz-sider class="detail" nzTheme="light" nzWidth="300px">
     <router-outlet></router-outlet>
   </nz-sider>
 </nz-layout>
+<nz-dropdown-menu #menu>
+  <ul nz-menu>
+    <li nz-menu-item (click)="addTrack()">新增支线</li>
+    <li nz-menu-item>
+      <a [routerLink]="['./list']">所有支线</a>
+    </li>
+  </ul>
+</nz-dropdown-menu>
 
 
 
