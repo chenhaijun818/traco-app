@@ -10,7 +10,7 @@ import {User} from "./core/models/user";
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
-  title = 'comiic-app';
+  title = 'traco-app';
 
   constructor(private router: Router,
               private http: HttpClient,
