@@ -1,4 +1,3 @@
-
 export class Affair {
   id: string;
   name: string;
@@ -10,7 +9,9 @@ export class Affair {
   site: string;
   roles: string[];
   otherRoles: string[];
-  order: number;
+  sort: number;
+  done: boolean;
+
   constructor(data: any) {
     this.id = data._id;
     this.pid = data.pid;
@@ -22,6 +23,7 @@ export class Affair {
     this.site = data.site || '';
     this.roles = data.roles || [];
     this.otherRoles = data.otherRoles || [];
-    this.order = data.order;
+    this.sort = data.sort;
+    this.done = data.done;
   }
 }
