@@ -18,7 +18,6 @@ export class TrackComponent implements OnInit {
   tracks: Track[] = [];
   trackMap: Map<string, Track> = new Map();
   affairs: Affair[] = [];
-  selectedAffair?: Affair;
   pid = '';
 
   constructor(private route: ActivatedRoute,
@@ -65,18 +64,24 @@ export class TrackComponent implements OnInit {
   }
 
   // 新增一个事件
-  addAffair(t: Track) {
+  addAffair(tid: string) {
     const name = prompt('输入事件名称');
     if (!name) {
       return;
     }
+    const lastAffair = this.affairs[this.affairs.length - 1];
+    let sort = 100;
+    if (lastAffair && lastAffair.sort) {
+      sort = lastAffair.sort + 100;
+    }
     const content = '暂时没有内容';
     const startTime = this.project.baseTime;
     this.http.post('project/affair/add', {
-      pid: this.pid, name, tid: t.id, content, startTime
+      pid: this.pid, name, sort, tid, content, startTime
     }).subscribe(res => {
       if (res) {
         const affair = new Affair(res);
+        this.affairs.push(affair);
         this.trackMap.get(affair.tid)?.affairs.push(affair);
         this.ui.success('新增成功');
         this.router.navigate(['./', affair.id], {replaceUrl: true, relativeTo: this.route})
@@ -87,12 +92,13 @@ export class TrackComponent implements OnInit {
   getAffairs() {
     this.http.get('project/affair/list', {params: {pid: this.pid}}).subscribe((res: any) => {
       if (res && res.list) {
-        this.affairs = [];
-        res.list.forEach((a: any) => {
-          const affair = new Affair(a);
-          this.affairs.push(affair);
+        this.affairs = res.list.map((a: any) => new Affair(a));
+        this.affairs.sort((a: Affair, b: Affair) => {
+          return a.sort - b.sort;
+        });
+        for (const affair of this.affairs) {
           this.trackMap.get(affair.tid)?.affairs.push(affair)
-        })
+        }
       }
     })
   }

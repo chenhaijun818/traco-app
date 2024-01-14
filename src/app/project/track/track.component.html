@@ -1,5 +1,23 @@
 <nz-layout class="layout">
   <nz-content class="content">
+    <div class="track">
+      <div class="track-header">
+        <span>主线</span>
+        <button nz-button nzSize="small" nzType="text" (click)="addAffair('main')">+</button>
+        <!--        <a nz-button nzType="link">+</a>-->
+      </div>
+      <div class="timeline">
+        <nz-timeline>
+          <nz-timeline-item *ngFor="let a of affairs">
+            <div class="affair" [routerLink]="['./', a.id]" replaceUrl>
+              <span>{{ a.name }}</span>
+              <span class="date">{{ a.startTime | date: 'MM-dd' }}</span>
+            </div>
+          </nz-timeline-item>
+        </nz-timeline>
+      </div>
+
+    </div>
     <div class="track" *ngFor="let t of tracks | filter: {visible: true}">
       <div class="track-header">
         <span>{{ t.name }}</span>
@@ -19,7 +37,7 @@
       </div>
       <nz-dropdown-menu #affairMenu>
         <ul nz-menu>
-          <li nz-menu-item (click)="addAffair(t)">新增事件</li>
+          <li nz-menu-item (click)="addAffair(t.id)">新增事件</li>
           <li nz-menu-item (click)="visibility(t)">隐藏支线</li>
           <li nz-menu-item (click)="rename(t)">修改名称</li>
           <li nz-menu-item (click)="deleteTrack(t)">删除支线</li>
