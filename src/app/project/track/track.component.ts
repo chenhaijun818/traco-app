@@ -20,6 +20,7 @@ export class TrackComponent implements OnInit {
   affairs: Affair[] = [];
   pid = '';
 
+  endAffair: Affair | null = null;
   constructor(private route: ActivatedRoute,
               private router: Router,
               private http: HttpClient,
@@ -174,5 +175,45 @@ export class TrackComponent implements OnInit {
         t.name = name;
       }
     })
+  }
+
+  dragLeave(a: Affair) {
+    console.log('leave');
+    a.cssActive = false;
+  }
+
+  dragEnter(a: Affair) {
+    this.endAffair = a;
+  }
+
+  dragEnd(a: Affair) {
+    if (!this.endAffair) {
+      return;
+    }
+    const nextAffair = this.endAffair;
+    let newSort = 0;
+    const nextIndex = this.affairs.findIndex(a => a === nextAffair);
+    if (nextIndex) {
+      const preAffair = this.affairs[nextIndex - 1];
+      newSort = nextAffair.sort - (nextAffair.sort - preAffair.sort) / 2;
+    } else {
+      newSort = nextAffair.sort / 2;
+    }
+
+    this.http.post('project/affair/update', {id: a.id, sort: newSort}).subscribe(() => {
+      a.sort = newSort;
+      this.affairs.sort((a: Affair, b: Affair) => {
+        return a.sort - b.sort;
+      });
+      for (const track of this.tracks) {
+        track.affairs.sort((a: Affair, b: Affair) => {
+          return a.sort - b.sort;
+        });
+      }
+    })
+  }
+
+  show(a: Affair) {
+    console.log(a.sort)
   }
 }

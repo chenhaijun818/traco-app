@@ -4,19 +4,25 @@
       <div class="track-header">
         <span>主线</span>
         <button nz-button nzSize="small" nzType="text" (click)="addAffair('main')">+</button>
-        <!--        <a nz-button nzType="link">+</a>-->
       </div>
-      <div class="timeline">
-        <nz-timeline>
-          <nz-timeline-item *ngFor="let a of affairs">
-            <div class="affair" [routerLink]="['./', a.id]" replaceUrl>
-              <span>{{ a.name }}</span>
-              <span class="date">{{ a.startTime | date: 'MM-dd' }}</span>
-            </div>
-          </nz-timeline-item>
-        </nz-timeline>
+      <div class="list">
+        <div class="affair" *ngFor="let a of affairs"
+             [routerLink]="['./', a.id]"
+             draggable="true"
+             (dragenter)="dragEnter(a)"
+             (dragend)="dragEnd(a)"
+             (click)="show(a)"
+        >
+          <div class="name">
+            {{ a.name }}
+            <span *ngIf="a.cssActive">active</span>
+          </div>
+          <div class="info">
+            <div class="time">{{ a.startTime | date: 'MM-dd' }}</div>
+            <div class="roles">{{ a.roles }}</div>
+          </div>
+        </div>
       </div>
-
     </div>
     <div class="track" *ngFor="let t of tracks | filter: {visible: true}">
       <div class="track-header">
@@ -25,15 +31,18 @@
           <span nz-icon nzType="menu"></span>
         </a>
       </div>
-      <div class="timeline">
-        <nz-timeline>
-          <nz-timeline-item *ngFor="let a of t.affairs">
-            <div class="affair" [routerLink]="['./', a.id]" replaceUrl>
-              <span>{{ a.name }}</span>
-              <span class="date">{{ a.startTime | date: 'MM-dd' }}</span>
-            </div>
-          </nz-timeline-item>
-        </nz-timeline>
+      <div class="list">
+        <div class="affair" *ngFor="let a of t.affairs"
+             draggable="true"
+             (dragenter)="dragEnter(a)"
+             (dragend)="dragEnd(a)"
+             [routerLink]="['./', a.id]">
+          <div class="name">{{ a.name }}</div>
+          <div class="info">
+            <div class="time">{{ a.startTime | date: 'MM-dd' }}</div>
+            <div class="roles">{{ a.roles }}</div>
+          </div>
+        </div>
       </div>
       <nz-dropdown-menu #affairMenu>
         <ul nz-menu>
@@ -44,7 +53,8 @@
         </ul>
       </nz-dropdown-menu>
     </div>
-    <button nz-dropdown nzTrigger="click" [nzDropdownMenu]="menu" class="menu-button" nz-button nzType="default" nzSize="small">
+    <button nz-dropdown nzTrigger="click" [nzDropdownMenu]="menu" class="menu-button" nz-button nzType="default"
+            nzSize="small">
       <span nz-icon nzType="menu" nzTheme="outline"></span>
     </button>
   </nz-content>

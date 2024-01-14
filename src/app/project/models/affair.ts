@@ -11,6 +11,7 @@ export class Affair {
   otherRoles: string[];
   sort: number;
   done: boolean;
+  cssActive: boolean = false;
 
   constructor(data: any) {
     this.id = data._id;
