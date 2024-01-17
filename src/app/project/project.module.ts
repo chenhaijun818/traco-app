@@ -33,6 +33,7 @@ import {CoreModule} from "../core/core.module";
 import {NzTableModule} from "ng-zorro-antd/table";
 import {TrackModule} from "./track/track.module";
 import {RoleModule} from './role/role.module';
+import {ProjectService} from "./project.service";
 
 @NgModule({
   declarations: [
@@ -72,7 +73,8 @@ import {RoleModule} from './role/role.module';
     NzTableModule,
     TrackModule,
     RoleModule
-  ]
+  ],
+  providers: [ProjectService]
 })
 export class ProjectModule {
   name = 'project'

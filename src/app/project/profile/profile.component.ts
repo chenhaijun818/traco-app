@@ -4,6 +4,7 @@ import {ActivatedRoute} from '@angular/router';
 import {Project} from '../models/project';
 import {UiService} from 'src/app/core/services/ui.service';
 import {CompatibleDate} from "ng-zorro-antd/date-picker";
+import {ProjectService} from "../project.service";
 
 @Component({
   selector: 'app-profile',
@@ -14,7 +15,10 @@ export class ProfileComponent implements OnInit {
   project: Project = new Project({});
   pid = '';
 
-  constructor(private route: ActivatedRoute, private http: HttpClient, private ui: UiService) {
+  constructor(private route: ActivatedRoute,
+              private http: HttpClient,
+              private ui: UiService,
+              public ps: ProjectService) {
   }
 
   ngOnInit(): void {

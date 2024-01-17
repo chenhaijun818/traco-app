@@ -11,7 +11,6 @@
              draggable="true"
              (dragenter)="dragEnter(a)"
              (dragend)="dragEnd(a)"
-             (click)="show(a)"
         >
           <div class="name">
             {{ a.name }}
@@ -19,7 +18,8 @@
           </div>
           <div class="info">
             <div class="time">{{ a.startTime | date: 'MM-dd' }}</div>
-            <div class="roles">{{ a.roles }}</div>
+            <div class="roles">{{ a.rolesName }}</div>
+            <div class="site" *ngIf="!a.roles.length">{{ a.siteName }}</div>
           </div>
         </div>
       </div>
@@ -40,7 +40,8 @@
           <div class="name">{{ a.name }}</div>
           <div class="info">
             <div class="time">{{ a.startTime | date: 'MM-dd' }}</div>
-            <div class="roles">{{ a.roles }}</div>
+            <div class="roles">{{ a.rolesName }}</div>
+            <div class="site" *ngIf="!a.roles.length">{{ a.siteName }}</div>
           </div>
         </div>
       </div>

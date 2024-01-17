@@ -11,6 +11,9 @@ export class Affair {
   otherRoles: string[];
   sort: number;
   done: boolean;
+
+  rolesName: string | any = '';
+  siteName: string | any = '';
   cssActive: boolean = false;
 
   constructor(data: any) {

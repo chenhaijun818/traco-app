@@ -7,6 +7,7 @@ import {Affair} from "../models/affair";
 import {Track} from "../models/track";
 import {firstValueFrom} from "rxjs";
 import {TrackService} from "./track.service";
+import {ProjectService} from "../project.service";
 
 @Component({
   selector: 'app-track',
@@ -25,7 +26,8 @@ export class TrackComponent implements OnInit {
               private router: Router,
               private http: HttpClient,
               private ui: UiService,
-              private trackService: TrackService) {
+              private trackService: TrackService,
+              private ps: ProjectService) {
   }
 
   async ngOnInit() {
@@ -91,9 +93,13 @@ export class TrackComponent implements OnInit {
   }
 
   getAffairs() {
-    this.http.get('project/affair/list', {params: {pid: this.pid}}).subscribe((res: any) => {
-      if (res && res.list) {
-        this.affairs = res.list.map((a: any) => new Affair(a));
+    this.http.get('project/affair/affairs', {params: {pid: this.pid}}).subscribe((res: any) => {
+      if (res) {
+        this.affairs = res.map((a: any) => new Affair(a));
+        this.affairs.forEach(affair => {
+          affair.rolesName = affair.roles.map(rid => this.ps.roleMap.get(rid)?.name)
+          affair.siteName = this.ps.siteMap.get(affair.site)?.name
+        })
         this.affairs.sort((a: Affair, b: Affair) => {
           return a.sort - b.sort;
         });
@@ -156,14 +162,6 @@ export class TrackComponent implements OnInit {
       }
     })
   }
-
-  forward(t: Track) {
-    console.log(t)
-  }
-
-  backward(t: Track) {
-    console.log(t)
-  }
   rename(t: Track) {
     const name = prompt('输入新的名称');
     if (!name) {
@@ -176,12 +174,6 @@ export class TrackComponent implements OnInit {
       }
     })
   }
-
-  dragLeave(a: Affair) {
-    console.log('leave');
-    a.cssActive = false;
-  }
-
   dragEnter(a: Affair) {
     this.endAffair = a;
   }
@@ -211,9 +203,5 @@ export class TrackComponent implements OnInit {
         });
       }
     })
-  }
-
-  show(a: Affair) {
-    console.log(a.sort)
   }
 }
