@@ -39,13 +39,27 @@ export class RolePanelComponent implements OnInit {
 
   submit(key: string) {
     const value = this.values[key];
+    const params: any = {id: this.role.id};
     if (!value) {
       return;
     }
-    this.http.post('project/role/update', {[key]: value, id: this.role.id}).subscribe((res: any) => {
+    params[key] = value;
+    if (key === 'gender') {
+      const avatar = this.role.avatar.split('/').pop();
+      if (value === 1 && avatar === 'role-female.jpg') {
+        params.avatar = 'https://traco-oss.oss-cn-hangzhou.aliyuncs.com/avatars/role-male.jpg'
+      }
+      if (value === 2 && avatar === 'role-male.jpg') {
+        params.avatar = 'https://traco-oss.oss-cn-hangzhou.aliyuncs.com/avatars/role-male.jpg'
+      }
+    }
+    this.http.post('project/role/update', params).subscribe((res: any) => {
       if (res) {
         this.ui.success('修改成功');
         this.role[key] = value;
+        if (params.avatar) {
+          this.role.avatar = params.avatar;
+        }
       }
     })
   }
