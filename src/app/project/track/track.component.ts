@@ -70,7 +70,12 @@ export class TrackComponent implements OnInit {
   }
 
   // 新增一个事件
-  addAffair(tid: string) {
+  addAffair(track?: Track) {
+    const tid = track?.id || 'main';
+    const roles = [];
+    if (track?.rid) {
+      roles.push(track.rid);
+    }
     const name = prompt('输入事件名称');
     if (!name) {
       return;
@@ -83,7 +88,7 @@ export class TrackComponent implements OnInit {
     const content = '暂时没有内容';
     const startTime = this.project.baseTime;
     this.http.post('project/affair/add', {
-      pid: this.pid, name, sort, tid, content, startTime
+      pid: this.pid, name, sort, tid, content, startTime, roles
     }).subscribe(res => {
       if (res) {
         const affair = new Affair(res);

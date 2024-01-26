@@ -23,7 +23,10 @@
 </div>
 <div class="item">
   <div class="key">发生地点：</div>
-  <nz-select [(ngModel)]="affair.site" (ngModelChange)="onSiteChange()">
+  <nz-select
+    [(ngModel)]="affair.site"
+    (ngModelChange)="onSiteChange()"
+    nzPlaceHolder="请选择地点">
     <nz-option *ngFor="let site of sites;" [nzLabel]="site.name" [nzValue]="site.id"></nz-option>
   </nz-select>
 </div>

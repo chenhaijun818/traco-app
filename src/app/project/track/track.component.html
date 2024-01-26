@@ -3,7 +3,7 @@
     <div class="track">
       <div class="track-header">
         <span>主线</span>
-        <button nz-button nzSize="small" nzType="text" (click)="addAffair('main')">+</button>
+        <button nz-button nzSize="small" nzType="text" (click)="addAffair()">+</button>
       </div>
       <div class="affairs">
         <div class="affair" *ngFor="let a of affairs"
@@ -47,7 +47,7 @@
       </div>
       <nz-dropdown-menu #affairMenu>
         <ul nz-menu>
-          <li nz-menu-item (click)="addAffair(t.id)">新增事件</li>
+          <li nz-menu-item (click)="addAffair(t)">新增事件</li>
           <li nz-menu-item (click)="visibility(t)">隐藏支线</li>
           <li nz-menu-item (click)="rename(t)">修改名称</li>
           <li nz-menu-item (click)="deleteTrack(t)">删除支线</li>
