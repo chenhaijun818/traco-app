@@ -8,6 +8,7 @@ import {Track} from "../models/track";
 import {firstValueFrom} from "rxjs";
 import {TrackService} from "./track.service";
 import {ProjectService} from "../project.service";
+import {Role} from "../models/role";
 
 @Component({
   selector: 'app-track',
@@ -19,6 +20,7 @@ export class TrackComponent implements OnInit {
   tracks: Track[] = [];
   trackMap: Map<string, Track> = new Map();
   affairs: Affair[] = [];
+  roles: Role[] = [];
   pid = '';
 
   endAffair: Affair | null = null;
@@ -36,6 +38,7 @@ export class TrackComponent implements OnInit {
     this.getProject();
     await this.getTracks();
     this.getAffairs();
+    this.getRoles();
     // 监听子路由支线信息的变化
     this.trackService.trackSubject.subscribe((t: Track) => {
       const track: Track | any = this.trackMap.get(t.id);
@@ -109,12 +112,18 @@ export class TrackComponent implements OnInit {
       }
     })
   }
-  addTrack() {
-    const name = prompt('请输入支线名称');
+
+  addTrack(role?: Role) {
+    let name: any;
+    if (role) {
+      name = role.name;
+    } else {
+      name = prompt('请输入支线名称');
+    }
     if (!name) {
       return
     }
-    this.http.post('project/track/add', {name, pid: this.pid}).subscribe((res: any) => {
+    this.http.post('project/track/add', {name, pid: this.pid, rid: role?.id}).subscribe((res: any) => {
       if (res) {
         const track = new Track(res);
         this.tracks.push(track);
@@ -201,6 +210,16 @@ export class TrackComponent implements OnInit {
         track.affairs.sort((a: Affair, b: Affair) => {
           return a.sort - b.sort;
         });
+      }
+    })
+  }
+
+  private getRoles() {
+    this.http.get(`project/role/roles?pid=${this.pid}`).subscribe((res: any) => {
+      if (res && res.length) {
+        for (const r of res) {
+          this.roles.push(new Role(r))
+        }
       }
     })
   }

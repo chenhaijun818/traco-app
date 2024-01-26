@@ -1,11 +1,11 @@
-<nz-layout class="layout">
-  <nz-content class="content">
+<div class="layout">
+  <div class="content">
     <div class="track">
       <div class="track-header">
         <span>主线</span>
         <button nz-button nzSize="small" nzType="text" (click)="addAffair('main')">+</button>
       </div>
-      <div class="list">
+      <div class="affairs">
         <div class="affair" *ngFor="let a of affairs"
              [routerLink]="['./', a.id]"
              draggable="true"
@@ -31,7 +31,7 @@
           <span nz-icon nzType="menu"></span>
         </a>
       </div>
-      <div class="list">
+      <div class="affairs">
         <div class="affair" *ngFor="let a of t.affairs"
              draggable="true"
              (dragenter)="dragEnter(a)"
@@ -54,23 +54,26 @@
         </ul>
       </nz-dropdown-menu>
     </div>
-    <button nz-dropdown nzTrigger="click" [nzDropdownMenu]="menu" class="menu-button" nz-button nzType="default"
-            nzSize="small">
+  </div>
+  <div class="buttons">
+    <button nz-button nzSize="small" (click)="addTrack()" title="新增普通支线">
+      <span nz-icon nzType="plus" nzTheme="outline"></span>
+    </button>
+    <button nz-button nz-dropdown [nzDropdownMenu]="roleMenu" nzSize="small" title="新增角色支线" nzTrigger="click">
+      <span nz-icon nzType="user-add" nzTheme="outline"></span>
+    </button>
+    <button nz-button nzSize="small" [routerLink]="['./tracks']" title="显示所有支线">
       <span nz-icon nzType="menu" nzTheme="outline"></span>
     </button>
-  </nz-content>
-  <nz-sider class="detail" nzTheme="light" nzWidth="300px">
+  </div>
+  <div class="affair-detail">
     <router-outlet></router-outlet>
-  </nz-sider>
-</nz-layout>
-<nz-dropdown-menu #menu>
+  </div>
+</div>
+
+<nz-dropdown-menu #roleMenu>
   <ul nz-menu>
-    <li nz-menu-item (click)="addTrack()">新增支线</li>
-    <li nz-menu-item>
-      <a [routerLink]="['./list']">所有支线</a>
-    </li>
+    <li nz-menu-item *ngFor="let role of roles;" (click)="addTrack(role)">{{ role.name }}</li>
   </ul>
 </nz-dropdown-menu>
-
-
 

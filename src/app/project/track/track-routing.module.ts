@@ -5,7 +5,7 @@ import {AffairComponent} from "./affair/affair.component";
 
 const routes: Routes = [
   {
-    path: 'list',
+    path: 'tracks',
     component: ListComponent
   }, {
     path: ':id',

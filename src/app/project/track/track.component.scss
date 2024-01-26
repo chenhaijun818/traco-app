@@ -5,12 +5,14 @@
   .layout {
     height: 100%;
     background: #f9f9f9;
+    display: flex;
     .content {
       display: flex;
       padding: 8px;
       position: relative;
       overflow-x: auto;
       background: #999;
+      flex: 1;
       .track {
         margin-right: 8px;
         width: 200px;
@@ -30,7 +32,7 @@
           display: block;
         }
 
-        .list {
+        .affairs {
           padding: 4px;
           .affair {
             background: #fff;
@@ -53,10 +55,22 @@
           }
         }
       }
-      .menu-button {
-        position: absolute;
-        right: 5px;
-        top: 5px;
+
+      //.menu-button {
+      //  position: absolute;
+      //  right: 5px;
+      //  top: 5px;
+      //}
+    }
+
+    .buttons {
+      padding: 5px;
+      display: flex;
+      flex-direction: column;
+      background: #fff;
+
+      button {
+        margin-bottom: 5px;
       }
     }
   }
