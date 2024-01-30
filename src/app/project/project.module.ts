@@ -23,16 +23,12 @@ import {NzImageModule} from 'ng-zorro-antd/image';
 import {NzInputModule} from 'ng-zorro-antd/input';
 import {NzTimelineModule} from "ng-zorro-antd/timeline";
 import {NzDatePickerModule} from "ng-zorro-antd/date-picker";
-import {AffairComponent} from './track/affair/affair.component';
 import {NzDropDownModule} from "ng-zorro-antd/dropdown";
 import {NzSegmentedModule} from "ng-zorro-antd/segmented";
 import {NzAvatarModule} from "ng-zorro-antd/avatar";
-import {RolePanelComponent} from './role/role-panel/role-panel.component';
 import {NzSelectModule} from "ng-zorro-antd/select";
 import {CoreModule} from "../core/core.module";
 import {NzTableModule} from "ng-zorro-antd/table";
-import {TrackModule} from "./track/track.module";
-import {RoleModule} from './role/role.module';
 import {ProjectService} from "./project.service";
 
 @NgModule({
@@ -44,9 +40,7 @@ import {ProjectService} from "./project.service";
     IndexComponent,
     SiteComponent,
     ThingComponent,
-    OrganizationComponent,
-    AffairComponent,
-    RolePanelComponent
+    OrganizationComponent
   ],
   imports: [
     CommonModule,
@@ -70,9 +64,7 @@ import {ProjectService} from "./project.service";
     NzAvatarModule,
     NzSelectModule,
     CoreModule,
-    NzTableModule,
-    TrackModule,
-    RoleModule
+    NzTableModule
   ],
   providers: [ProjectService]
 })

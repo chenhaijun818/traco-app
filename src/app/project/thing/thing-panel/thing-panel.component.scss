@@ -1,0 +1,47 @@
+:host {
+  display: block;
+  background: #fff;
+  width: 300px;
+  height: 100%;
+  padding: 10px;
+
+  .avatar {
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    img {
+      width: 80px;
+      height: 80px;
+      border-radius: 4px;
+    }
+  }
+
+  .item {
+    margin-bottom: 8px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    .key {
+      word-break: keep-all;
+    }
+  }
+
+  .item:hover {
+    background: #f9f9f9;
+  }
+
+  .item.textarea {
+    display: block;
+
+    .key {
+      margin-bottom: 4px;
+    }
+
+    button {
+      margin-top: 4px;
+    }
+  }
+}

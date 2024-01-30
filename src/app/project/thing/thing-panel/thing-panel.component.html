@@ -1,0 +1,45 @@
+<div class="avatar" *ngIf="thing">
+  <img nz-image [nzSrc]="values.avatar" [alt]="thing.name">
+  <nz-upload nzAction="upload" [nzShowUploadList]="false" [nzData]="{dir: 'avatars'}" (nzChange)="avatarChange($event)">
+    <button nz-button nzType="primary" nzSize="default">上传图片</button>
+  </nz-upload>
+</div>
+<div class="item">
+  <div class="key">名称：</div>
+  <div class="value">
+    <nz-input-group nzSearch nzSize="default" [nzAddOnAfter]="ageButton">
+      <input type="text" nz-input [(ngModel)]="values.name" placeholder="请输入名称"/>
+    </nz-input-group>
+    <ng-template #ageButton>
+      <button nz-button nzType="primary" nzSize="default" nzSearch (click)="submit('name')">确认</button>
+    </ng-template>
+  </div>
+</div>
+<div class="item">
+  <div class="key">制造者：</div>
+  <div class="value">
+    <nz-input-group nzSearch nzSize="default" [nzAddOnAfter]="ageButton">
+      <input type="text" nz-input [(ngModel)]="values.creator" placeholder="请输入制造者"/>
+    </nz-input-group>
+    <ng-template #ageButton>
+      <button nz-button nzType="primary" nzSize="default" nzSearch (click)="submit('creator')">确认</button>
+    </ng-template>
+  </div>
+</div>
+<div class="item">
+  <div class="key">持有人：</div>
+  <div class="value">
+    <nz-input-group nzSearch nzSize="default" [nzAddOnAfter]="ageButton">
+      <input type="text" nz-input [(ngModel)]="values.owner" placeholder="请输入持有人"/>
+    </nz-input-group>
+    <ng-template #ageButton>
+      <button nz-button nzType="primary" nzSize="default" nzSearch (click)="submit('owner')">确认</button>
+    </ng-template>
+  </div>
+</div>
+<div class="item textarea">
+  <div class="key">物品介绍：</div>
+  <textarea nz-input [(ngModel)]="values.desc" [nzAutosize]="{ minRows: 5, maxRows: 15 }"
+            placeholder="请输入介绍"></textarea>
+  <button nz-button nzType="primary" (click)="submit('desc')">确认</button>
+</div>

@@ -36,7 +36,8 @@ const routes: Routes = [
         component: SiteComponent
       }, {
         path: 'thing',
-        component: ThingComponent
+        component: ThingComponent,
+        loadChildren: () => import('./thing/thing.module').then(m => m.ThingModule)
       }, {
         path: 'organization',
         component: OrganizationComponent

@@ -5,17 +5,21 @@ import {TrackRoutingModule} from './track-routing.module';
 import {ListComponent} from "./list/list.component";
 import {NzSelectModule} from "ng-zorro-antd/select";
 import {FormsModule} from "@angular/forms";
+import {NzInputModule} from "ng-zorro-antd/input";
+import {AffairComponent} from "./affair/affair.component";
 
 
 @NgModule({
   declarations: [
-    ListComponent
+    ListComponent,
+    AffairComponent
   ],
   imports: [
     CommonModule,
     TrackRoutingModule,
     NzSelectModule,
-    FormsModule
+    FormsModule,
+    NzInputModule
   ]
 })
 export class TrackModule {

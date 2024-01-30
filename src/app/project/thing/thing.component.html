@@ -1,1 +1,14 @@
-<p>thing works!</p>
+<div class="things">
+  <div class="panel">
+    <div class="buttons">
+      <button nz-button (click)="addThing()">add thing</button>
+    </div>
+  </div>
+  <div class="list">
+    <div class="thing" *ngFor="let thing of things" [routerLink]="['./', thing.id]">
+      <img [src]="thing.avatar" [alt]="thing.name"/>
+      <div class="name">{{ thing.name }}</div>
+    </div>
+  </div>
+</div>
+<router-outlet></router-outlet>

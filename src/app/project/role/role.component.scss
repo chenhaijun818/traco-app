@@ -16,8 +16,9 @@
       margin-bottom: 10px;
     }
     .list {
-      display: flex;
-      flex: 100px;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, 100px);
+      grid-gap: 10px;
       .role {
         cursor: pointer;
         width: 100px;
