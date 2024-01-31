@@ -5,17 +5,20 @@ import {Affair} from "./models/affair";
 import {Role} from "./models/role";
 import {Site} from "./models/site";
 import {Track} from "./models/track";
+import {Thing} from "./models/thing";
 
 @Injectable()
 export class ProjectService {
   pid: string = '';
-  project: Project | any;
+  project: Project | null = null;
   tracks: Track[] = [];
   trackMap: Map<string, Track> = new Map();
   affairs: Affair[] = [];
   affairMap: Map<string, Affair> = new Map();
   roles: Role[] = [];
   roleMap: Map<string, Role> = new Map();
+  things: Thing[] = [];
+  thingMap: Map<string, Thing> = new Map();
   sites: Site[] = [];
   siteMap: Map<string, Site> = new Map();
 
@@ -37,6 +40,7 @@ export class ProjectService {
     this.getTracks();
     this.getAffairs();
     this.getRoles();
+    this.getThings();
     this.getSites();
   }
 
@@ -72,6 +76,16 @@ export class ProjectService {
         const role = new Role(r);
         this.roles.push(role);
         this.roleMap.set(role.id, role);
+      }
+    });
+  }
+
+  getThings() {
+    this.http.get(`project/thing/things?pid=${this.pid}`).subscribe((res: any) => {
+      for (const t of res) {
+        const thing = new Thing(t);
+        this.things.push(thing);
+        this.thingMap.set(thing.id, thing);
       }
     });
   }

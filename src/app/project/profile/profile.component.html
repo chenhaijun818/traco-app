@@ -1,37 +1,40 @@
-<div class="cover">
-  <div *ngIf="project.name">
-    <img nz-image width="200" height="300" [nzSrc]="project.cover" [alt]="project.name">
-  </div>
-  <nz-upload class="cover-upload" nzAction="upload" (nzChange)="onUpload($event)" [nzShowUploadList]="false"
-             [nzData]="{dir: 'covers'}">
-    <button nz-button nzType="primary">上传封面</button>
-  </nz-upload>
-</div>
+<nz-skeleton *ngIf="!ps.project" [nzAvatar]="true" [nzParagraph]="{ rows: 8 }"></nz-skeleton>
 
-<div class="info">
-  <div class="item">
-    <div class="key">作品名称：</div>
-    <div class="value">
-      <nz-input-group nzSearch nzSize="large" [nzAddOnAfter]="suffixButton">
-        <input type="text" nz-input [(ngModel)]="project.name"/>
-      </nz-input-group>
-      <ng-template #suffixButton>
-        <button nz-button nzType="primary" nzSize="large" nzSearch (click)="submitName()">确认</button>
-      </ng-template>
+<ng-container *ngIf="ps.project">
+  <div class="cover">
+    <img nz-image width="200" height="300" [nzSrc]="ps.project.cover" [alt]="ps.project.name">
+    <nz-upload class="cover-upload" nzAction="upload" (nzChange)="onUpload($event)" [nzShowUploadList]="false"
+               [nzData]="{dir: 'covers'}">
+      <button nz-button nzType="primary">上传封面</button>
+    </nz-upload>
+  </div>
+
+  <div class="info">
+    <div class="item">
+      <div class="key">作品名称：</div>
+      <div class="value">
+        <nz-input-group nzSearch nzSize="large" [nzAddOnAfter]="suffixButton">
+          <input type="text" nz-input [(ngModel)]="ps.project.name"/>
+        </nz-input-group>
+        <ng-template #suffixButton>
+          <button nz-button nzType="primary" nzSize="large" nzSearch (click)="submitName()">确认</button>
+        </ng-template>
+      </div>
+    </div>
+    <div class="item">
+      <div class="key">基准时间：</div>
+      <div class="value">
+        <nz-date-picker nzShowTime (nzOnOk)="updateBaseTime($event)" [(ngModel)]="ps.project.baseTime"></nz-date-picker>
+      </div>
+    </div>
+    <div class="item">
+      <div class="key">作品简介：</div>
+      <textarea nz-input [(ngModel)]="ps.project.desc" [nzAutosize]="{ minRows: 3, maxRows: 5 }"></textarea>
+      <button nz-button nzType="primary" (click)="submitDesc()">确认</button>
+    </div>
+    <div class="buttons">
+      <button nz-button nzDanger (click)="deleteProject()">删除作品</button>
     </div>
   </div>
-  <div class="item">
-    <div class="key">基准时间：</div>
-    <div class="value">
-      <nz-date-picker nzShowTime (nzOnOk)="updateBaseTime($event)" [(ngModel)]="project.baseTime"></nz-date-picker>
-    </div>
-  </div>
-  <div class="item">
-    <div class="key">作品简介：</div>
-    <textarea nz-input [(ngModel)]="project.desc" [nzAutosize]="{ minRows: 3, maxRows: 5 }"></textarea>
-    <button nz-button nzType="primary" (click)="submitDesc()">确认</button>
-  </div>
-  <div class="buttons">
-    <button nz-button nzDanger (click)="deleteProject()">删除作品</button>
-  </div>
-</div>
+
+</ng-container>

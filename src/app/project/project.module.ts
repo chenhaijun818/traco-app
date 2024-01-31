@@ -30,6 +30,7 @@ import {NzSelectModule} from "ng-zorro-antd/select";
 import {CoreModule} from "../core/core.module";
 import {NzTableModule} from "ng-zorro-antd/table";
 import {ProjectService} from "./project.service";
+import {NzSkeletonModule} from "ng-zorro-antd/skeleton";
 
 @NgModule({
   declarations: [
@@ -64,7 +65,8 @@ import {ProjectService} from "./project.service";
     NzAvatarModule,
     NzSelectModule,
     CoreModule,
-    NzTableModule
+    NzTableModule,
+    NzSkeletonModule
   ],
   providers: [ProjectService]
 })
