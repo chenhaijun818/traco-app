@@ -1,12 +1,15 @@
+
 <nz-layout class="layout">
   <nz-content class="content">
     <div class="header">
       <nz-segmented [nzOptions]="options" [(ngModel)]="filter.gender"></nz-segmented>
-      <button nz-button nzSize="small" nz-dropdown [nzDropdownMenu]="menu" nzTrigger="click">
-        <span nz-icon nzType="menu"></span>
+      <button nz-button nzSize="small" nz-dropdown nzTrigger="click" title="新增角色" (click)="addRole()">
+        <span nz-icon nzType="plus"></span>
       </button>
     </div>
-    <div class="list">
+    <nz-skeleton *ngIf="!roles"></nz-skeleton>
+
+    <div class="list" *ngIf="roles">
       <a class="role" *ngFor="let role of (roles | filter: filter);" [routerLink]="['./', role.id]" replaceUrl>
         <img class="avatar" [src]="role.avatar" alt="黎念"/>
         <span class="name">{{ role.name }}</span>
@@ -17,8 +20,4 @@
     <router-outlet></router-outlet>
   </nz-sider>
 </nz-layout>
-<nz-dropdown-menu #menu>
-  <ul nz-menu>
-    <li nz-menu-item (click)="addRole()">新增角色</li>
-  </ul>
-</nz-dropdown-menu>
+

@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {ActivatedRoute, Router} from "@angular/router";
 import {Role} from "../models/role";
+import {ProjectService} from "../project.service";
 
 @Component({
   selector: 'app-role',
@@ -10,21 +11,21 @@ import {Role} from "../models/role";
 })
 export class RoleComponent implements OnInit {
   options = ['全部', '男性', '女性'];
-  roles: Role[] = [];
+  roles?: Role[];
   filter: any = {
     gender: 0
   };
-  pid = '';
 
   constructor(private http: HttpClient,
               private route: ActivatedRoute,
-              private router: Router) {
+              private router: Router,
+              public ps: ProjectService) {
   }
 
   ngOnInit(): void {
-    const parent: ActivatedRoute | any = this.route.parent;
-    this.pid = parent.snapshot.params['id'];
-    this.getRoles();
+    this.ps.roles$.subscribe(roles => {
+      this.roles = roles;
+    })
   }
 
   addRole() {
@@ -32,22 +33,9 @@ export class RoleComponent implements OnInit {
     if (!name) {
       return;
     }
-    this.http.post('project/role/add', {pid: this.pid, name}).subscribe((res: any) => {
-      if (res) {
-        const role = new Role(res);
-        this.roles.push(role);
+    this.ps.addRole({name}).then(role => {
+      if (role) {
         this.router.navigate(['./', role.id], {relativeTo: this.route, replaceUrl: true})
-      }
-    })
-  }
-
-  getRoles() {
-    this.http.get(`project/role/roles?pid=${this.pid}`).subscribe((res: any) => {
-      if (res && res.length) {
-        this.roles = [];
-        res.forEach((r: any) => {
-          this.roles.push(new Role(r));
-        })
       }
     })
   }
