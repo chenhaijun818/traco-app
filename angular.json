@@ -93,10 +93,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "traco-app:build:production"
+              "buildTarget": "traco-app:build:production"
             },
             "development": {
-              "browserTarget": "traco-app:build:development"
+              "buildTarget": "traco-app:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -104,7 +104,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "traco-app:build"
+            "buildTarget": "traco-app:build"
           }
         },
         "test": {
