@@ -18,7 +18,7 @@ import zh from '@angular/common/locales/zh';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {NzMessageModule} from "ng-zorro-antd/message";
 import {NzBackTopModule} from "ng-zorro-antd/back-top";
-import {QuillModule} from "ngx-quill";
+import {EditorModule} from "./editor/editor.module";
 
 registerLocaleData(zh);
 
@@ -35,10 +35,10 @@ registerLocaleData(zh);
     UserModule,
     CoreModule,
     ProjectModule,
+    EditorModule,
     BrowserAnimationsModule,
     NzMessageModule,
-    NzBackTopModule,
-    QuillModule.forRoot()
+    NzBackTopModule
   ],
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: ApiInterceptor, multi: true},

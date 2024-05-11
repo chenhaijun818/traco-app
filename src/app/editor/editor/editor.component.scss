@@ -1,0 +1,18 @@
+:host {
+  display: flex;
+  height: calc(100vh - 80px);
+
+  .chapters {
+    flex: 0 0 200px;
+  }
+
+  .editor {
+    height: 100%;
+    flex: 1;
+  }
+
+  .tools {
+    width: 40px;
+    flex: 0 0 40px;
+  }
+}
