@@ -1,5 +1,15 @@
-<div class="chapters">
-  章节列表
+<div class="catalog">
+  <div *ngFor="let v of volumes" class="volume">
+    <div (dblclick)="updateVolumeName(v)" class="volume-header">
+      <div>{{ v.name }}</div>
+      <div class="buttons">
+        <button (click)="deleteVolume(v)">-</button>
+      </div>
+    </div>
+    <div class="chapter"></div>
+  </div>
+  <button (click)="addVolume()">add volume</button>
+  <button (click)="getVolumes()">get volumes</button>
 </div>
 <quill-editor class="editor" [(ngModel)]="content"></quill-editor>
 <div class="tools">
