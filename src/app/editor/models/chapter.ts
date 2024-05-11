@@ -1,14 +1,14 @@
-import {Chapter} from "./chapter";
-
-export class Volume {
+export class Chapter {
   id: string;
   pid: string;
+  vid: string;
   name: string;
-  chapters: Chapter[] = [];
+  content: string = '';
 
   constructor(data: any) {
     this.id = data._id;
     this.pid = data.pid;
+    this.vid = data.vid;
     this.name = data.name;
   }
 }

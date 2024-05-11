@@ -3,15 +3,19 @@
     <div (dblclick)="updateVolumeName(v)" class="volume-header">
       <div>{{ v.name }}</div>
       <div class="buttons">
-        <button (click)="deleteVolume(v)">-</button>
+        <span nz-icon nzType="plus" nzTheme="outline" (click)="addChapter(v)"></span>
       </div>
     </div>
-    <div class="chapter"></div>
+    <div class="chapter" *ngFor="let c of v.chapters" (click)="selectChapter(c)" (dblclick)="updateChapterName(c)">
+      <div>{{ c.name }}</div>
+      <div class="buttons">
+        <span nz-icon nzType="delete" nzTheme="outline" (click)="deleteChapter(c)"></span>
+      </div>
+    </div>
   </div>
-  <button (click)="addVolume()">add volume</button>
-  <button (click)="getVolumes()">get volumes</button>
 </div>
-<quill-editor class="editor" [(ngModel)]="content"></quill-editor>
+<quill-editor class="editor" *ngIf="selectedChapter" [(ngModel)]="content"></quill-editor>
+<div class="welcome" *ngIf="!selectedChapter">欢迎使用轨纪</div>
 <div class="tools">
-  <button class="save" (click)="save()">保存</button>
+  <button class="save" (click)="save()">s</button>
 </div>

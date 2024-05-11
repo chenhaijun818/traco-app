@@ -2,6 +2,8 @@ import {Component, OnInit} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {Volume} from "../models/volume";
 import {UiService} from "../../core/services/ui.service";
+import {Chapter} from "../models/chapter";
+import {ClientService} from "../../core/services/client.service";
 
 @Component({
   selector: 'app-editor',
@@ -11,14 +13,19 @@ import {UiService} from "../../core/services/ui.service";
 export class EditorComponent implements OnInit {
   content: any = '';
   volumes: Volume[] = [];
+  volumeMap: Map<string, Volume> = new Map();
   pid: string = '658c66d90317ceec65bb8c80';
+  selectedChapter: Chapter | null = null;
 
   constructor(private http: HttpClient,
-              private ui: UiService) {
+              private ui: UiService,
+              private client: ClientService) {
   }
 
   ngOnInit() {
-    this.getVolumes()
+    this.getVolumes().then(() => {
+      this.getChapters()
+    })
   }
 
   // onChange($event: any) {
@@ -37,10 +44,13 @@ export class EditorComponent implements OnInit {
 
   getVolumes() {
     this.volumes = [];
-    this.http.get(`volume/getVolumes?pid=${this.pid}`).subscribe((res: any) => {
+    this.volumeMap.clear();
+    return this.client.get(`volume/getVolumes`, {pid: this.pid}).then((res: any) => {
       if (res && res.length) {
         for (const v of res) {
-          this.volumes.push(new Volume(v))
+          const volume = new Volume(v);
+          this.volumes.push(volume);
+          this.volumeMap.set(volume.id, volume);
         }
       }
     })
@@ -67,6 +77,62 @@ export class EditorComponent implements OnInit {
       if (res) {
         this.ui.success('删除成功')
         this.volumes = this.volumes.filter(volume => volume !== v);
+      }
+    })
+  }
+
+  addChapter(v: Volume) {
+    const name = prompt('请输入章节名');
+    if (!name) {
+      return;
+    }
+    this.http.post('chapter/add', {pid: this.pid, vid: v.id, name}).subscribe(res => {
+      if (res) {
+        v.chapters.push(new Chapter(res))
+      }
+    })
+  }
+
+  getChapters() {
+    this.http.get(`chapter/getChapters?pid=${this.pid}`).subscribe((res: any) => {
+      if (res && res.length) {
+        for (const c of res) {
+          const chapter = new Chapter(c);
+          const volume = this.volumeMap.get(chapter.vid);
+          if (volume) {
+            volume.chapters.push(chapter);
+          }
+        }
+      }
+    })
+  }
+
+  selectChapter(c: Chapter) {
+    this.selectedChapter = c;
+  }
+
+  updateChapterName(c: Chapter) {
+    const name = prompt('请输入新的章节名');
+    if (!name) {
+      return;
+    }
+    this.client.post('chapter/update', {id: c.id, name}).then(res => {
+      if (res) {
+        c.name = name;
+      }
+    })
+  }
+
+  deleteChapter(c: Chapter) {
+    const res = confirm('您确定要删除该章节吗？')
+    if (!res) {
+      return
+    }
+    this.client.post('chapter/delete', {id: c.id}).then(res => {
+      if (res) {
+        this.ui.success('删除成功')
+        const volume = this.volumeMap.get(c.vid);
+        volume!.chapters = volume!.chapters.filter(chapter => chapter !== c)
       }
     })
   }

@@ -1,20 +1,38 @@
 :host {
   display: flex;
   height: calc(100vh - 80px);
+  background: #fff;
 
   .catalog {
+    padding: 10px;
     flex: 0 0 200px;
 
     .volume {
+      margin: 15px 0;
+      cursor: pointer;
       .volume-header {
         display: flex;
+        justify-content: space-between;
+      }
+
+      .chapter {
+        padding-left: 1em;
+        margin: 15px 0;
+        cursor: pointer;
+        display: flex;
+        justify-content: space-between;
       }
     }
   }
 
-  .editor {
+  .editor, .welcome {
     height: 100%;
     flex: 1;
+    background: #eee;
+  }
+
+  .welcome {
+    padding: 10px;
   }
 
   .tools {
