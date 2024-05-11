@@ -33,7 +33,15 @@ export class EditorComponent implements OnInit {
   // }
 
   save() {
-    console.log(this.content)
+    if (!this.selectedChapter || !this.selectedChapter.content) {
+      return;
+    }
+    const {id, content} = this.selectedChapter;
+    this.client.post('chapter/update', {id, content}).then(res => {
+      if (!res) {
+        this.ui.error('保存失败，请稍后重试')
+      }
+    })
   }
 
   addVolume() {
@@ -109,6 +117,11 @@ export class EditorComponent implements OnInit {
 
   selectChapter(c: Chapter) {
     this.selectedChapter = c;
+    this.client.get('chapter/getChapter', {id: c.id}).then((res: any) => {
+      if (res && res.content) {
+        this.selectedChapter!.content = res.content;
+      }
+    })
   }
 
   updateChapterName(c: Chapter) {

@@ -6,7 +6,12 @@
         <span nz-icon nzType="plus" nzTheme="outline" (click)="addChapter(v)"></span>
       </div>
     </div>
-    <div class="chapter" *ngFor="let c of v.chapters" (click)="selectChapter(c)" (dblclick)="updateChapterName(c)">
+    <div class="chapter"
+         *ngFor="let c of v.chapters"
+         (click)="selectChapter(c)"
+         (dblclick)="updateChapterName(c)"
+         [class.selected]="selectedChapter === c"
+    >
       <div>{{ c.name }}</div>
       <div class="buttons">
         <span nz-icon nzType="delete" nzTheme="outline" (click)="deleteChapter(c)"></span>
@@ -14,7 +19,7 @@
     </div>
   </div>
 </div>
-<quill-editor class="editor" *ngIf="selectedChapter" [(ngModel)]="content"></quill-editor>
+<quill-editor class="editor" *ngIf="selectedChapter" [(ngModel)]="selectedChapter.content"></quill-editor>
 <div class="welcome" *ngIf="!selectedChapter">欢迎使用轨纪</div>
 <div class="tools">
   <button class="save" (click)="save()">s</button>

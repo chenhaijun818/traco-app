@@ -18,7 +18,8 @@ import {NzIconModule} from "ng-zorro-antd/icon";
     QuillModule.forRoot({
       modules: {
         toolbar: false
-      }
+      },
+      placeholder: '请输入内容...'
     }),
     FormsModule,
     NzIconModule

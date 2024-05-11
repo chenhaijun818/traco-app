@@ -16,11 +16,15 @@
       }
 
       .chapter {
-        padding-left: 1em;
-        margin: 15px 0;
+        padding: 10px 12px;
+        margin: 5px 0;
         cursor: pointer;
         display: flex;
         justify-content: space-between;
+      }
+
+      .chapter.selected {
+        background: #ccc;
       }
     }
   }
