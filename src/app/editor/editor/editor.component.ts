@@ -12,12 +12,12 @@ import {Editor} from 'ngx-editor';
   styleUrl: './editor.component.scss'
 })
 export class EditorComponent implements OnInit {
-  // content: any = '';
   volumes: Volume[] = [];
   volumeMap: Map<string, Volume> = new Map();
   pid: string = '658c66d90317ceec65bb8c80';
   selectedChapter: Chapter | null = null;
   editor: Editor;
+  autoSaveTimer: any;
 
   constructor(private http: HttpClient,
               private ui: UiService,
@@ -35,8 +35,18 @@ export class EditorComponent implements OnInit {
   }
 
   onChange() {
-    // console.log($event)
-    console.log(this.selectedChapter?.content)
+    if (this.autoSaveTimer) {
+      clearTimeout(this.autoSaveTimer);
+      this.autoSaveTimer = null;
+    }
+    this.autoSaveTimer = setTimeout(() => {
+      const {id, content} = this.selectedChapter!;
+      this.client.post('chapter/update', {id, content}).then(res => {
+        console.log(res)
+        clearTimeout(this.autoSaveTimer);
+        this.autoSaveTimer = null;
+      })
+    }, 2000);
   }
 
   save() {
@@ -126,7 +136,8 @@ export class EditorComponent implements OnInit {
     this.selectedChapter = c;
     this.client.get('chapter/getChapter', {id: c.id}).then((res: any) => {
       if (res && res.content) {
-        this.selectedChapter!.content = res.content;
+        // this.selectedChapter!.content = res.content;
+        this.editor.setContent(res.content)
       }
     })
   }
