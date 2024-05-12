@@ -35,6 +35,17 @@
     background: #eee;
   }
 
+  .editor ::ng-deep .NgxEditor {
+    height: 100%;
+    border: none;
+    outline: none;
+    background: #eee;
+
+    .ProseMirror {
+      height: 100%;
+    }
+  }
+
   .welcome {
     padding: 10px;
   }

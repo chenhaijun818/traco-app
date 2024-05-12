@@ -19,7 +19,15 @@
     </div>
   </div>
 </div>
-<quill-editor class="editor" *ngIf="selectedChapter" [(ngModel)]="selectedChapter.content"></quill-editor>
+<!--<quill-editor class="editor" *ngIf="selectedChapter" [(ngModel)]="selectedChapter.content"></quill-editor>-->
+<ngx-editor
+  class="editor"
+  *ngIf="selectedChapter"
+  [editor]="editor"
+  [(ngModel)]="selectedChapter.content"
+  (ngModelChange)="onChange()"
+  placeholder="请输入内容"
+></ngx-editor>
 <div class="welcome" *ngIf="!selectedChapter">欢迎使用轨纪</div>
 <div class="tools">
   <button class="save" (click)="save()">s</button>

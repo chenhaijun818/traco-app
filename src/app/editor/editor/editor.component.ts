@@ -4,6 +4,7 @@ import {Volume} from "../models/volume";
 import {UiService} from "../../core/services/ui.service";
 import {Chapter} from "../models/chapter";
 import {ClientService} from "../../core/services/client.service";
+import {Editor} from 'ngx-editor';
 
 @Component({
   selector: 'app-editor',
@@ -11,15 +12,20 @@ import {ClientService} from "../../core/services/client.service";
   styleUrl: './editor.component.scss'
 })
 export class EditorComponent implements OnInit {
-  content: any = '';
+  // content: any = '';
   volumes: Volume[] = [];
   volumeMap: Map<string, Volume> = new Map();
   pid: string = '658c66d90317ceec65bb8c80';
   selectedChapter: Chapter | null = null;
+  editor: Editor;
 
   constructor(private http: HttpClient,
               private ui: UiService,
               private client: ClientService) {
+    this.editor = new Editor({
+      history: true,
+      keyboardShortcuts: true,
+    });
   }
 
   ngOnInit() {
@@ -28,9 +34,10 @@ export class EditorComponent implements OnInit {
     })
   }
 
-  // onChange($event: any) {
-  //   console.log($event)
-  // }
+  onChange() {
+    // console.log($event)
+    console.log(this.selectedChapter?.content)
+  }
 
   save() {
     if (!this.selectedChapter || !this.selectedChapter.content) {
