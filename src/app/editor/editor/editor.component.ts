@@ -167,4 +167,13 @@ export class EditorComponent implements OnInit {
       }
     })
   }
+
+  insert() {
+    console.log(this.editor)
+    // console.log(this.selectedChapter?.content)
+  }
+
+  onEnter() {
+    this.editor.commands.insertText('　　').exec();
+  }
 }
