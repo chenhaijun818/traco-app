@@ -1,7 +1,7 @@
 :host {
   display: flex;
   background: #fff;
-  height: 80px;
+  height: 40px;
   justify-content: center;
   border-bottom: 1px solid #eee;
 
@@ -15,7 +15,6 @@
       height: 100%;
       display: flex;
       align-items: center;
-      font-size: 16px;
       .logo {
         height: 100%;
         cursor: pointer;
@@ -55,6 +54,8 @@
         cursor: pointer;
         nz-avatar {
           margin-right: 5px;
+          width: 25px;
+          height: 25px;
         }
       }
     }
