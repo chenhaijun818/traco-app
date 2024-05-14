@@ -1,0 +1,12 @@
+:host {
+  display: flex;
+  height: calc(100vh - 40px);
+  justify-content: center;
+
+  .container {
+    width: 1000px;
+    height: 100%;
+    padding: 15px;
+    background: #fff;
+  }
+}
