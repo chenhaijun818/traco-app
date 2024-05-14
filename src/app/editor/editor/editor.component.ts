@@ -5,6 +5,7 @@ import {UiService} from "../../core/services/ui.service";
 import {Chapter} from "../models/chapter";
 import {ClientService} from "../../core/services/client.service";
 import {Editor} from 'ngx-editor';
+import {ActivatedRoute} from "@angular/router";
 
 @Component({
   selector: 'app-editor',
@@ -14,7 +15,7 @@ import {Editor} from 'ngx-editor';
 export class EditorComponent implements OnInit {
   volumes: Volume[] = [];
   volumeMap: Map<string, Volume> = new Map();
-  pid: string = '658c66d90317ceec65bb8c80';
+  pid: string = '';
   selectedChapter: Chapter | null = null;
   editor: Editor;
   autoSaveTimer: any;
@@ -24,7 +25,8 @@ export class EditorComponent implements OnInit {
 
   constructor(private http: HttpClient,
               private ui: UiService,
-              private client: ClientService) {
+              private client: ClientService,
+              private route: ActivatedRoute) {
     this.editor = new Editor({
       history: true,
       keyboardShortcuts: true,
@@ -44,6 +46,8 @@ export class EditorComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.pid = this.route.snapshot.params['id'];
+    console.log(this.pid)
     this.getVolumes().then(() => {
       this.getChapters()
     })

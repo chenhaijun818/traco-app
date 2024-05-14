@@ -4,6 +4,7 @@
     <span nz-icon nzType="folder" class="button" (click)="manageVolume()" title="管理卷"></span>
     <span nz-icon nzType="file-markdown" class="button" (click)="manageChapter()" title="管理章节"></span>
   </div>
+  <div class="empty" *ngIf="!volumes.length">暂无章节</div>
   <div class="volume-list">
     <div *ngFor="let v of volumes" class="volume">
       <div (dblclick)="updateVolumeName(v)" class="volume-header">

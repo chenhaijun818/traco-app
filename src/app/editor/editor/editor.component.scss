@@ -22,6 +22,11 @@
       }
     }
 
+    .empty {
+      height: 50px;
+      text-align: center;
+      line-height: 50px;
+    }
     .volume-list {
       flex: 1;
       padding: 15px 10px;
