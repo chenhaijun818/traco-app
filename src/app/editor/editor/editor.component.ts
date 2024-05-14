@@ -20,6 +20,7 @@ export class EditorComponent implements OnInit {
   autoSaveTimer: any;
   volumeManaging: boolean = false;
   chapterManaging: boolean = false;
+  wordCount = 0;
 
   constructor(private http: HttpClient,
               private ui: UiService,
@@ -28,6 +29,18 @@ export class EditorComponent implements OnInit {
       history: true,
       keyboardShortcuts: true,
     });
+    this.editor.valueChanges.subscribe((res: any) => {
+      if (res.content && res.content.length) {
+        this.wordCount = 0;
+        for (const p of res.content) {
+          if (p.content && p.content.length) {
+            for (const t of p.content) {
+              this.wordCount += t.text.length;
+            }
+          }
+        }
+      }
+    })
   }
 
   ngOnInit() {
@@ -43,12 +56,11 @@ export class EditorComponent implements OnInit {
     }
     this.autoSaveTimer = setTimeout(() => {
       const {id, content} = this.selectedChapter!;
-      this.client.post('chapter/update', {id, content}).then(res => {
-        console.log(res)
+      this.client.post('chapter/update', {id, content}).then(() => {
         clearTimeout(this.autoSaveTimer);
         this.autoSaveTimer = null;
       })
-    }, 2000);
+    }, 3000);
   }
 
   save() {
