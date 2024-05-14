@@ -18,6 +18,8 @@ export class EditorComponent implements OnInit {
   selectedChapter: Chapter | null = null;
   editor: Editor;
   autoSaveTimer: any;
+  volumeManaging: boolean = false;
+  chapterManaging: boolean = false;
 
   constructor(private http: HttpClient,
               private ui: UiService,
@@ -175,5 +177,13 @@ export class EditorComponent implements OnInit {
 
   onEnter() {
     this.editor.commands.insertText('　　').exec();
+  }
+
+  manageVolume() {
+    this.volumeManaging = !this.volumeManaging;
+  }
+
+  manageChapter() {
+    this.chapterManaging = !this.chapterManaging;
   }
 }

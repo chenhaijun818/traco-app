@@ -1,23 +1,32 @@
 <div class="catalog">
-  <div *ngFor="let v of volumes" class="volume">
-    <div (dblclick)="updateVolumeName(v)" class="volume-header">
-      <div>{{ v.name }}</div>
-      <div class="buttons">
-        <span nz-icon nzType="plus" nzTheme="outline" (click)="addChapter(v)"></span>
+  <div class="buttons">
+    <span nz-icon nzType="folder-add" class="button" (click)="addVolume()" title="新增卷"></span>
+    <span nz-icon nzType="folder" class="button" (click)="manageVolume()" title="管理卷"></span>
+    <span nz-icon nzType="file-markdown" class="button" (click)="manageChapter()" title="管理章节"></span>
+  </div>
+  <div class="volume-list">
+    <div *ngFor="let v of volumes" class="volume">
+      <div (dblclick)="updateVolumeName(v)" class="volume-header">
+        <div>{{ v.name }}</div>
+        <span *ngIf="!volumeManaging" class="button" nz-icon nzType="plus" nzTheme="outline" (click)="addChapter(v)"
+              title="新增章节"></span>
+        <span *ngIf="volumeManaging" class="button" nz-icon nzType="delete" nzTheme="outline" (click)="deleteVolume(v)"
+              title="删除卷"></span>
       </div>
-    </div>
-    <div class="chapter"
-         *ngFor="let c of v.chapters"
-         (click)="selectChapter(c)"
-         (dblclick)="updateChapterName(c)"
-         [class.selected]="selectedChapter === c"
-    >
-      <div>{{ c.name }}</div>
-      <div class="buttons">
-        <span nz-icon nzType="delete" nzTheme="outline" (click)="deleteChapter(c)"></span>
+      <div class="chapter"
+           *ngFor="let c of v.chapters"
+           (click)="selectChapter(c)"
+           (dblclick)="updateChapterName(c)"
+           [class.selected]="selectedChapter === c"
+      >
+        <div>{{ c.name }}</div>
+        <span *ngIf="chapterManaging" class="button" nz-icon nzType="delete" nzTheme="outline"
+              (click)="deleteChapter(c)"
+              title="删除章节"></span>
       </div>
     </div>
   </div>
+  <div class="project-name">世界操控系统</div>
 </div>
 <!--<quill-editor class="editor" *ngIf="selectedChapter" [(ngModel)]="selectedChapter.content"></quill-editor>-->
 <ngx-editor
