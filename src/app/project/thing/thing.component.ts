@@ -3,6 +3,7 @@ import {HttpClient} from "@angular/common/http";
 import {UiService} from "../../core/services/ui.service";
 import {ActivatedRoute} from "@angular/router";
 import {Thing} from "../models/thing";
+import {ThingService} from "./thing.service";
 
 @Component({
   selector: 'app-thing',
@@ -15,13 +16,18 @@ export class ThingComponent implements OnInit {
 
   constructor(private http: HttpClient,
               private ui: UiService,
-              private route: ActivatedRoute) {
+              private route: ActivatedRoute,
+              private ts: ThingService) {
   }
 
   ngOnInit(): void {
     const parent: ActivatedRoute | any = this.route.parent;
     this.pid = parent.snapshot.params['id'];
-    this.getThings()
+    this.ts.things$.subscribe(things => {
+      this.things = things;
+    })
+    this.ts.getThings(this.pid);
+    // this.getThings()
   }
 
   addThing() {
@@ -31,7 +37,8 @@ export class ThingComponent implements OnInit {
     }
     this.http.post('project/thing/add', {name, pid: this.pid}).subscribe((res: any) => {
       if (res) {
-        this.things.push(new Thing(res))
+        const thing = new Thing(res);
+        this.ts.addThing(thing);
         this.ui.success('新增成功')
       }
     })

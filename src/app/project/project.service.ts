@@ -9,6 +9,7 @@ import {Thing} from "./models/thing";
 import {BehaviorSubject} from "rxjs";
 import {ClientService} from "../core/services/client.service";
 
+// 可视为整个project模块的数据中心，子模块订阅带$的对象来获取最新数据
 @Injectable()
 export class ProjectService {
   pid: string = '';
@@ -18,11 +19,11 @@ export class ProjectService {
   affairs: Affair[] = [];
   affairMap: Map<string, Affair> = new Map();
   roles: Role[] = [];
-  roles$ = new BehaviorSubject<Role[] | undefined>(undefined)
   roleMap: Map<string, Role> = new Map();
+  roles$ = new BehaviorSubject<Role[] | undefined>(undefined)
   things: Thing[] = [];
-  things$ = new BehaviorSubject<Thing[] | null>(null)
   thingMap: Map<string, Thing> = new Map();
+  things$ = new BehaviorSubject<Thing[] | null>(null)
   sites: Site[] = [];
   siteMap: Map<string, Site> = new Map();
 
@@ -93,9 +94,9 @@ export class ProjectService {
       for (const r of res) {
         const role = new Role(r);
         this.roles.push(role);
-        this.roles$.next(this.roles);
         this.roleMap.set(role.id, role);
       }
+      this.roles$.next(this.roles);
     });
   }
 

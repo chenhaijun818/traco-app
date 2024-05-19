@@ -4,6 +4,7 @@ import {NzUploadChangeParam} from "ng-zorro-antd/upload";
 import {ActivatedRoute, Params} from "@angular/router";
 import {HttpClient} from "@angular/common/http";
 import {UiService} from "../../../core/services/ui.service";
+import {ThingService} from "../thing.service";
 
 @Component({
   selector: 'app-thing-panel',
@@ -17,7 +18,8 @@ export class ThingPanelComponent implements OnInit {
 
   constructor(private route: ActivatedRoute,
               private http: HttpClient,
-              private ui: UiService) {
+              private ui: UiService,
+              private ts: ThingService) {
   }
 
   ngOnInit(): void {
@@ -25,16 +27,13 @@ export class ThingPanelComponent implements OnInit {
     this.route.params.subscribe(async (params: Params | any) => {
       this.id = params.id;
       this.getThing();
+      console.log('hit here')
     });
   }
 
   getThing() {
-    this.http.get(`project/thing/${this.id}`).subscribe((res: any) => {
-      if (res) {
-        this.thing = new Thing(res);
-        this.values = {...this.thing};
-      }
-    })
+    this.thing = this.ts.getThing(this.id);
+    this.values = {...this.thing};
   }
 
   submit(key: string) {
