@@ -16,4 +16,13 @@ export class Thing {
     this.desc = data.desc;
     this.avatar = data.avatar;
   }
+
+  update(data: any) {
+    this.name = data.name;
+    this.creator = data.creator;
+    this.owner = data.owner;
+    this.desc = data.desc;
+    this.avatar = data.avatar;
+  }
+
 }

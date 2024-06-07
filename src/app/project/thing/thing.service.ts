@@ -18,15 +18,17 @@ export class ThingService {
   getThings(pid: string) {
     return this.http.get(`project/thing/things?pid=${pid}`).subscribe((res: any) => {
       for (const t of res) {
-        const thing = new Thing(t);
-        this.things.push(thing);
-        this.thingMap.set(thing.id, thing);
+        let thing = this.thingMap.get(t._id);
+        if (thing) {
+          thing.update(t);
+        } else {
+          thing = new Thing(t);
+          this.things.push(thing);
+          this.thingMap.set(thing.id, thing);
+        }
       }
       this.things$.next(this.things);
-      return 'aha'
-    }).add(() => {
-      console.log('added')
-    })
+    });
   }
 
   getThing(id: string) {
@@ -44,4 +46,5 @@ export class ThingService {
     this.things = [...this.thingMap.values()];
     this.things$.next(this.things)
   }
+
 }

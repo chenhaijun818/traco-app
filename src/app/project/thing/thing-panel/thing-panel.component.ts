@@ -1,10 +1,11 @@
-import {Component, OnInit} from '@angular/core';
+ import {Component, OnInit} from '@angular/core';
 import {Thing} from "../../models/thing";
 import {NzUploadChangeParam} from "ng-zorro-antd/upload";
-import {ActivatedRoute, Params} from "@angular/router";
+import {ActivatedRoute, Params, Router} from "@angular/router";
 import {HttpClient} from "@angular/common/http";
 import {UiService} from "../../../core/services/ui.service";
 import {ThingService} from "../thing.service";
+ import {Location} from "@angular/common";
 
 @Component({
   selector: 'app-thing-panel',
@@ -19,7 +20,8 @@ export class ThingPanelComponent implements OnInit {
   constructor(private route: ActivatedRoute,
               private http: HttpClient,
               private ui: UiService,
-              private ts: ThingService) {
+              private ts: ThingService,
+              private location: Location) {
   }
 
   ngOnInit(): void {
@@ -27,13 +29,23 @@ export class ThingPanelComponent implements OnInit {
     this.route.params.subscribe(async (params: Params | any) => {
       this.id = params.id;
       this.getThing();
-      console.log('hit here')
     });
   }
 
   getThing() {
-    this.thing = this.ts.getThing(this.id);
-    this.values = {...this.thing};
+    this.http.get(`project/thing/${this.id}`).subscribe((res: any) => {
+      if (!res) {
+        return
+      }
+      this.thing = this.ts.thingMap.get(this.id);
+      if (this.thing) {
+        this.thing.update(res);
+      } else {
+        this.thing = new Thing(res);
+        this.ts.addThing(this.thing);
+      }
+      this.values = {...this.thing};
+    })
   }
 
   submit(key: string) {
@@ -62,5 +74,19 @@ export class ThingPanelComponent implements OnInit {
         }
       })
     }
+  }
+
+  deleteThing() {
+    const res = confirm('您确定要删除该物品吗？');
+    if (!res) {
+      return
+    }
+    this.http.post('project/thing/delete', {id: this.thing.id}).subscribe((res: any) => {
+      if (res) {
+        this.ui.success('删除成功');
+        this.ts.removeThing(this.thing);
+        this.location.back();
+      }
+    })
   }
 }
