@@ -19,13 +19,11 @@
   }
 
   .item {
-    margin-bottom: 8px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+    margin-bottom: 10px;
 
     .key {
       word-break: keep-all;
+      margin-bottom: 5px;
     }
   }
 

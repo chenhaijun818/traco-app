@@ -8,21 +8,24 @@ import {NzImageModule} from "ng-zorro-antd/image";
 import {NzButtonModule} from "ng-zorro-antd/button";
 import {NzInputModule} from "ng-zorro-antd/input";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
+import {NzOptionComponent, NzSelectComponent} from "ng-zorro-antd/select";
 
 @NgModule({
   declarations: [
     ThingPanelComponent
   ],
-  imports: [
-    CommonModule,
-    ThingRoutingModule,
-    NzUploadModule,
-    NzImageModule,
-    NzButtonModule,
-    NzInputModule,
-    ReactiveFormsModule,
-    FormsModule
-  ]
+    imports: [
+        CommonModule,
+        ThingRoutingModule,
+        NzUploadModule,
+        NzImageModule,
+        NzButtonModule,
+        NzInputModule,
+        ReactiveFormsModule,
+        FormsModule,
+        NzOptionComponent,
+        NzSelectComponent
+    ]
 })
 export class ThingModule {
 }

@@ -6,6 +6,8 @@ import {HttpClient} from "@angular/common/http";
 import {UiService} from "../../../core/services/ui.service";
 import {ThingService} from "../thing.service";
  import {Location} from "@angular/common";
+ import {Role} from "../../models/role";
+ import {ClientService} from "../../../core/services/client.service";
 
 @Component({
   selector: 'app-thing-panel',
@@ -15,11 +17,19 @@ import {ThingService} from "../thing.service";
 export class ThingPanelComponent implements OnInit {
   id: string = '';
   thing: Thing | any;
-  values: any = {};
+
+  name: string = '';
+  avatar: string = '';
+  creator: string = '';
+  owner: string = '';
+  desc: string = '';
+
+  roles: Role[] = [];
 
   constructor(private route: ActivatedRoute,
               private http: HttpClient,
               private ui: UiService,
+              private client: ClientService,
               private ts: ThingService,
               private location: Location) {
   }
@@ -28,12 +38,13 @@ export class ThingPanelComponent implements OnInit {
     // 监听路由变化
     this.route.params.subscribe(async (params: Params | any) => {
       this.id = params.id;
-      this.getThing();
+      await this.getThing();
+      this.getRoles();
     });
   }
 
   getThing() {
-    this.http.get(`project/thing/${this.id}`).subscribe((res: any) => {
+    return this.client.get(`project/thing/${this.id}`).then((res: any) => {
       if (!res) {
         return
       }
@@ -44,24 +55,36 @@ export class ThingPanelComponent implements OnInit {
         this.thing = new Thing(res);
         this.ts.addThing(this.thing);
       }
-      this.values = {...this.thing};
+      this.name = this.thing.name;
+      this.avatar = this.thing.avatar;
+      this.creator = this.thing.creator;
+      this.owner = this.thing.owner;
     })
   }
 
-  submit(key: string) {
-    const value = this.values[key];
-    const params: any = {id: this.thing.id};
-    if (!value) {
-      return;
-    }
-    params[key] = value;
-    this.http.post('project/thing/update', params).subscribe((res: any) => {
-      if (res) {
-        this.ui.success('修改成功');
-        this.thing[key] = value;
+  getRoles() {
+    this.client.get('project/role/roles', {pid: this.thing.pid}).then((list: any) => {
+      if (list && list.length) {
+        this.roles = [];
+        for (const r of list) {
+          this.roles.push(new Role(r))
+        }
       }
     })
   }
+
+  // submit(key: string) {
+  //   const params: any = {id: this.thing.id};
+  //   if (key === 'name') {
+  //     params.name = value;
+  //   }
+  //   this.http.post('project/thing/update', params).subscribe((res: any) => {
+  //     if (res) {
+  //       this.ui.success('修改成功');
+  //       this.thing[key] = value;
+  //     }
+  //   })
+  // }
 
   avatarChange(event: NzUploadChangeParam) {
     if (event.type === 'success') {
@@ -70,7 +93,7 @@ export class ThingPanelComponent implements OnInit {
         if (res) {
           this.ui.success('修改成功');
           this.thing.avatar = avatar;
-          this.values.avatar = avatar;
+          this.avatar = avatar;
         }
       })
     }
@@ -88,5 +111,39 @@ export class ThingPanelComponent implements OnInit {
         this.location.back();
       }
     })
+  }
+
+  onCreatorChange() {
+    this.client.post('project/thing/update', {id: this.id, creator: this.creator}).then(res => {
+      if (res) {
+        this.ui.success('修改成功')
+      }
+    });
+  }
+
+  updateName() {
+    this.http.post('project/thing/update', {id: this.id, name: this.name}).subscribe((res: any) => {
+      if (res) {
+        this.ui.success('修改成功');
+        this.thing.name = this.name;
+      }
+    })
+  }
+
+  updateDesc() {
+    this.http.post('project/thing/update', {id: this.id, desc: this.desc}).subscribe((res: any) => {
+      if (res) {
+        this.ui.success('修改成功');
+        this.thing.desc = this.desc;
+      }
+    })
+  }
+
+  onOwnerChange() {
+    this.client.post('project/thing/update', {id: this.id, owner: this.owner}).then(res => {
+      if (res) {
+        this.ui.success('修改成功')
+      }
+    });
   }
 }
