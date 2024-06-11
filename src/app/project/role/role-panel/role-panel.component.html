@@ -26,7 +26,7 @@
     </nz-select>
   </div>
 </div>
-<div class="item flex">
+<div class="item flex" *ngIf="values.gender === 2">
   <div class="key">婚恋：</div>
   <div class="value">
     <nz-select [(ngModel)]="values.marriage" nzPlaceHolder="选择婚恋状态" (ngModelChange)="submit('marriage')">
@@ -39,7 +39,7 @@
     </nz-select>
   </div>
 </div>
-<div class="item flex">
+<div class="item flex" *ngIf="values.gender === 2">
   <div class="key">生育：</div>
   <div class="value">
     <nz-select [(ngModel)]="values.fertility" nzPlaceHolder="选择生育状态" (ngModelChange)="submit('fertility')">
@@ -49,7 +49,7 @@
     </nz-select>
   </div>
 </div>
-<div class="item flex">
+<div class="item flex" *ngIf="values.gender === 2">
   <div class="key">童贞：</div>
   <div class="value">
     <nz-select [(ngModel)]="values.virgin" nzPlaceHolder="选择是否童贞" (ngModelChange)="submit('virgin')">
@@ -91,7 +91,7 @@
     </ng-template>
   </div>
 </div>
-<div class="item">
+<div class="item" *ngIf="values.gender === 2">
   <div class="key">胸围：</div>
   <div class="value">
     <nz-input-group nzSearch nzSize="default" [nzAddOnAfter]="bustButton">
@@ -102,7 +102,7 @@
     </ng-template>
   </div>
 </div>
-<div class="item">
+<div class="item" *ngIf="values.gender === 2">
   <div class="key">腰围：</div>
   <div class="value">
     <nz-input-group nzSearch nzSize="default" [nzAddOnAfter]="waistButton">
@@ -113,7 +113,7 @@
     </ng-template>
   </div>
 </div>
-<div class="item">
+<div class="item" *ngIf="values.gender === 2">
   <div class="key">臀围：</div>
   <div class="value">
     <nz-input-group nzSearch nzSize="default" [nzAddOnAfter]="hipButton">

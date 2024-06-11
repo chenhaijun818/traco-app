@@ -50,7 +50,7 @@ export class RolePanelComponent implements OnInit {
         params.avatar = 'https://traco-oss.oss-cn-hangzhou.aliyuncs.com/avatars/role-male.jpg'
       }
       if (value === 2 && avatar === 'role-male.jpg') {
-        params.avatar = 'https://traco-oss.oss-cn-hangzhou.aliyuncs.com/avatars/role-male.jpg'
+        params.avatar = 'https://traco-oss.oss-cn-hangzhou.aliyuncs.com/avatars/role-female.jpg'
       }
     }
     this.http.post('project/role/update', params).subscribe((res: any) => {
