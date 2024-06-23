@@ -17,13 +17,13 @@
 </div>
 <div class="item">
   <div class="key">制造者：</div>
-  <nz-select [(ngModel)]="creator" nzPlaceHolder="请选择制造者" (ngModelChange)="onCreatorChange()">
+  <nz-select [(ngModel)]="creator" nzPlaceHolder="请选择制造者" nzAllowClear (ngModelChange)="onCreatorChange()">
     <nz-option *ngFor="let r of roles;" [nzLabel]="r.name" [nzValue]="r.id"></nz-option>
   </nz-select>
 </div>
 <div class="item">
   <div class="key">持有人：</div>
-  <nz-select [(ngModel)]="owner" nzPlaceHolder="请选择持有人" (ngModelChange)="onOwnerChange()">
+  <nz-select [(ngModel)]="owner" nzPlaceHolder="请选择持有人" nzAllowClear (ngModelChange)="onOwnerChange()">
     <nz-option *ngFor="let r of roles;" [nzLabel]="r.name" [nzValue]="r.id"></nz-option>
   </nz-select>
 </div>

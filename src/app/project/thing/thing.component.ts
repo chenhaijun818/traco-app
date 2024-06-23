@@ -27,7 +27,6 @@ export class ThingComponent implements OnInit {
       this.things = things;
     })
     this.ts.getThings(this.pid);
-    // this.getThings()
   }
 
   addThing() {

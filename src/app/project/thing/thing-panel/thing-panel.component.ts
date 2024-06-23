@@ -59,6 +59,7 @@ export class ThingPanelComponent implements OnInit {
       this.avatar = this.thing.avatar;
       this.creator = this.thing.creator;
       this.owner = this.thing.owner;
+      this.desc = this.thing.desc;
     })
   }
 
@@ -72,19 +73,6 @@ export class ThingPanelComponent implements OnInit {
       }
     })
   }
-
-  // submit(key: string) {
-  //   const params: any = {id: this.thing.id};
-  //   if (key === 'name') {
-  //     params.name = value;
-  //   }
-  //   this.http.post('project/thing/update', params).subscribe((res: any) => {
-  //     if (res) {
-  //       this.ui.success('修改成功');
-  //       this.thing[key] = value;
-  //     }
-  //   })
-  // }
 
   avatarChange(event: NzUploadChangeParam) {
     if (event.type === 'success') {
