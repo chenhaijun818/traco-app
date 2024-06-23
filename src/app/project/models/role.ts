@@ -32,4 +32,12 @@ export class Role {
     this.fertility = data.fertility;
     this.desc = data.desc;
   }
+  update(data: any) {
+    this.avatar = data.avatar;
+    this.name = data.name;
+    this.gender = data.gender;
+    this.age = data.age;
+    this.height = data.height;
+    this.desc = data.desc;
+  }
 }

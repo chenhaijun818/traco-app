@@ -1,8 +1,7 @@
 import {Component, OnInit} from '@angular/core';
-import {HttpClient} from "@angular/common/http";
 import {ActivatedRoute, Router} from "@angular/router";
 import {Role} from "../models/role";
-import {ProjectService} from "../project.service";
+import {RoleService} from "./role.service";
 
 @Component({
   selector: 'app-role',
@@ -16,14 +15,13 @@ export class RoleComponent implements OnInit {
     gender: 0
   };
 
-  constructor(private http: HttpClient,
-              private route: ActivatedRoute,
+  constructor(private route: ActivatedRoute,
               private router: Router,
-              public ps: ProjectService) {
+              private rs: RoleService) {
   }
 
   ngOnInit(): void {
-    this.ps.roles$.subscribe(roles => {
+    this.rs.roles$.subscribe(roles => {
       this.roles = roles;
     })
   }
@@ -33,7 +31,7 @@ export class RoleComponent implements OnInit {
     if (!name) {
       return;
     }
-    this.ps.addRole({name}).then(role => {
+    this.rs.addRole({name}).then(role => {
       if (role) {
         this.router.navigate(['./', role.id], {relativeTo: this.route, replaceUrl: true})
       }

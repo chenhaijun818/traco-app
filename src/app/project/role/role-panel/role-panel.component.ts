@@ -3,6 +3,7 @@ import {Role} from "../../models/role";
 import {HttpClient} from "@angular/common/http";
 import {UiService} from "../../../core/services/ui.service";
 import {ActivatedRoute, Params, Router} from "@angular/router";
+import {RoleService} from "../role.service";
 
 @Component({
   selector: 'app-role-panel',
@@ -10,39 +11,35 @@ import {ActivatedRoute, Params, Router} from "@angular/router";
   styleUrls: ['./role-panel.component.scss']
 })
 export class RolePanelComponent implements OnInit {
-  role: Role | any = new Role({})
-  rid = '';
-  values: any = {};
+  id = '';
+  role: Role | any = {};
 
   constructor(private http: HttpClient,
               private ui: UiService,
               private route: ActivatedRoute,
-              private router: Router) {
+              private router: Router,
+              private rs: RoleService) {
   }
 
   ngOnInit(): void {
     // 监听路由变化
     this.route.params.subscribe((params: Params | any) => {
-      this.rid = params.id;
+      this.id = params.id;
       this.getRole();
     });
   }
 
   getRole() {
-    this.http.get(`project/role/${this.rid}`).subscribe((res: any) => {
+    this.http.get(`project/role/${this.id}`).subscribe((res: any) => {
       if (res) {
         this.role = new Role(res);
-        this.values = {...this.role};
       }
     })
   }
 
   submit(key: string) {
-    const value = this.values[key];
+    const value = this.role[key];
     const params: any = {id: this.role.id};
-    if (!value) {
-      return;
-    }
     params[key] = value;
     if (key === 'gender') {
       const avatar = this.role.avatar.split('/').pop();
@@ -60,6 +57,7 @@ export class RolePanelComponent implements OnInit {
         if (params.avatar) {
           this.role.avatar = params.avatar;
         }
+        this.rs.updateRole(this.role);
       }
     })
   }
@@ -84,6 +82,7 @@ export class RolePanelComponent implements OnInit {
     this.http.post('project/role/delete', {id: this.role.id}).subscribe((res: any) => {
       if (res) {
         this.ui.success('删除成功');
+        this.rs.removeRole(this.id)
         this.router.navigate(['../'], {relativeTo: this.route, replaceUrl: true})
       }
     })
