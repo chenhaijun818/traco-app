@@ -1,5 +1,5 @@
 
-<div class="avatar">
+<div class="avatar" *ngIf="role.avatar">
   <img nz-image [nzSrc]="role!.avatar" [alt]="role!.name" >
   <nz-upload nzAction="upload" [nzShowUploadList]="false" [nzData]="{dir: 'avatars'}" (nzChange)="avatarChange($event)">
     <button nz-button nzType="primary" nzSize="default">上传头像</button>

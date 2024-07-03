@@ -14,6 +14,8 @@ export class RoleService {
   constructor(private client: ClientService) { }
 
   init(pid: string) {
+    this.roles = [];
+    this.roleMap.clear();
     this.pid = pid;
     this.getRoles();
   }
@@ -39,6 +41,7 @@ export class RoleService {
       if (res) {
         role = new Role(res);
         this.roles.push(role);
+        this.roleMap.set(role.id, role)
         this.roles$.next(this.roles);
       }
       return role;
