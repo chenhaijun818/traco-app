@@ -14,7 +14,7 @@
                [nzActions]="[actionSetting, actionEdit, actionEllipsis]">
         <nz-card-meta [nzTitle]="p.name"></nz-card-meta>
         <ng-template #coverTemplate>
-          <img class="cover" [src]="p.cover" [alt]="p.name"/>
+          <img nz-image class="cover" [nzSrc]="p.cover" [alt]="p.name"/>
         </ng-template>
         <ng-template #actionSetting>
           <span nz-icon nzType="setting" [routerLink]="['/project', p._id]"></span>

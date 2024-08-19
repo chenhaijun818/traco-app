@@ -6,6 +6,7 @@ import {Chapter} from "../models/chapter";
 import {ClientService} from "../../core/services/client.service";
 import {Editor} from 'ngx-editor';
 import {ActivatedRoute} from "@angular/router";
+import {Project} from "../../project/models/project";
 
 @Component({
   selector: 'app-editor',
@@ -22,6 +23,8 @@ export class EditorComponent implements OnInit {
   volumeManaging: boolean = false;
   chapterManaging: boolean = false;
   wordCount = 0;
+
+  project: Project | null = null;
 
   constructor(private http: HttpClient,
               private ui: UiService,
@@ -47,10 +50,16 @@ export class EditorComponent implements OnInit {
 
   ngOnInit() {
     this.pid = this.route.snapshot.params['id'];
-    console.log(this.pid)
     this.getVolumes().then(() => {
       this.getChapters()
-    })
+    });
+    this.getProject();
+  }
+
+  getProject() {
+    this.http.get(`project/${this.pid}`).subscribe((res: any) => {
+      this.project = new Project(res);
+    });
   }
 
   onChange() {

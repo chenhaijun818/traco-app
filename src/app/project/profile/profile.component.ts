@@ -1,7 +1,5 @@
 import {HttpClient} from '@angular/common/http';
 import {Component, OnInit} from '@angular/core';
-import {ActivatedRoute} from '@angular/router';
-// import {Project} from '../models/project';
 import {UiService} from 'src/app/core/services/ui.service';
 import {CompatibleDate} from "ng-zorro-antd/date-picker";
 import {ProjectService} from "../project.service";
@@ -12,21 +10,14 @@ import {ProjectService} from "../project.service";
   styleUrls: ['./profile.component.scss']
 })
 export class ProfileComponent implements OnInit {
-  // project: Project| any;
-  // pid = '';
 
-  constructor(private route: ActivatedRoute,
-              private http: HttpClient,
+  constructor(private http: HttpClient,
               private ui: UiService,
               public ps: ProjectService) {
   }
 
   ngOnInit(): void {
-    // const parent: ActivatedRoute | any = this.route.parent;
-    // this.pid = parent.snapshot.params['id'];
-    // this.http.get(`project/${this.pid}`).subscribe(res => {
-    //   this.project = new Project(res);
-    // });
+
   }
 
   submitName() {
