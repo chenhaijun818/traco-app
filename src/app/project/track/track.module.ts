@@ -8,6 +8,7 @@ import {FormsModule} from "@angular/forms";
 import {NzInputModule} from "ng-zorro-antd/input";
 import {AffairComponent} from "./affair/affair.component";
 import {NzDatePickerModule} from "ng-zorro-antd/date-picker";
+import {NzButtonModule} from "ng-zorro-antd/button";
 
 
 @NgModule({
@@ -21,7 +22,8 @@ import {NzDatePickerModule} from "ng-zorro-antd/date-picker";
     NzSelectModule,
     FormsModule,
     NzDatePickerModule,
-    NzInputModule
+    NzInputModule,
+    NzButtonModule
   ]
 })
 export class TrackModule {
