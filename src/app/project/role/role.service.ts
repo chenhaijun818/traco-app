@@ -22,7 +22,7 @@ export class RoleService {
 
   getRoles() {
     this.client.get('project/role/roles', {pid: this.pid}).then((res: any) => {
-      if (!res || !res.length) {
+      if (!res) {
         return
       }
       for (const r of res) {

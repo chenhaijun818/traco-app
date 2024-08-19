@@ -8,6 +8,7 @@
       </button>
     </div>
     <nz-skeleton *ngIf="!roles"></nz-skeleton>
+    <nz-empty *ngIf="roles && !roles.length"></nz-empty>
 
     <div class="list" *ngIf="roles">
       <a class="role" *ngFor="let role of (roles | filter: filter);" [routerLink]="['./', role.id]" replaceUrl>
