@@ -7,6 +7,7 @@ import {ClientService} from "../../core/services/client.service";
 import {Editor} from 'ngx-editor';
 import {ActivatedRoute} from "@angular/router";
 import {Project} from "../../project/models/project";
+import {Title} from "@angular/platform-browser";
 
 @Component({
   selector: 'app-editor',
@@ -29,7 +30,8 @@ export class EditorComponent implements OnInit {
   constructor(private http: HttpClient,
               private ui: UiService,
               private client: ClientService,
-              private route: ActivatedRoute) {
+              private route: ActivatedRoute,
+              private title: Title) {
     this.editor = new Editor({
       history: true,
       keyboardShortcuts: true,
@@ -59,6 +61,7 @@ export class EditorComponent implements OnInit {
   getProject() {
     this.http.get(`project/${this.pid}`).subscribe((res: any) => {
       this.project = new Project(res);
+      this.title.setTitle(this.project.name)
     });
   }
 

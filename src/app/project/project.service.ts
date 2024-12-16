@@ -27,12 +27,15 @@ export class ProjectService {
   sites: Site[] = [];
   siteMap: Map<string, Site> = new Map();
 
+  project$: any = null;
+
   constructor(private http: HttpClient,
               private client: ClientService) {
   }
 
   init(pid: string) {
     this.project = null;
+    this.project$ = null;
     this.tracks = [];
     this.trackMap.clear();
     this.affairs = [];
@@ -42,16 +45,17 @@ export class ProjectService {
     this.sites = [];
     this.siteMap.clear();
     this.pid = pid;
-    this.getProject();
     this.getTracks();
     this.getAffairs();
     this.getRoles();
     this.getThings();
     this.getSites();
+    return this.getProject();
   }
 
   getProject() {
-    this.http.get(`project/${this.pid}`).subscribe((res: any) => {
+    this.project$ = this.http.get(`project/${this.pid}`);
+    this.project$.subscribe((res: any) => {
       this.project = new Project(res);
     });
   }
