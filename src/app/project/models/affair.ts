@@ -10,7 +10,7 @@ export class Affair {
   roles: string[];
   otherRoles: string[];
   sort: number;
-  done: boolean;
+  progress: number;
 
   rolesName: string | any = '';
   siteName: string | any = '';
@@ -28,6 +28,6 @@ export class Affair {
     this.roles = data.roles || [];
     this.otherRoles = data.otherRoles || [];
     this.sort = data.sort;
-    this.done = data.done;
+    this.progress = data.progress;
   }
 }

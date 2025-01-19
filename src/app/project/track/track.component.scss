@@ -36,7 +36,6 @@
           padding: 4px;
           overflow-y: auto;
           .affair {
-            background: #fff;
             margin-bottom: 6px;
             padding: 5px;
             cursor: pointer;
@@ -54,6 +53,15 @@
               color: #999;
             }
           }
+        }
+        .affair.unedited {
+          background: #fff;
+        }
+        .affair.editing {
+          background: #8cffbb;
+        }
+        .affair.edited {
+          background: #ddd;
         }
       }
 

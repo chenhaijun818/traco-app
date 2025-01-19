@@ -53,6 +53,17 @@
     <nz-option *ngFor="let r of roles;" [nzLabel]="r.name" [nzValue]="r.id"></nz-option>
   </nz-select>
 </div>
+<div class="item">
+  <div class="key">处理进度：</div>
+  <nz-select
+    [(ngModel)]="affair.progress"
+    (ngModelChange)="onProgressChange()"
+    nzPlaceHolder="请选择状态">
+    <nz-option [nzValue]="1" nzLabel="未完成">未完成</nz-option>
+    <nz-option [nzValue]="2" nzLabel="进行中">未完成</nz-option>
+    <nz-option [nzValue]="3" nzLabel="已完成">未完成</nz-option>
+  </nz-select>
+</div>
 <div class="buttons">
   <button nz-button nzDanger (click)="deleteAffair()" nzSize="small">删除事件</button>
 </div>

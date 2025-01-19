@@ -116,15 +116,29 @@ export class AffairComponent implements OnInit {
   onRoleChange() {
     const {id, roles} = this.affair;
     this.client.post('project/affair/update', {id, roles});
+    this.ui.success('修改成功');
+    this.affair.rolesName = this.affair.roles.map(r => this.roles.find(role => role.id === r)).map(role => role!.name);
+    this.trackService.affairSubject.next(this.affair);
   }
 
   onOtherRoleChange() {
     const {id, otherRoles} = this.affair;
     this.client.post('project/affair/update', {id, otherRoles});
+    this.ui.success('修改成功');
+    this.trackService.affairSubject.next(this.affair);
   }
 
   onSiteChange() {
     const {id, site} = this.affair;
     this.client.post('project/affair/update', {id, site});
+    this.ui.success('修改成功');
+    this.trackService.affairSubject.next(this.affair);
+  }
+
+  onProgressChange() {
+    const {id, progress} = this.affair;
+    this.client.post('project/affair/update', {id, progress});
+    this.ui.success('修改成功');
+    this.trackService.affairSubject.next(this.affair);
   }
 }

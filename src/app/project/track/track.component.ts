@@ -52,6 +52,8 @@ export class TrackComponent implements OnInit {
       affair.content = a.content;
       affair.site = a.site;
       affair.roles = a.roles;
+      affair.rolesName = a.rolesName;
+      affair.progress = a.progress;
     });
     // 监听事件删除事件
     this.trackService.deleteAffairSubject.subscribe((a: Affair) => {
