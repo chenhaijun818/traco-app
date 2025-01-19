@@ -23,6 +23,7 @@ export class TrackComponent implements OnInit {
   roles: Role[] = [];
   pid = '';
 
+  // 拖拽结束时鼠标位于哪个事件
   endAffair: Affair | null = null;
   constructor(private route: ActivatedRoute,
               private router: Router,
@@ -82,10 +83,10 @@ export class TrackComponent implements OnInit {
     if (!name) {
       return;
     }
-    const lastAffair = this.affairs[this.affairs.length - 1];
-    let sort = 100;
+    const lastAffair = this.affairs[0];
+    let sort = 1;
     if (lastAffair && lastAffair.sort) {
-      sort = lastAffair.sort + 100;
+      sort = lastAffair.sort + 10;
     }
     const content = '暂时没有内容';
     const startTime = this.project.baseTime;
@@ -94,7 +95,7 @@ export class TrackComponent implements OnInit {
     }).subscribe(res => {
       if (res) {
         const affair = new Affair(res);
-        this.affairs.push(affair);
+        this.affairs.unshift(affair);
         this.trackMap.get(affair.tid)?.affairs.push(affair);
         this.ui.success('新增成功');
         this.router.navigate(['./', affair.id], {replaceUrl: true, relativeTo: this.route})
@@ -111,7 +112,7 @@ export class TrackComponent implements OnInit {
           affair.siteName = this.ps.siteMap.get(affair.site)?.name
         })
         this.affairs.sort((a: Affair, b: Affair) => {
-          return a.sort - b.sort;
+          return b.sort - a.sort;
         });
         for (const affair of this.affairs) {
           this.trackMap.get(affair.tid)?.affairs.push(affair)
@@ -194,7 +195,7 @@ export class TrackComponent implements OnInit {
     this.endAffair = a;
   }
 
-  dragEnd(a: Affair) {
+  dragEnd(affair: Affair) {
     if (!this.endAffair) {
       return;
     }
@@ -205,17 +206,17 @@ export class TrackComponent implements OnInit {
       const preAffair = this.affairs[nextIndex - 1];
       newSort = nextAffair.sort - (nextAffair.sort - preAffair.sort) / 2;
     } else {
-      newSort = nextAffair.sort / 2;
+      newSort = nextAffair.sort + 10;
     }
 
-    this.http.post('project/affair/update', {id: a.id, sort: newSort}).subscribe(() => {
-      a.sort = newSort;
+    this.http.post('project/affair/update', {id: affair.id, sort: newSort}).subscribe(() => {
+      affair.sort = newSort;
       this.affairs.sort((a: Affair, b: Affair) => {
-        return a.sort - b.sort;
+        return b.sort - a.sort;
       });
       for (const track of this.tracks) {
         track.affairs.sort((a: Affair, b: Affair) => {
-          return a.sort - b.sort;
+          return b.sort - a.sort;
         });
       }
     })
