@@ -7,6 +7,7 @@ import {TrackService} from "../track.service";
 import {ClientService} from "../../../core/services/client.service";
 import {Role} from "../../models/role";
 import {Site} from "../../models/site";
+import {ProjectService} from "../../project.service";
 
 @Component({
   selector: 'app-affair',
@@ -24,7 +25,8 @@ export class AffairComponent implements OnInit {
               private ui: UiService,
               private route: ActivatedRoute,
               private router: Router,
-              private trackService: TrackService) {
+              private trackService: TrackService,
+              private ps: ProjectService) {
   }
 
   ngOnInit(): void {
@@ -62,6 +64,7 @@ export class AffairComponent implements OnInit {
   getAffair() {
     return this.client.get(`project/affair/${this.aid}`).then(res => {
       this.affair = new Affair(res);
+      this.affair.rolesName = this.affair.roles.map(rid => this.ps.roleMap.get(rid)?.name)
     })
   }
 
@@ -117,7 +120,7 @@ export class AffairComponent implements OnInit {
     const {id, roles} = this.affair;
     this.client.post('project/affair/update', {id, roles});
     this.ui.success('修改成功');
-    this.affair.rolesName = this.affair.roles.map(r => this.roles.find(role => role.id === r)).map(role => role!.name);
+    this.affair.rolesName = this.affair.roles.map(rid => this.ps.roleMap.get(rid)?.name)
     this.trackService.affairSubject.next(this.affair);
   }
 
