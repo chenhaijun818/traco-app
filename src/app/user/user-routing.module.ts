@@ -6,9 +6,11 @@ import {SettingsComponent} from "./settings/settings.component";
 const routes: Routes = [
   {
     path: "login",
+    title: "登录轨纪",
     component: LoginComponent
   }, {
     path: 'settings',
+    title: '个人信息',
     component: SettingsComponent
   }
 ];

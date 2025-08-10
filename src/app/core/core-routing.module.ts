@@ -5,6 +5,7 @@ import { IndexComponent } from './components/index/index.component';
 const routes: Routes = [
   {
     path: "",
+    title: "轨▪纪",
     component: IndexComponent
   }
 ];

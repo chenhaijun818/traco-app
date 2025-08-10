@@ -12,6 +12,7 @@ import {OrganizationComponent} from "./organization/organization.component";
 const routes: Routes = [
   {
     path: 'project/list',
+    title: '我的作品',
     component: ListComponent
   }, {
     path: 'project/:id',

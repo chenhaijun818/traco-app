@@ -12,6 +12,8 @@ import {UiService} from "../../core/services/ui.service";
 })
 export class SettingsComponent implements OnInit {
   user: User = new User({});
+  // @ts-ignore
+  title: '个人信息'
 
   constructor(public app: AppService, private http: HttpClient, private ui: UiService) {
 
