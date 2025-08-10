@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {ActivatedRoute, Router} from "@angular/router";
+import {ActivatedRoute, NavigationEnd, Router} from "@angular/router";
 import {HttpClient} from "@angular/common/http";
 import {Project} from "../models/project";
 import {UiService} from "../../core/services/ui.service";
@@ -22,6 +22,7 @@ export class TrackComponent implements OnInit {
   affairs: Affair[] = [];
   roles: Role[] = [];
   pid = '';
+  currentAid: any = '';
 
   // 拖拽结束时鼠标位于哪个事件
   endAffair: Affair | null = null;
@@ -40,6 +41,14 @@ export class TrackComponent implements OnInit {
     await this.getTracks();
     this.getAffairs();
     this.getRoles();
+
+    // 选中事件高亮
+    this.currentAid = this.router.url.split('/').pop();
+    this.router.events.subscribe(event => {
+      if(event instanceof NavigationEnd){
+        this.currentAid = event.url.split('/').pop();
+      }
+    })
     // 监听子路由支线信息的变化
     this.trackService.trackSubject.subscribe((t: Track) => {
       const track: Track | any = this.trackMap.get(t.id);

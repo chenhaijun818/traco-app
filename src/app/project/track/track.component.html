@@ -14,6 +14,7 @@
              [class.unedited]="a.progress === 1"
              [class.editing]="a.progress === 2"
              [class.edited]="a.progress === 3"
+             [class.active]="currentAid === a.id"
         >
           <div class="name">
             {{ a.name }}
