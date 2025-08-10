@@ -84,6 +84,7 @@ export class RolePanelComponent implements OnInit {
         this.ui.success('删除成功');
         this.rs.removeRole(this.id)
         this.router.navigate(['../'], {relativeTo: this.route, replaceUrl: true})
+        this.rs.roles$.next(this.rs.roles)
       }
     })
   }
