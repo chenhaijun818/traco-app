@@ -6,6 +6,8 @@ export class Project {
   tags: string[];
   user: string;
   baseTime: number;
+  status: number;
+  visible: boolean;
 
   constructor(data: any) {
     this.id = data._id;
@@ -15,5 +17,7 @@ export class Project {
     this.tags = data.tags;
     this.user = data.user;
     this.baseTime = data.baseTime;
+    this.status = data.status;
+    this.visible = data.visible;
   }
 }

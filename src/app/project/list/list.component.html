@@ -2,6 +2,14 @@
   <div class="caption">
     <h1>我的作品</h1>
     <div class="buttons">
+      <nz-select
+        class="selector"
+        nzMode="multiple"
+        [nzMaxTagCount]="1"
+        (ngModelChange)="onChange($event)"
+        [(ngModel)]="visibles">
+        <nz-option *ngFor="let p of projects" [nzLabel]="p.name" [nzValue]="p.id"></nz-option>
+      </nz-select>
       <button nz-button nzType="primary" (click)="createProject()">创建作品</button>
     </div>
   </div>
@@ -9,7 +17,7 @@
     <nz-empty></nz-empty>
   </div>
   <div class="list" nz-row [nzGutter]="[16, 24]">
-    <div *ngFor="let p of projects" nz-col [nzSpan]="6">
+    <div *ngFor="let p of projects | filter: {visible: true}" nz-col [nzSpan]="6">
       <nz-card class="item" [nzCover]="coverTemplate" [nzBodyStyle]="{padding: '10px'}"
                [nzActions]="[actionSetting, actionEdit, actionEllipsis]">
         <nz-card-meta [nzTitle]="p.name"></nz-card-meta>
@@ -17,10 +25,10 @@
           <img nz-image class="cover" [nzSrc]="p.cover" [alt]="p.name"/>
         </ng-template>
         <ng-template #actionSetting>
-          <span nz-icon nzType="setting" [routerLink]="['/project', p._id]"></span>
+          <span nz-icon nzType="setting" [routerLink]="['/project', p.id]"></span>
         </ng-template>
         <ng-template #actionEdit>
-          <span nz-icon nzType="edit" [routerLink]="['/editor', p._id]"></span>
+          <span nz-icon nzType="edit" [routerLink]="['/editor', p.id]"></span>
         </ng-template>
         <ng-template #actionEllipsis>
           <span nz-icon nzType="ellipsis"></span>

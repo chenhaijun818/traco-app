@@ -12,6 +12,10 @@
       margin-bottom: 20px;
       align-items: center;
       justify-content: space-between;
+      .selector {
+        width: 240px;
+        margin-right: 10px;
+      }
     }
     .empty {
       display: flex;
