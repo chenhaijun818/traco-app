@@ -14,10 +14,29 @@
     </div>
     <div class="item">
       <div>简介</div>
-      <textarea [(ngModel)]="user.desc" name="desc" id="" cols="30" rows="10"></textarea>
+      <textarea [(ngModel)]="user.desc" name="desc" cols="30" rows="10"></textarea>
     </div>
     <div class="buttons">
       <button (click)="submit()">submit</button>
+    </div>
+    <div class="item">
+      <div>fc2</div>
+      <textarea [(ngModel)]="user.fc2" name="desc" cols="30" rows="10"></textarea>
+    </div>
+    <div class="buttons">
+      <button (click)="rebuild()">rebuild</button>
+      <button (click)="update()">update</button>
+      <button (click)="random()">random</button>
+    </div>
+    <div class="item">
+      <div>当前</div>
+      <input type="text" [(ngModel)]="fc2">
+      <button class="red" (click)="remove()">remove</button>
+    </div>
+    <div class="item">
+      <div>新增</div>
+      <input type="text" [(ngModel)]="new">
+      <button class="green" (click)="add()">add</button>
     </div>
   </div>
   <div class="avatar">

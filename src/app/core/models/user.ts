@@ -4,6 +4,7 @@ export class User {
   email = '';
   avatar = '';
   desc: string = '';
+  fc2:string = '';
 
   constructor(data: any) {
     this.phone = data.phone;
@@ -11,5 +12,6 @@ export class User {
     this.email = data.email;
     this.avatar = data.avatar;
     this.desc = data.desc;
+    this.fc2 = data.fc2;
   }
 }
