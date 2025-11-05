@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from "@angular/router";
 import {Role} from "../models/role";
 import {RoleService} from "./role.service";
+import {Tag} from "../models/tag";
 
 @Component({
   selector: 'app-role',
@@ -9,8 +10,11 @@ import {RoleService} from "./role.service";
   styleUrls: ['./role.component.scss']
 })
 export class RoleComponent implements OnInit {
+  tag: string = '';
+  tids: string[] = [];
+  tags: Tag[] = [];
   options = ['全部', '男性', '女性'];
-  roles?: Role[];
+  roles: Role[] = [];
   filter: any = {
     gender: 0
   };
@@ -22,7 +26,10 @@ export class RoleComponent implements OnInit {
 
   ngOnInit(): void {
     this.rs.roles$.subscribe(roles => {
-      this.roles = roles;
+      this.roles = roles || [];
+    });
+    this.rs.tags$.subscribe(tags => {
+      this.tags = tags || [];
     })
   }
 
@@ -38,4 +45,21 @@ export class RoleComponent implements OnInit {
     })
   }
 
+  addTag() {
+    if (!this.tag) {
+      return
+    }
+    this.rs.addTag(this.tag).then(() => this.tag = '')
+  }
+
+  deleteTag() {
+    if (!this.tag) {
+      return
+    }
+    let tag = this.tags.find(t => t.name === this.tag);
+    if (!tag) {
+      return;
+    }
+    this.rs.removeTag(tag.id).then(() => {this.tag = ''});
+  }
 }

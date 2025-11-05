@@ -14,6 +14,7 @@ export class Role {
   marriage: number;
   fertility: number;
   desc: string;
+  tags: string[] = [];
 
   constructor(data: any) {
     this.id = data._id;
@@ -31,6 +32,7 @@ export class Role {
     this.marriage = data.marriage;
     this.fertility = data.fertility;
     this.desc = data.desc;
+    this.tags = data.tags;
   }
   update(data: any) {
     this.avatar = data.avatar;
@@ -39,5 +41,6 @@ export class Role {
     this.age = data.age;
     this.height = data.height;
     this.desc = data.desc;
+    this.tags = data.tags;
   }
 }

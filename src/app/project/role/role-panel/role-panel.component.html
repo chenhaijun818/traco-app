@@ -135,6 +135,14 @@
     </ng-template>
   </div>
 </div>
+<div class="item">
+  <div class="key">标签：</div>
+  <nz-select class="tags-select" [(ngModel)]="role.tags" [nzMaxTagCount]="1" (ngModelChange)="onTagChange()" nzMode="multiple" nzShowSearch nzAllowClear nzPlaceHolder="选择标签">
+    @for (tag of tags; track tag) {
+      <nz-option [nzLabel]="tag.name" [nzValue]="tag.id"></nz-option>
+    }
+  </nz-select>
+</div>
 <div class="item textarea">
   <div class="key">角色介绍：</div>
   <textarea nz-input [(ngModel)]="role!.desc" [nzAutosize]="{ minRows: 3, maxRows: 10 }" placeholder="请输入介绍"></textarea>

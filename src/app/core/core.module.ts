@@ -9,16 +9,19 @@ import {NzButtonModule} from "ng-zorro-antd/button";
 import {NzAvatarModule} from "ng-zorro-antd/avatar";
 import { IndexComponent } from './components/index/index.component';
 import { FilterPipe } from './pipes/filter.pipe';
+import {TagPipe} from "./pipes/tag.pipe";
 
 @NgModule({
   declarations: [
     NavComponent,
     IndexComponent,
-    FilterPipe
+    FilterPipe,
+    TagPipe
   ],
   exports: [
     NavComponent,
-    FilterPipe
+    FilterPipe,
+    TagPipe
   ],
   imports: [
     CommonModule,

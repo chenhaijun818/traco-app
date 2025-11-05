@@ -3,16 +3,24 @@
   <nz-content class="content">
     <div class="header">
       <nz-segmented [nzOptions]="options" [(ngModel)]="filter.gender"></nz-segmented>
-      <button nz-button nzSize="small" nz-dropdown nzTrigger="click" title="新增角色" (click)="addRole()">
-        <span nz-icon nzType="plus"></span>
-      </button>
+      <div class="buttons">
+        <nz-select class="tags-select" [(ngModel)]="tids" [nzMaxTagCount]="1" nzMode="multiple" nzShowSearch nzAllowClear [nzDropdownRender]="renderTemplate" nzPlaceHolder="筛选标签">
+          @for (tag of tags; track tag) {
+            <nz-option [nzLabel]="tag.name" [nzValue]="tag.id"></nz-option>
+          }
+        </nz-select>
+
+        <button nz-button nzSize="small" nz-dropdown nzTrigger="click" title="新增角色" (click)="addRole()">
+          <span nz-icon nzType="plus"></span>
+        </button>
+      </div>
     </div>
     <nz-skeleton *ngIf="!roles"></nz-skeleton>
     <nz-empty *ngIf="roles && !roles.length"></nz-empty>
 
     <div class="list" *ngIf="roles">
-      <a class="role" *ngFor="let role of (roles | filter: filter);" [routerLink]="['./', role.id]" replaceUrl>
-        <img class="avatar" [src]="role.avatar" alt="黎念"/>
+      <a class="role" *ngFor="let role of (roles | filter: filter | tag: tids);" [routerLink]="['./', role.id]" replaceUrl>
+        <img class="avatar" [src]="role.avatar" [alt]="role.name"/>
         <span class="name">{{ role.name }}</span>
       </a>
     </div>
@@ -22,3 +30,14 @@
   </nz-sider>
 </nz-layout>
 
+<ng-template #renderTemplate>
+  <div class="tags-input">
+    <input type="text" nz-input [(ngModel)]="tag" />
+    <button nz-button nzSize="small" (click)="addTag()">
+      <span nz-icon nzType="plus"></span>
+    </button>
+    <button nz-button nzSize="small" (click)="deleteTag()" nzDanger>
+      <span nz-icon nzType="delete"></span>
+    </button>
+  </div>
+</ng-template>

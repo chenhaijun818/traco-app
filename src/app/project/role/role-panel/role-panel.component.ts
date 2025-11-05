@@ -1,9 +1,10 @@
 import {Component, OnInit} from '@angular/core';
 import {Role} from "../../models/role";
-import {HttpClient} from "@angular/common/http";
 import {UiService} from "../../../core/services/ui.service";
 import {ActivatedRoute, Params, Router} from "@angular/router";
 import {RoleService} from "../role.service";
+import {Tag} from "../../models/tag";
+import {ClientService} from "../../../core/services/client.service";
 
 @Component({
   selector: 'app-role-panel',
@@ -13,12 +14,13 @@ import {RoleService} from "../role.service";
 export class RolePanelComponent implements OnInit {
   id = '';
   role: Role | any = {};
+  tags: Tag[] = [];
 
-  constructor(private http: HttpClient,
-              private ui: UiService,
+  constructor(private ui: UiService,
               private route: ActivatedRoute,
               private router: Router,
-              private rs: RoleService) {
+              private rs: RoleService,
+              private client: ClientService) {
   }
 
   ngOnInit(): void {
@@ -27,10 +29,13 @@ export class RolePanelComponent implements OnInit {
       this.id = params.id;
       this.getRole();
     });
+    this.rs.tags$.subscribe(tags => {
+      this.tags = tags || [];
+    })
   }
 
   getRole() {
-    this.http.get(`project/role/${this.id}`).subscribe((res: any) => {
+    this.client.get(`project/role/${this.id}`).then((res: any) => {
       if (res) {
         this.role = new Role(res);
       }
@@ -50,7 +55,7 @@ export class RolePanelComponent implements OnInit {
         params.avatar = 'https://traco-oss.oss-cn-hangzhou.aliyuncs.com/avatars/role-female.jpg'
       }
     }
-    this.http.post('project/role/update', params).subscribe((res: any) => {
+    this.client.post('project/role/update', params).then((res: any) => {
       if (res) {
         this.ui.success('修改成功');
         this.role[key] = value;
@@ -65,7 +70,7 @@ export class RolePanelComponent implements OnInit {
   avatarChange(event: any) {
     if (event.type === 'success') {
       const avatar = event.file.response.url;
-      this.http.post('project/role/update', {id: this.role.id, avatar}).subscribe((res: any) => {
+      this.client.post('project/role/update', {id: this.role.id, avatar}).then((res: any) => {
         if (res) {
           this.ui.success('修改成功');
           this.role.avatar = avatar;
@@ -79,13 +84,15 @@ export class RolePanelComponent implements OnInit {
     if (!res) {
       return
     }
-    this.http.post('project/role/delete', {id: this.role.id}).subscribe((res: any) => {
-      if (res) {
-        this.ui.success('删除成功');
-        this.rs.removeRole(this.id)
-        this.router.navigate(['../'], {relativeTo: this.route, replaceUrl: true})
-        this.rs.roles$.next(this.rs.roles)
-      }
-    })
+    this.rs.removeRole(this.role.id).then(() => {
+      this.ui.success('删除成功')
+      this.router.navigate(['../'], {relativeTo: this.route, replaceUrl: true})
+    });
+  }
+
+  onTagChange() {
+    this.client.post('project/role/update', {id: this.role.id, tags: this.role.tags}).then(() => {
+      this.rs.updateRole(this.role);
+    });
   }
 }

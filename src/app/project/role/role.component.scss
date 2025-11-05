@@ -14,6 +14,12 @@
       align-items: center;
       justify-content: space-between;
       margin-bottom: 10px;
+      button {
+        margin-left: 5px;
+      }
+      .tags-select {
+        width: 200px;
+      }
     }
     .list {
       display: grid;
@@ -39,5 +45,15 @@
   }
   .sider {
     overflow-y: auto;
+  }
+
+}
+.tags-input {
+  display: flex;
+  align-items: center;
+  padding: 8px;
+  button {
+    margin-left: 4px;
+    width: 30px;
   }
 }
